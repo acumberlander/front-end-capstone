@@ -1,0 +1,50 @@
+{
+  "appointments":
+{
+  "appointment1": {
+    "status": "",
+    "uid": "12345",
+    "date": "2019-04-10",
+    "address": "333 Main Street",
+    "city": "Nashville",
+    "state": "TN",
+    "zipCode": "37215"
+  },
+  "appointment2": {
+    "uid": "12345",
+    "date": "2019-06-14",
+    "address": "553 Main Street",
+    "city": "Jackson",
+    "state": "TN",
+    "zipCode": "38301"
+  }
+},
+  "messages":
+  {
+    "message1": {
+      "uid": "12345",
+      "message": "What's up?",
+      "timestamp": 1528763298535,
+      "isEdited": false
+    },
+    "message2": {
+      "uid": "67890",
+      "message": "The Sky",
+      "timestamp": 1528763298536,
+      "isEdited": true
+    }
+  },
+  "users":
+  {
+    "user1": {
+      "userName": "Austin Cumberlander",
+      "isServiceProvider": true,
+      "uid": "12345"
+    },
+    "user2": {
+      "userName": "Thomas Jefferson",
+      "isServiceProvider": false,
+      "uid": "67890"
+    }
+  }
+}
