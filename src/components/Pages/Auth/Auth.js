@@ -13,10 +13,31 @@ class Auth extends React.Component {
 
   render() {
     return (
-      <div className="Auth">
-        <Button className="loginButton btn btn-outline-danger" onClick={this.authenticateUser}>
-          <img src="https://www.htps.us/UserFiles/Servers/Server_791028/Templates/login-google.png" alt="google login"></img>
-        </Button>
+      <div className="AuthContainer">
+        <div className="loginCard">
+          <div className="loginHeader">
+          Login
+            </div>
+            <div className="">
+            <div className="loginInputs">
+              <input id="username" className="m-3" placeholder="email/username"></input>
+              <input id="password" className="m-3" placeholder="password"></input>
+            </div>
+            <div>
+              <Button className="loginButton btn btn-success" onClick={this.authenticateUser}>
+                Login
+              </Button>
+            </div>
+              <div className="or">
+              or
+              </div>
+            <div>
+              <Button className="createButton btn btn-success" onClick={this.authenticateUser}>
+                Create Account
+              </Button>
+            </div>
+          </div>
+        </div>
       </div>
     );
   }
