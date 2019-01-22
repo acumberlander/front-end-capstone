@@ -4,7 +4,7 @@ import AppointmentItem from './AppointmentItem/AppointmentItem';
 // import authRequests from '../../../Helpers/Data/authRequests';
 import appointmentRequests from '../../../Helpers/Data/Requests/appointmentRequests';
 
-class Events extends React.Component {
+class Appointments extends React.Component {
   state = {
     appointments: [],
     isEditing: false,
@@ -77,7 +77,7 @@ class Events extends React.Component {
     ));
     return (
       <div className="appointments col">
-        <h2>Events Component</h2>
+        <h2>Appointments Component</h2>
         <div className="appointmentsContainer">
           <div className="appointmentCards">
             {appointmentItemComponents}
@@ -88,4 +88,4 @@ class Events extends React.Component {
   }
 }
 
-export default Events;
+export default Appointments;

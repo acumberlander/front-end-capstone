@@ -1,0 +1,98 @@
+// .newAppointmentContainer {
+
+// }
+
+.newAppointmentHeader {
+  background-color: #0DAC4A;
+  height: 100px;
+  color: white;
+  font-size: 45px;
+}
+
+.newAppointmentForm {
+  background-color: #ADE8BB;
+  width: 1000px;
+  height: 550px;
+  border-radius: 10%;
+}
+
+.topRow {
+  margin: 25px;
+  display: flex;
+  justify-content: space-around;
+  input {
+    width: 250px;
+    height: 45px;
+    text-align: center;
+  }
+  
+}
+
+.midRow {
+  margin: 25px;
+  display: flex;
+  justify-content: left;
+  input {
+    width: 250px;
+    height: 45px;
+    margin: 0 35px 0 33px;
+    text-align: center;
+  }
+
+  h3 {
+    color: #0DAC4A;
+    margin-left: 50px;
+  }
+
+}
+
+.bottomRow {
+  margin: 25px;
+  display: flex;
+  justify-content: space-around;
+  input {
+    width: 250px;
+    height: 45px;
+    text-align: center;
+  }
+
+}
+
+.commentInput {
+  width: 565px;
+  height: 120px;
+  display: flex;
+  justify-content: left;
+  margin-left: 60px;
+  text-align: left;
+}
+
+.commentHeader {
+  display: flex;
+  justify-content: left;
+  margin-left: 220px;
+
+  h3 {
+    color: #0DAC4A;
+  }
+
+}
+
+.commentAndPrice {
+  display: flex;
+
+  h1 {
+    font-size: 100px;
+    color: #0DAC4A;
+    margin: 0 0 0 80px;
+    padding: 0;
+  }
+}
+
+.makeAppointment {
+  margin-left: 610px;
+}
+
+p {
+  color: #0DAC4A;
+}

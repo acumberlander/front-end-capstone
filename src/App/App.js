@@ -13,10 +13,10 @@ import connection from '../Helpers/Data/connection';
 
 import Auth from '../components/Pages/Auth/Auth';
 import Home from '../components/Home/home';
-// import Appointments from '../src/components/Pages/Appointments/Appointments';
-// import NewAppointment from '../src/components/Pages/NewAppointment/NewAppointment';
-// import NewMember from '../src/components/Pages/NewMember/NewMember';
-// import Messages from '../src/components/Pages/Messages/Messages';
+import Appointments from '../components/Pages/Appointments/Appointments';
+import NewAppointment from '../components/Pages/NewAppointment/NewAppointment';
+import NewMember from '../components/Pages/NewMember/NewMember';
+import Messages from '../components/Pages/Messages/Messages';
 import MyNavbar from '../components/MyNavbar/MyNavbar';
 import authRequests from '../Helpers/Data/authRequests';
 
@@ -91,10 +91,10 @@ class App extends Component {
               <div className="row">
                 <Switch>
                   <PrivateRoute path='/' exact component={Home} authed={this.state.authed} />
-                  {/* <PrivateRoute path='/appointments' component={Appointments} authed={this.state.authed} />
                   <PrivateRoute path='/newappointment' component={NewAppointment} authed={this.state.authed} />
+                  <PrivateRoute path='/appointments' component={Appointments} authed={this.state.authed} />
                   <PrivateRoute path='/newmember' component={NewMember} authed={this.state.authed} />
-                  <PrivateRoute path='/messages' component={Messages} authed={this.state.authed} /> */}
+                  <PrivateRoute path='/messages' component={Messages} authed={this.state.authed} />
                   <PublicRoute path='/auth' component={Auth} authed={this.state.authed}/>
                 </Switch>
               </div>
