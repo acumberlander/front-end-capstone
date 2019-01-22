@@ -1,0 +1,12 @@
+{
+  "user1": {
+    "userName": "Austin Cumberlander",
+    "photo": "https://lh3.googleusercontent.com/-O9k8riMfPkk/AAAAAAAAAAI/AAAAAAAAAOY/ag14Ya6y9Fw/photo.jpg",
+    "uid": "12345"
+  },
+  "user2": {
+    "userName": "Thomas Jefferson",
+    "photo": "https://www.randomlists.com/img/people/thomas_jefferson.jpg",
+    "uid": "67890"
+  }
+}
