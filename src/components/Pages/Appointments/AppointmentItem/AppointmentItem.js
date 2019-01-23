@@ -1,5 +1,5 @@
 import React from 'react';
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import appointmentShape from '../../../../Helpers/Data/props/appointmentShape';
 import './AppointmentItem.scss';
 import authRequests from '../../../../Helpers/Data/authRequests';
@@ -7,7 +7,15 @@ import authRequests from '../../../../Helpers/Data/authRequests';
 class AppointmentItem extends React.Component {
   static propTypes = {
     appointment: appointmentShape.appointmentShape,
+    deleteAppointment: PropTypes.func,
   }
+
+  deleteAppointment = (e) => {
+    e.preventDefault();
+    const { deleteAppointment, appointment } = this.props;
+    deleteAppointment(appointment.id);
+  }
+
   render() {
     const { appointment } = this.props;
     const uid = authRequests.getCurrentUid();

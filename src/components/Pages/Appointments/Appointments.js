@@ -12,7 +12,6 @@ class Appointments extends React.Component {
   }
 
   componentDidMount() {
-    // const currentUid = authRequests.getCurrentUid();
     appointmentRequests.getAllAppointments()
       .then((appointments) => {
         this.setState({ appointments });
@@ -49,17 +48,16 @@ class Appointments extends React.Component {
 
   // passAppointmentToEdit = apopointmentId => this.setState({ isEditing: true, editId: apopointmentId });
 
-  // deleteSingleEvent = (eventId) => {
-  //   eventRequests.deleteEvent(eventId)
-  //     .then(() => {
-  //       const currentUid = authRequests.getCurrentUid();
-  //       smashRequests.getEventsFromMeAndFriends(currentUid)
-  //         .then((events) => {
-  //           this.setState({ events });
-  //         });
-  //     })
-  //     .catch(err => console.error('error with delete single', err));
-  // }
+  deleteAppointment = (appointmentId) => {
+    appointmentRequests.deleteAppointment(appointmentId)
+      .then(() => {
+        appointmentRequests.getAllAppointments()
+          .then((appointments) => {
+            this.setState({ appointments });
+          });
+      })
+      .catch(err => console.error('error with delete appointment', err));
+  }
 
   render() {
     // const passEventToEdit = (eventId) => {
@@ -72,6 +70,7 @@ class Appointments extends React.Component {
     const appointmentItemComponents = appointments.map(appointment => (
       <AppointmentItem
         appointment={appointment}
+        deleteAppointment={this.deleteAppointment}
         key={appointment.id}
       />
     ));
