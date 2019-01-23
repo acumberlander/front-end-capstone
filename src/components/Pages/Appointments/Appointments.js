@@ -3,6 +3,7 @@ import './Appointments.scss';
 import AppointmentItem from './AppointmentItem/AppointmentItem';
 // import authRequests from '../../../Helpers/Data/authRequests';
 import appointmentRequests from '../../../Helpers/Data/Requests/appointmentRequests';
+import Form from '../Form/Form';
 
 class Appointments extends React.Component {
   state = {
@@ -46,7 +47,7 @@ class Appointments extends React.Component {
   //   }
   // };
 
-  // passAppointmentToEdit = apopointmentId => this.setState({ isEditing: true, editId: apopointmentId });
+  passAppointmentToEdit = apopointmentId => this.setState({ isEditing: true, editId: apopointmentId });
 
   deleteAppointment = (appointmentId) => {
     appointmentRequests.deleteAppointment(appointmentId)
@@ -60,18 +61,21 @@ class Appointments extends React.Component {
   }
 
   render() {
-    // const passEventToEdit = (eventId) => {
-    //   this.setState({ isEditing: true, editId: eventId });
-    // };
+    const passAppointmentToEdit = (apopointmentId) => {
+      this.setState({ isEditing: true, editId: apopointmentId });
+    };
 
     const {
       appointments,
+      isEditing,
+      editId,
     } = this.state;
     const appointmentItemComponents = appointments.map(appointment => (
       <AppointmentItem
+      key={appointment.id}
         appointment={appointment}
         deleteAppointment={this.deleteAppointment}
-        key={appointment.id}
+        passAppointmentToEdit={passAppointmentToEdit}
       />
     ));
     return (
@@ -81,6 +85,13 @@ class Appointments extends React.Component {
           <div className="appointmentCards">
             {appointmentItemComponents}
           </div>
+        </div>
+        <div className="editAppointment">
+          <Form
+            onSubmit={this.formSubmitAppointment}
+            isEditing={isEditing}
+            editId={editId}
+          />
         </div>
       </div>
     );
