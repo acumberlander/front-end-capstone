@@ -6,6 +6,7 @@ const appointmentShape = PropTypes.shape({
   address: PropTypes.string.isRequired,
   city: PropTypes.string.isRequired,
   state: PropTypes.string.isRequired,
+  status: PropTypes.string.isRequired,
 });
 
 
