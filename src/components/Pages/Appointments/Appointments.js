@@ -22,30 +22,32 @@ class Appointments extends React.Component {
       });
   }
 
-  // formSubmitEvent = (newAppointment) => {
-  //   const { isEditing, editId } = this.state;
-  //   if (isEditing) {
-  //     appointmentRequests.updateAppointment(editId, newAppointment)
-  //       .then(() => {
-  //         const currentUid = authRequests.getCurrentUid();
-  //         appointmentRequests.getAllAppointments(currentUid)
-  //           .then((events) => {
-  //             this.setState({ events, isEditing: false, editId: '-1' });
-  //           });
-  //       })
-  //       .catch(err => console.error('error with listings post', err));
-  //   } else {
-  //     appointmentRequests.postRequest(newAppointment)
-  //       .then(() => {
-  //         const currentUid = authRequests.getCurrentUid();
-  //         smashRequests.getEventsFromMeAndFriends(currentUid)
-  //           .then((events) => {
-  //             this.setState({ events });
-  //           });
-  //       })
-  //       .catch(err => console.error('error with events post', err));
-  //   }
-  // };
+  formSubmitAppointment = (newAppointment) => {
+    const { isEditing, editId } = this.state;
+    if (isEditing) {
+      appointmentRequests.updateAppointment(editId, newAppointment)
+        .then(() => {
+          appointmentRequests.getAllAppointments()
+            .then((appointments) => {
+              this.setState({ appointments, isEditing: false, editId: '-1' });
+            });
+        })
+        .catch(err => console.error('error with listings post', err));
+    } 
+  };
+
+// This is the functionality for creating appointments
+    //  {
+    //   appointmentRequests.postRequest(newAppointment)
+    //     .then(() => {
+    //       const currentUid = authRequests.getCurrentUid();
+    //       smashRequests.getEventsFromMeAndFriends(currentUid)
+    //         .then((events) => {
+    //           this.setState({ events });
+    //         });
+    //     })
+    //     .catch(err => console.error('error with events post', err));
+    // }
 
   passAppointmentToEdit = apopointmentId => this.setState({ isEditing: true, editId: apopointmentId });
 
