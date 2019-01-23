@@ -1,0 +1,43 @@
+.appointmentContainer {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+}
+
+.appointmentCardHeader {
+  background-color: #0DAC4A;
+  height: 65px;
+  padding-top: 10px;
+  padding-left: 60px;
+  display: flex;
+}
+
+.dateSpan {
+  color: white;
+  font-size: 30px;
+}
+
+.appointmentStatus {
+  color: #0DAC4A;
+}
+
+.serviceQuote {
+  h1 {
+    font-size: 75px;
+    margin: 0;
+    color: #0DAC4A;
+  }
+}
+
+.AppointmentItem {
+  background-color: #ADE8BB;
+  border-radius: 10%;
+  width: 300px;
+  height: 300px;
+
+  p {
+    font-size: 20px;
+    color: #0DAC4A;;
+    margin: 0px;
+  }
+}
