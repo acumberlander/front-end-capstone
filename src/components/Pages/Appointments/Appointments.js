@@ -71,7 +71,7 @@ class Appointments extends React.Component {
     } = this.state;
     const appointmentItemComponents = appointments.map(appointment => (
       <AppointmentItem
-      appointment={appointment}
+        appointment={appointment}
         key={appointment.id}
       />
     ));
