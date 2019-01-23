@@ -2,6 +2,8 @@
   "appointments":
 {
   "appointment1": {
+    "firstName": "Austin",
+    "lastName": "Cumberlander",
     "uid": "29QVr8kqRjUAMz2x08T2guw5Ule2",
     "date": "2019-04-10",
     "address": "333 Main Street",
@@ -10,6 +12,8 @@
     "status": "pending"
   },
   "appointment2": {
+    "firstName": "Zachery",
+    "lastName": "Cumberlander",
     "uid": "29QVr8kqRjUAMz2x08T2guw5Ule2",
     "date": "2019-06-14",
     "address": "553 Main Street",

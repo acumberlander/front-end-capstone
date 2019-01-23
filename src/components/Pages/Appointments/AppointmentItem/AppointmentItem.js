@@ -8,12 +8,19 @@ class AppointmentItem extends React.Component {
   static propTypes = {
     appointment: appointmentShape.appointmentShape,
     deleteAppointment: PropTypes.func,
+    editAppointment: PropTypes.func,
   }
 
   deleteAppointment = (e) => {
     e.preventDefault();
     const { deleteAppointment, appointment } = this.props;
     deleteAppointment(appointment.id);
+  }
+
+  editAppointment = (e) => {
+    e.preventDefault();
+    const { passAppointmentToEdit, appointment } = this.props;
+    passAppointmentToEdit(appointment.id);
   }
 
   render() {
