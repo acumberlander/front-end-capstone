@@ -13,6 +13,7 @@ const defaultAppointment = {
   address: '',
   city: '',
   state: '',
+  acres: '',
   uid: '',
 };
 

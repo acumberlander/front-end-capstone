@@ -32,24 +32,20 @@ class Appointments extends React.Component {
               this.setState({ appointments, isEditing: false, editId: '-1' });
             });
         })
-        .catch(err => console.error('error with listings post', err));
-    } 
+        .catch(err => console.error('error with appointments post', err));
+    } else {
+      appointmentRequests.postRequest(newAppointment)
+        .then(() => {
+          appointmentRequests.getAllAppointments()
+            .then((appointments) => {
+              this.setState({ appointments });
+            });
+        })
+        .catch(err => console.error('error with appointments post', err));
+    }
   };
 
-// This is the functionality for creating appointments
-    //  {
-    //   appointmentRequests.postRequest(newAppointment)
-    //     .then(() => {
-    //       const currentUid = authRequests.getCurrentUid();
-    //       smashRequests.getEventsFromMeAndFriends(currentUid)
-    //         .then((events) => {
-    //           this.setState({ events });
-    //         });
-    //     })
-    //     .catch(err => console.error('error with events post', err));
-    // }
-
-  passAppointmentToEdit = apopointmentId => this.setState({ isEditing: true, editId: apopointmentId });
+  passAppointmentToEdit = appointmentId => this.setState({ isEditing: true, editId: appointmentId });
 
   deleteAppointment = (appointmentId) => {
     appointmentRequests.deleteAppointment(appointmentId)
@@ -63,8 +59,8 @@ class Appointments extends React.Component {
   }
 
   render() {
-    const passAppointmentToEdit = (apopointmentId) => {
-      this.setState({ isEditing: true, editId: apopointmentId });
+    const passAppointmentToEdit = (appointmentId) => {
+      this.setState({ isEditing: true, editId: appointmentId });
     };
 
     const {
@@ -74,7 +70,7 @@ class Appointments extends React.Component {
     } = this.state;
     const appointmentItemComponents = appointments.map(appointment => (
       <AppointmentItem
-      key={appointment.id}
+        key={appointment.id}
         appointment={appointment}
         deleteAppointment={this.deleteAppointment}
         passAppointmentToEdit={passAppointmentToEdit}

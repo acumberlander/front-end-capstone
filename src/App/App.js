@@ -14,7 +14,7 @@ import connection from '../Helpers/Data/connection';
 import Auth from '../components/Pages/Auth/Auth';
 import Home from '../components/Home/home';
 import Appointments from '../components/Pages/Appointments/Appointments';
-import NewAppointment from '../components/Pages/NewAppointment/NewAppointment';
+import NewAppointmentForm from '../components/Pages/NewAppointmentForm/NewAppointmentForm';
 import NewMember from '../components/Pages/NewMember/NewMember';
 import Messages from '../components/Pages/Messages/Messages';
 import MyNavbar from '../components/MyNavbar/MyNavbar';
@@ -91,7 +91,7 @@ class App extends Component {
               <div className="row">
                 <Switch>
                   <PrivateRoute path='/' exact component={Home} authed={this.state.authed} />
-                  <PrivateRoute path='/newappointment' component={NewAppointment} authed={this.state.authed} />
+                  <PrivateRoute path='/newappointmentform' component={NewAppointmentForm} authed={this.state.authed} />
                   <PrivateRoute path='/appointments' component={Appointments} authed={this.state.authed} />
                   <PrivateRoute path='/newmember' component={NewMember} authed={this.state.authed} />
                   <PrivateRoute path='/messages' component={Messages} authed={this.state.authed} />
