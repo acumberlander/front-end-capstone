@@ -1,7 +1,6 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import './NewAppointmentForm.scss';
-// import appointmentRequests from '../../../Helpers/Data/Requests/appointmentRequests';
+import appointmentRequests from '../../../Helpers/Data/Requests/appointmentRequests';
 import authRequests from '../../../Helpers/Data/authRequests';
 
 const defaultAppointment = {
@@ -17,9 +16,7 @@ const defaultAppointment = {
 };
 
 class NewAppointmentForm extends React.Component {
-  static propTypes = {
-    onSubmit: PropTypes.func,
-  }
+
 
   state = {
     newAppointment: defaultAppointment,
@@ -48,28 +45,27 @@ class NewAppointmentForm extends React.Component {
 
   acresChange = e => this.formFieldStringState('acres', e);
 
+  addAppointment = (newAppointment) => {
+    appointmentRequests.postRequest(newAppointment)
+      .then(() => {
+        appointmentRequests.getAllAppointments()
+          .then((appointments) => {
+            this.setState({ appointments });
+          });
+      })
+      .catch(err => console.error('error with appointments post', err));
+  }
+
 
   formSubmit = (e) => {
     e.preventDefault();
-    const { onSubmit } = this.props;
     const myAppointment = { ...this.state.newAppointment };
     myAppointment.uid = authRequests.getCurrentUid();
-    onSubmit(myAppointment);
+    this.addAppointment(myAppointment);
     this.setState({ newAppointment: defaultAppointment });
   }
 
-  // addAppointment = (newAppointment) => {
-  //   appointmentRequests.postRequest(newAppointment)
-  //     .then(() => {
-  //       appointmentRequests.getAllAppointments()
-  //         .then((appointments) => {
-  //           this.setState({ appointments });
-  //         });
-  //     })
-  //     .catch(err => console.error('error with appointments post', err));
-  // }
-
-  
+ 
   render() {
     const { newAppointment } = this.state;
     return (
@@ -147,7 +143,7 @@ class NewAppointmentForm extends React.Component {
               </div>
               </div>
               <div className="makeAppointment">
-              <button className="btn btn-success">
+              <button onClick={this.addAppointment} className="btn btn-success">
                 Make Appointment
               </button>
               </div>
