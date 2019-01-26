@@ -38,7 +38,7 @@ class MyNavbar extends React.Component {
         return (
           <Nav className="ml-auto" navbar>
             <NavItem className="newAppointment">
-              <NavLink tag={RRNavLink} to="/newappointment"><i class="fas fa-2x fa-calendar-plus"></i></NavLink>
+              <NavLink tag={RRNavLink} to="/newappointmentform"><i class="fas fa-2x fa-calendar-plus"></i></NavLink>
             </NavItem>
             <NavItem>
               <NavLink tag={RRNavLink} to="/appointments"><i class="fas fa-2x fa-calendar-alt"></i></NavLink>

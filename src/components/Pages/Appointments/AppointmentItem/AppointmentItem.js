@@ -63,7 +63,7 @@ class AppointmentItem extends React.Component {
             <span>{makeDeleteButton()}</span>
           </div>
           <div className="appointmentStatus">
-            <h3>Appointment {appointment.status}</h3>
+            <h3>Appointment {appointment.status === "" ? appointment.status = "is pending" : appointment.status}</h3>
           </div>
           <div className="serviceQuote">
             <h1>$65</h1>
