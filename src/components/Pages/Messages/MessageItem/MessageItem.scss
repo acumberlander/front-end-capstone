@@ -1,0 +1,12 @@
+.messageItem {
+  background-color: lightblue;
+  margin: 20px 0;
+  border: solid white;
+  width: 500px;
+  min-height: 50px;
+}
+
+.message {
+  display: flex;
+  flex-wrap: wrap;
+}

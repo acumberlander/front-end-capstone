@@ -40,12 +40,14 @@
   "users":
   {
     "user1": {
-      "userName": "Austin Cumberlander",
+      "firstName": "Zachery",
+      "lastName": "Cumberlander",
       "isServiceProvider": true,
       "uid": "12345"
     },
     "user2": {
-      "userName": "Thomas Jefferson",
+      "firstName": "Austin",
+      "lastName": "Cumberlander",
       "isServiceProvider": false,
       "uid": "67890"
     }

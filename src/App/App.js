@@ -12,7 +12,7 @@ import {
 import connection from '../Helpers/Data/connection';
 
 import Auth from '../components/Pages/Auth/Auth';
-import Home from '../components/Home/home';
+import Home from '../components/Home/Home';
 import Appointments from '../components/Pages/Appointments/Appointments';
 import NewAppointmentForm from '../components/Pages/NewAppointmentForm/NewAppointmentForm';
 import NewMember from '../components/Pages/NewMember/NewMember';

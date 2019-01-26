@@ -1,0 +1,15 @@
+.messageWindow {
+  background-color: white;
+  border-radius: 20%;
+  width: 800px;
+  height: 450px;
+  display: flex;
+  justify-content: center;
+  // flex-direction: column;
+  flex-wrap: wrap;
+}
+
+// .Messages {
+//   display: flex;
+//   flex-direction: column;
+// }

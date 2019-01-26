@@ -1,9 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-// import moment from 'moment';
-// import authRequests from '../../../helpers/data/authRequests';
-import './AddEditMessage.scss';
-// import messageRequests from '../../../helpers/data/messageRequests';
+import './AddMessage.scss';
 
 const defaultMessage = {
   uid: '',
@@ -49,22 +46,22 @@ handleEnterInput = (target) => {
 render() {
   const { newMessage } = this.state;
   return (
-      <div className="input-group mt-3 mb-3">
-        <div className="input-group-prepend" onClick={this.inputSubmit}>
-          <button className="btn btn-primary" type="button" id="basic-addon1">send</button>
-        </div>
-        <input
-        type="text"
-        className="form-control"
-        id="message"
-        placeholder="Enter Your Message Here"
-        aria-describedby="message-help"
-        value={newMessage.message}
-        onChange={this.messageChange}
-        onKeyUp={this.handleEnterInput}
-        autoFocus
-        />
+    <div className="input-group mt-3 mb-3">
+      <div className="input-group-prepend" onClick={this.inputSubmit}>
+        <button className="btn btn-primary" type="button" id="basic-addon1">send</button>
       </div>
+      <input
+      type="text"
+      className="form-control"
+      id="message"
+      placeholder="Enter Your Message"
+      aria-describedby="message-help"
+      value={newMessage.message}
+      onChange={this.messageChange}
+      onKeyUp={this.handleEnterInput}
+      autoFocus
+      />
+    </div>
   );
 }
 }
