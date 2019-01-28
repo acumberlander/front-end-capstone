@@ -1,12 +1,14 @@
 {
   "user1": {
-    "userName": "Austin Cumberlander",
-    "photo": "https://lh3.googleusercontent.com/-O9k8riMfPkk/AAAAAAAAAAI/AAAAAAAAAOY/ag14Ya6y9Fw/photo.jpg",
+    "firstName": "Zachery",
+    "lastName": "Cumberlander",
+    "isServiceProvider": true,
     "uid": "12345"
   },
   "user2": {
-    "userName": "Thomas Jefferson",
-    "photo": "https://www.randomlists.com/img/people/thomas_jefferson.jpg",
+    "firstName": "Austin",
+    "lastName": "Cumberlander",
+    "isServiceProvider": false,
     "uid": "67890"
   }
 }
