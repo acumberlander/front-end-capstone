@@ -1,12 +1,22 @@
 import React from 'react';
 import { Button } from 'reactstrap';
-import authRequests from '../../../Helpers/Data/authRequests';
+// import authRequests from '../../../Helpers/Data/authRequests';
 import './Auth.scss';
+import 'firebase/auth';
+import firebase from 'firebase/app';
 
 class Auth extends React.Component {
-  authenticateUser = (e) => {
+  authenticateUser = (e, email, password) => {
     e.preventDefault();
-    authRequests.authenticate().then(() => {
+    firebase.auth().signInWithEmailAndPassword(email, password).then((res) => {
+      this.props.history.push('/home');
+    }).catch(err => console.error('there was an error with auth', err));
+
+  }
+
+  signUp = (e, email, password) => {
+    e.preventDefault();
+    firebase.auth().createUserWithEmailAndPassword(email, password).then((res) => {
       this.props.history.push('/home');
     }).catch(err => console.error('there was an error with auth', err));
   }
