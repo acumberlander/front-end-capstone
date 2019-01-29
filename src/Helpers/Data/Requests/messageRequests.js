@@ -1,0 +1,56 @@
+import axios from 'axios';
+import moment from 'moment';
+import apiKeys from '../apiKeys';
+import userRequests from '../Requests/userRequests';
+
+const firebaseUrl = apiKeys.firebaseConfig.databaseURL;
+
+const getAllMessages = () => new Promise((resolve, reject) => {
+  axios.get(`${firebaseUrl}/messages.json`)
+    .then((results) => {
+      const messagesArray = [];
+      const messagesObj = results.data;
+      if (messagesObj !== null) {
+        Object.keys(messagesObj).forEach((message) => {
+          messagesObj[message].id = message;
+          messagesArray.push(messagesObj[message]);
+        });
+        messagesArray.sort((a, b) => moment(a.timestamp).unix() - moment(b.timestamp).unix());
+      }
+      resolve(messagesArray);
+    })
+    .catch((error) => {
+      reject(error);
+    });
+});
+
+const getAllMessagesWithUserInfo = () => new Promise((resolve, reject) => {
+  let users = [];
+  userRequests.getAllUsers()
+    .then((usrs) => {
+      users = usrs;
+      getAllMessages()
+        .then((msgs) => {
+          const messages = msgs.map(msg => Object.assign({ ...users.find(x => x.uid === msg.uid), ...msg }));
+          resolve(messages);
+        });
+    })
+    .catch(err => reject(err));
+});
+
+const getSingleMessage = messageId => axios.get(`${firebaseUrl}/messages/${messageId}.json`);
+
+const createMessage = (newMessage, uid) => axios.post(`${firebaseUrl}/messages.json`, newMessage, uid);
+
+const deleteMessage = messageId => axios.delete(`${firebaseUrl}/messages/${messageId}.json`);
+
+const updateMessage = (editedMessage, messageId) => axios.put(`${firebaseUrl}/messages/${messageId}.json`, editedMessage);
+
+export default {
+  getAllMessagesWithUserInfo,
+  getAllMessages,
+  createMessage,
+  deleteMessage,
+  getSingleMessage,
+  updateMessage,
+};

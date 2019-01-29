@@ -1,5 +1,5 @@
 import React from 'react';
-import './home.scss';
+import './Home.scss';
 
 class Home extends React.Component {
   changeView = (e) => {
