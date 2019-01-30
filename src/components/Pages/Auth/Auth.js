@@ -1,20 +1,52 @@
 import React from 'react';
-import { Button } from 'reactstrap';
+// import { Button } from 'reactstrap';
+import userRequests from '../../../Helpers/Data/Requests/userRequests';
 import authRequests from '../../../Helpers/Data/authRequests';
+import ProfileForm from '../../ProfileForm/ProfileForm';
 import './Auth.scss';
+import 'firebase/auth';
+import firebase from 'firebase/app';
 
 class Auth extends React.Component {
-  authenticateUser = (e) => {
+  authenticateUser = (e, email, password) => {
     e.preventDefault();
-    authRequests.authenticate().then(() => {
+    firebase.auth().signInWithEmailAndPassword(email, password).then((res) => {
       this.props.history.push('/home');
     }).catch(err => console.error('there was an error with auth', err));
   }
 
+  // signUp = (newUserInfo) => {
+  //   e.preventDefault();
+  //   // userRequests.createUser();
+  //   firebase.auth().createUserWithEmailAndPassword(email, password).then((res) => {
+  //     this.props.history.push('/home');
+  //     console.log(res.user.displayName);
+  //   }).catch(err => console.error('there was an error with auth', err));
+  // }
+
+  signUp = ( newUserInfo) => {
+    firebase.auth().createUserWithEmailAndPassword(newUserInfo.email, newUserInfo.password).then((res) => {
+      newUserInfo.uid = authRequests.getCurrentUid();
+      const usrInfo = { firstName: newUserInfo.firstName,
+                        lastName: newUserInfo.lastName,
+                        email: newUserInfo.email,
+                        uid: newUserInfo.uid,
+                        isServiceProvider: false,
+                        }
+      userRequests.createUser(usrInfo);
+      this.props.history.push('/home');
+    }).catch(err => console.error('there was an error with auth', err));
+  }
+
+
   render() {
     return (
       <div className="AuthContainer">
-        <div className="loginCard">
+      <ProfileForm
+        authenticateUser={this.authenticateUser}
+        signUp={this.signUp}
+      />
+        {/* <div className="loginCard">
           <div className="loginHeader">
           Login
             </div>
@@ -32,13 +64,13 @@ class Auth extends React.Component {
               or
               </div>
             <div>
-              <Button className="createButton btn btn-success" onClick={this.authenticateUser}>
+              <Button className="createButton btn btn-success">
                 Create Account
               </Button>
             </div>
           </div>
-        </div>
-      </div>
+        </div>*/}
+      </div> 
     );
   }
 }
