@@ -56,6 +56,11 @@ class NewAppointmentForm extends React.Component {
       .catch(err => console.error('error with appointments post', err));
   }
 
+  estimatePrice = () => {
+    const acreNumber = this.state.newAppointment.acres;
+    const serviceQuote = acreNumber*50;
+    return serviceQuote;
+  }
 
   formSubmit = (e) => {
     e.preventDefault();
@@ -135,8 +140,8 @@ class NewAppointmentForm extends React.Component {
                 className="commentInput"
                 placeholder="Comments/Message" 
               />
-              <div className="">
-                <h1>$65</h1>
+              <div className="estimate">
+                <h1>${this.estimatePrice()}</h1>
               </div>
               <div className="">
               <p>is your quote</p>
