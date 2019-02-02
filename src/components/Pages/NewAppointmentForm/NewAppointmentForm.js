@@ -60,7 +60,6 @@ class NewAppointmentForm extends React.Component {
   estimatePrice = () => {
     const acreNumber = this.state.newAppointment.acres;
     const myPrice = acreNumber*50;
-    this.setState({ newAppointment: defaultAppointment.price[myPrice] })
     return myPrice;
   }
 
