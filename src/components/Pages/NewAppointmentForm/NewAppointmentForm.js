@@ -13,6 +13,7 @@ const defaultAppointment = {
   state: '',
   acres: '',
   uid: '',
+  price: '',
 };
 
 class NewAppointmentForm extends React.Component {
@@ -58,8 +59,9 @@ class NewAppointmentForm extends React.Component {
 
   estimatePrice = () => {
     const acreNumber = this.state.newAppointment.acres;
-    const serviceQuote = acreNumber*50;
-    return serviceQuote;
+    const myPrice = acreNumber*50;
+    this.setState({ newAppointment: defaultAppointment.price[myPrice] })
+    return myPrice;
   }
 
   formSubmit = (e) => {

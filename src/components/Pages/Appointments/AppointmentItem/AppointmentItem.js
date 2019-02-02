@@ -66,7 +66,7 @@ class AppointmentItem extends React.Component {
             <h3>Appointment {appointment.status === "" ? appointment.status = "is pending" : appointment.status}</h3>
           </div>
           <div className="serviceQuote">
-            <h1>$65</h1>
+            <h1>{appointment.price}</h1>
           </div>
           <div className="addressInfo">
             <p>{appointment.address}</p>

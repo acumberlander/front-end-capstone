@@ -8,6 +8,7 @@ const appointmentShape = PropTypes.shape({
   state: PropTypes.string.isRequired,
   status: PropTypes.string.isRequired,
   acres: PropTypes.any.isRequired,
+  price: PropTypes.any.isRequired,
 });
 
 
