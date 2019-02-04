@@ -32,10 +32,10 @@ signUp = ( newUserInfo) => {
   }).catch(err => console.error('there was an error with auth', err));
 }
 
-  createAccount = (e) => {
-    e.preventDefault();
-    this.props.signUp(this.state.newUserInfo)
-  }
+  // createAccount = (e) => {
+  //   e.preventDefault();
+  //   this.props.signUp(this.state.newUserInfo)
+  // }
  
   formFieldStringState = (name, e) => {
     e.preventDefault();
