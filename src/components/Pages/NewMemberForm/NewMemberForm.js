@@ -1,5 +1,8 @@
 import React from 'react';
-import './ProfileForm.scss';
+import './NewMemberForm.scss';
+import userRequests from '../../../Helpers/Data/Requests/userRequests';
+import authRequests from '../../../Helpers/Data/authRequests';
+import firebase from 'firebase/app';
 
 const userInfo = {
   email: '',
@@ -10,15 +13,24 @@ const userInfo = {
   isServiceProvider: false,
 };
 
-class ProfileForm extends React.Component {
+class NewMemberForm extends React.Component {
   state = {
    newUserInfo: userInfo,
 }
 
-  login = (e) => {
-    e.preventDefault();
-    this.props.authenticateUser(e, this.state.newUserInfo.email, this.state.newUserInfo.password);
-  }
+signUp = ( newUserInfo) => {
+  firebase.auth().createUserWithEmailAndPassword(newUserInfo.email, newUserInfo.password).then((res) => {
+    newUserInfo.uid = authRequests.getCurrentUid();
+    const usrInfo = { firstName: newUserInfo.firstName,
+                      lastName: newUserInfo.lastName,
+                      email: newUserInfo.email,
+                      uid: newUserInfo.uid,
+                      isServiceProvider: false,
+                      }
+    userRequests.createUser(usrInfo);
+    this.props.history.push('/home');
+  }).catch(err => console.error('there was an error with auth', err));
+}
 
   createAccount = (e) => {
     e.preventDefault();
@@ -109,15 +121,8 @@ class ProfileForm extends React.Component {
         type="submit"
         className="btn btn-primary"
         autoComplete="current-password"
-        onClick={this.login}>
-        Log In
-        </button>
-        <button
-        type="submit"
-        className="btn btn-primary"
-        autoComplete="current-password"
         onClick={this.formSubmit}>
-        Sign Up
+        Create Account!
         </button>
       </form>
     </div>
@@ -127,4 +132,4 @@ class ProfileForm extends React.Component {
 
 
 
-export default ProfileForm;
+export default NewMemberForm;

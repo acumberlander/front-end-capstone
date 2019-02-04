@@ -15,7 +15,7 @@ import Auth from '../components/Pages/Auth/Auth';
 import Home from '../components/Home/Home';
 import Appointments from '../components/Pages/Appointments/Appointments';
 import NewAppointmentForm from '../components/Pages/NewAppointmentForm/NewAppointmentForm';
-import NewMember from '../components/Pages/NewMember/NewMember';
+import NewMemberForm from '../components/Pages/NewMemberForm/NewMemberForm';
 import Messages from '../components/Pages/Messages/Messages';
 import MyNavbar from '../components/MyNavbar/MyNavbar';
 import authRequests from '../Helpers/Data/authRequests';
@@ -93,7 +93,7 @@ class App extends Component {
                   <PrivateRoute path='/' exact component={Home} authed={this.state.authed} />
                   <PrivateRoute path='/newappointmentform' component={NewAppointmentForm} authed={this.state.authed} />
                   <PrivateRoute path='/appointments' component={Appointments} authed={this.state.authed} />
-                  <PrivateRoute path='/newmember' component={NewMember} authed={this.state.authed} />
+                  <PublicRoute path='/newmemberform' component={NewMemberForm} authed={this.state.authed} />
                   <PrivateRoute path='/messages' component={Messages} authed={this.state.authed} />
                   <PublicRoute path='/auth' component={Auth} authed={this.state.authed}/>
                 </Switch>

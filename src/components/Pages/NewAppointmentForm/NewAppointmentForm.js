@@ -13,12 +13,10 @@ const defaultAppointment = {
   state: '',
   acres: '',
   uid: '',
-  price: '',
+  price: '0',
 };
 
 class NewAppointmentForm extends React.Component {
-
-
   state = {
     newAppointment: defaultAppointment,
   }
@@ -44,7 +42,9 @@ class NewAppointmentForm extends React.Component {
 
   stateChange = e => this.formFieldStringState('state', e);
 
-  acresChange = e => this.formFieldStringState('acres', e);
+  acresChange = (e) => {
+    this.estimatePrice(e);
+  }
 
   addAppointment = (newAppointment) => {
     appointmentRequests.postRequest(newAppointment)
@@ -57,10 +57,14 @@ class NewAppointmentForm extends React.Component {
       .catch(err => console.error('error with appointments post', err));
   }
 
-  estimatePrice = () => {
-    const acreNumber = this.state.newAppointment.acres;
+  estimatePrice = (e) => {
+    e.preventDefault();
+    const acreNumber = e.target.value;
     const myPrice = acreNumber*50;
-    return myPrice;
+    const myAppointment = { ...this.state.newAppointment };
+    myAppointment.price = myPrice;
+    myAppointment.acres = acreNumber
+    this.setState({ newAppointment: myAppointment });
   }
 
   formSubmit = (e) => {
@@ -142,7 +146,7 @@ class NewAppointmentForm extends React.Component {
                 placeholder="Comments/Message" 
               />
               <div className="estimate">
-                <h1>${this.estimatePrice()}</h1>
+                <h1>${newAppointment.price}</h1>
               </div>
               <div className="">
               <p>is your quote</p>
