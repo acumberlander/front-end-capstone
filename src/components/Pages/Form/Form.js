@@ -71,7 +71,7 @@ class Form extends React.Component {
 
   render() {
     const { newAppointment } = this.state;
-    // const { isEditing } = this.props;
+    if (this.props.isEditing) {
     return (
       <div className="formContainer">
         <form onSubmit={this.formSubmit}>
@@ -146,7 +146,9 @@ class Form extends React.Component {
           </button>
         </form>
       </div>
-    );
+    )} else {
+      return null;
+    }
   }
 }
 

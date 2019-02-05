@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import appointmentShape from '../../../../Helpers/Data/props/appointmentShape';
 import './AppointmentItem.scss';
 import authRequests from '../../../../Helpers/Data/authRequests';
+import moment from 'moment';
 
 class AppointmentItem extends React.Component {
   static propTypes = {
@@ -59,7 +60,7 @@ class AppointmentItem extends React.Component {
       <div className="appointmentContainer m-3">
         <div className="AppointmentItem text-center">
           <div className="appointmentCardHeader">
-            <span className="dateSpan">{appointment.date}</span>
+            <span className="dateSpan">{moment(appointment.date).format('MM/DD/YYYY')}</span>
             <span>{makeDeleteButton()}</span>
           </div>
           <div className="appointmentStatus">

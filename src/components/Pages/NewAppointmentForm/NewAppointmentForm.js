@@ -2,6 +2,7 @@ import React from 'react';
 import './NewAppointmentForm.scss';
 import appointmentRequests from '../../../Helpers/Data/Requests/appointmentRequests';
 import authRequests from '../../../Helpers/Data/authRequests';
+import { Redirect } from 'react-router';
 
 const defaultAppointment = {
   firstName: '',
@@ -52,6 +53,9 @@ class NewAppointmentForm extends React.Component {
         appointmentRequests.getAllAppointments()
           .then((appointments) => {
             this.setState({ appointments });
+            return (
+              <Redirect from="/newappointmentform" to="/appointments" />
+              );
           });
       })
       .catch(err => console.error('error with appointments post', err));
@@ -153,7 +157,9 @@ class NewAppointmentForm extends React.Component {
               </div>
               </div>
               <div className="makeAppointment">
-              <button onClick={this.addAppointment} className="btn btn-success">
+              <button
+                onClick={this.addAppointment}
+                className="btn btn-success">
                 Make Appointment
               </button>
               </div>
