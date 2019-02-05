@@ -36,9 +36,6 @@ class Auth extends React.Component {
         <SignInForm
           authenticateUser={this.authenticateUser}
         />
-        {/* <NewMemberForm 
-          signUp={this.signUp}
-        /> */}
       </div> 
     );
   }

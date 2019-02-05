@@ -2,14 +2,13 @@ import React from 'react';
 import './NewAppointmentForm.scss';
 import appointmentRequests from '../../../Helpers/Data/Requests/appointmentRequests';
 import authRequests from '../../../Helpers/Data/authRequests';
-import { Redirect } from 'react-router';
 import messageRequests from '../../../Helpers/Data/Requests/messageRequests';
 
 const defaultAppointment = {
   firstName: '',
   lastName: '',
   date: '',
-  status: '',
+  status: 'is pending',
   address: '',
   city: '',
   state: '',
@@ -55,15 +54,21 @@ class NewAppointmentForm extends React.Component {
     this.estimatePrice(e);
   }
 
+  inputFieldStringState = (name, e) => {
+    e.preventDefault();
+    const tempComment = { ...this.state.newComment };
+    tempComment[name] = e.target.value;
+    this.setState({ newComment: tempComment });
+  }
+
+commentChange = e => this.inputFieldStringState('comment', e);
+
   addAppointment = (newAppointment) => {
     appointmentRequests.postRequest(newAppointment)
       .then(() => {
         appointmentRequests.getAllAppointments()
           .then((appointments) => {
             this.setState({ appointments });
-            return (
-              <Redirect from="/newappointmentform" to="/appointments" />
-              );
           });
       })
       .catch(err => console.error('error with appointments post', err));
@@ -86,15 +91,6 @@ class NewAppointmentForm extends React.Component {
     this.addAppointment(myAppointment);
     this.setState({ newAppointment: defaultAppointment });
   }
-
-  inputFieldStringState = (name, e) => {
-    e.preventDefault();
-    const tempComment = { ...this.state.newComment };
-    tempComment[name] = e.target.value;
-    this.setState({ newComment: tempComment });
-  }
-
-// commentChange = e => this.inputFieldStringState('comment', e);
 
 inputSubmitEvnt = (newComment) => {
   newComment.uid = authRequests.getCurrentUid();
@@ -173,7 +169,7 @@ inputSubmitEvnt = (newComment) => {
                 className="commentInput"
                 placeholder="Comments/Message"
                 value={newComment.message}
-                // onChange={this.commentChange}
+                onChange={this.commentChange}
               />
               <div className="estimate">
                 <h1>${newAppointment.price}</h1>

@@ -39,48 +39,57 @@ class SignInForm extends React.Component {
 
   render () {
     return (
-      <div className='col'>
-      <form>
-        <div className="form-group">
-          <label>Email address</label>
-          <input
-          type="email"
-          name='email'
-          value={this.email}
-          className="form-control"
-          onChange={this.emailChange}
-          id="exampleInputEmail1"
-          aria-describedby="emailHelp"
-          placeholder="Enter email"></input>
+      <div className="AuthContainer">
+        <div className='loginCard'>
+        <div className="loginHeader">
+          Login
         </div>
-        <div className="form-group">
-          <label>Password</label>
-          <input
-          type="password"
-          name='password'
-          value={this.password}
-          className="form-control"
-          onChange={this.passwordChange}
-          id="exampleInputPassword1"
-          placeholder="Password"></input>
+        <div className="">
+        <form>
+        <div className="loginInputs">
+          <div className="form-group">
+            <input
+            type="email"
+            name='email'
+            value={this.email}
+            className="form-control m-2"
+            onChange={this.emailChange}
+            id="username"
+            aria-describedby="emailHelp"
+            placeholder="Enter email"></input>
+          </div>
+          <div className="form-group">
+            <input
+            type="password"
+            name='password'
+            value={this.password}
+            className="form-control m-2"
+            onChange={this.passwordChange}
+            id="password"
+            placeholder="Password"></input>
+          </div>
         </div>
-        <Button
-        type="submit"
-        className="btn btn-primary"
-        autoComplete="current-password"
-        onClick={this.login}>
-        Log In
-        </Button>
-      </form>
-      <br></br>
-        <Button
-        className="btn btn-primary"
-        autoComplete="current-password"
-        tag={RRNavLink}
-        to="/newmemberform">
-        Sign Up
-        </Button>
-    </div>
+        <div>
+          <Button
+          type="submit"
+          className="btn btn-primary loginButton"
+          autoComplete="current-password"
+          onClick={this.login}>
+          Login
+          </Button>
+        </div>
+        </form>
+        <div className="or">or</div>
+          <Button
+          className="btn btn-primary createButton"
+          autoComplete="current-password"
+          tag={RRNavLink}
+          to="/newmemberform">
+          Sign Up
+          </Button>
+          </div>
+        </div>
+      </div>
     );
   }
 }
