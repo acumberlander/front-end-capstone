@@ -1,0 +1,56 @@
+.NewMemberContainer {
+  margin: 0 auto;
+  padding-top: 100px;
+}
+
+.newMemberCard {
+  width: 450px;
+  height: 350px;
+  border-radius: 10%;
+  background-color: #ADE8BB;
+  z-index: 100;
+}
+
+.newMemberHeader {
+  width: 450px;
+  height: 80px;
+  background-color: #0DAC4A;
+  color: white;
+  font-size: 45px;
+}
+
+.loginInputs {
+  margin-top: 50px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+#newFirstName {
+  width: 200px;
+  height: 40px;
+  text-align: center;
+}
+#newLastName {
+  width: 200px;
+  height: 40px;
+  text-align: center;
+}
+#newUsername {
+  width: 200px;
+  height: 40px;
+  text-align: center;
+}
+
+#newPassword {
+  width: 200px;
+  height: 40px;  
+  text-align: center;
+}
+
+.createAccount {
+  width: 200px;
+  margin: 5px;
+  background-color: #0DAC4A;
+  border-color: #0DAC4A;
+}

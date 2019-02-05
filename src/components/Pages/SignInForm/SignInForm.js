@@ -79,7 +79,9 @@ class SignInForm extends React.Component {
           </Button>
         </div>
         </form>
-        <div className="or">or</div>
+        <div className="or">
+          <h3>or</h3>
+        </div>
           <Button
           className="btn btn-primary createButton"
           autoComplete="current-password"

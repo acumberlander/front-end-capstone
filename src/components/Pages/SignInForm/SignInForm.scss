@@ -1,12 +1,19 @@
 .AuthContainer {
   margin: 0 auto;
-  padding-top: 100px;
+  padding-top: 50px;
   img {
     width: 200px;
     height: 40px;
   }
 }
 
+.loginCard {
+  width: 450px;
+  height: 350px;
+  border-radius: 10%;
+  background-color: #ADE8BB;
+  z-index: 100;
+}
 
 .loginHeader {
   width: 450px;
@@ -38,11 +45,15 @@
 .createButton {
   width: 200px;
   margin: 5px;
+  background-color: #0DAC4A;
+  border-color: #0DAC4A;
 }
 
 .loginButton {
   width: 200px;
   margin: 5px;
+  background-color: #0DAC4A;
+  border-color: #0DAC4A;
 }
 
 .or {
