@@ -73,60 +73,65 @@ signUp = ( newUserInfo) => {
 
   render () {
     return (
-      <div className='col'>
-      <form>
-        <div className="form-group">
-          <label>First Name</label>
-          <input
-          type="text"
-          name='firstName'
-          value={this.firstName}
-          className="form-control"
-          onChange={this.firstNameChange}
-          id="inputFirstName"
-          placeholder="First Name"></input>
+      <div className='NewMemberContainer'>
+        <div className="newMemberCard">
+          <div className="newMemberHeader">
+            New Member
+          </div>
+          <div className="">
+          <form>
+            <div className="loginInputs">
+            <div className="form-group">
+              <input
+              type="text"
+              name='firstName'
+              value={this.firstName}
+              className="form-control m-2"
+              onChange={this.firstNameChange}
+              id="newFirstName"
+              placeholder="First Name"></input>
+            </div>
+            <div className="form-group">
+              <input
+              type="text"
+              name='lastName'
+              value={this.lastName}
+              className="form-control m-2"
+              onChange={this.lastNameChange}
+              id="newLastName"
+              placeholder="Last Name"></input>
+            </div>
+            <div className="form-group">
+              <input
+              type="email"
+              name='email'
+              value={this.email}
+              className="form-control m-2"
+              onChange={this.emailChange}
+              id="newUsername"
+              aria-describedby="emailHelp"
+              placeholder="Enter email"></input>
+            </div>
+            <div className="form-group">
+              <input
+              type="password"
+              name='password'
+              value={this.password}
+              className="form-control m-2"
+              onChange={this.passwordChange}
+              id="newPassword"
+              placeholder="Password"></input>
+            </div>
+            </div>
+            <button
+            type="submit"
+            className="btn btn-primary createAccount"
+            onClick={this.formSubmit}>
+            Create Account!
+            </button>
+          </form>
         </div>
-        <div className="form-group">
-          <label>Last Name</label>
-          <input
-          type="text"
-          name='lastName'
-          value={this.lastName}
-          className="form-control"
-          onChange={this.lastNameChange}
-          id="inputLastName"
-          placeholder="Last Name"></input>
-        </div>
-        <div className="form-group">
-          <label>Email address</label>
-          <input
-          type="email"
-          name='email'
-          value={this.email}
-          className="form-control"
-          onChange={this.emailChange}
-          id="exampleInputEmail1"
-          aria-describedby="emailHelp"
-          placeholder="Enter email"></input>
-        </div>
-        <div className="form-group">
-          <label>Password</label>
-          <input
-          type="password"
-          name='password'
-          value={this.password}
-          className="form-control"
-          onChange={this.passwordChange}
-          id="exampleInputPassword1"
-          placeholder="Password"></input>
-        </div>
-        <button
-        type="submit"
-        className="btn btn-primary"
-        onClick={this.formSubmit}>
-        Create Account!
-        </button>
-      </form>
+      </div>
     </div>
     );
   }

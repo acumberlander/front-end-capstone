@@ -2,13 +2,13 @@ import React from 'react';
 import './NewAppointmentForm.scss';
 import appointmentRequests from '../../../Helpers/Data/Requests/appointmentRequests';
 import authRequests from '../../../Helpers/Data/authRequests';
-import { Redirect } from 'react-router';
+import messageRequests from '../../../Helpers/Data/Requests/messageRequests';
 
 const defaultAppointment = {
   firstName: '',
   lastName: '',
   date: '',
-  status: '',
+  status: 'is pending',
   address: '',
   city: '',
   state: '',
@@ -17,9 +17,16 @@ const defaultAppointment = {
   price: '0',
 };
 
+const defaultComment = {
+  uid: '',
+  message: '',
+  timestamp: 0,
+};
+
 class NewAppointmentForm extends React.Component {
   state = {
     newAppointment: defaultAppointment,
+    newComment: defaultComment,
   }
 
   formFieldStringState = (name, e) => {
@@ -47,15 +54,21 @@ class NewAppointmentForm extends React.Component {
     this.estimatePrice(e);
   }
 
+  inputFieldStringState = (name, e) => {
+    e.preventDefault();
+    const tempComment = { ...this.state.newComment };
+    tempComment[name] = e.target.value;
+    this.setState({ newComment: tempComment });
+  }
+
+commentChange = e => this.inputFieldStringState('comment', e);
+
   addAppointment = (newAppointment) => {
     appointmentRequests.postRequest(newAppointment)
       .then(() => {
         appointmentRequests.getAllAppointments()
           .then((appointments) => {
             this.setState({ appointments });
-            return (
-              <Redirect from="/newappointmentform" to="/appointments" />
-              );
           });
       })
       .catch(err => console.error('error with appointments post', err));
@@ -79,9 +92,15 @@ class NewAppointmentForm extends React.Component {
     this.setState({ newAppointment: defaultAppointment });
   }
 
- 
+inputSubmitEvnt = (newComment) => {
+  newComment.uid = authRequests.getCurrentUid();
+    messageRequests.createMessage(newComment)
+      .then(() => {
+      }).catch(err => console.error(err));
+  } 
+
   render() {
-    const { newAppointment } = this.state;
+    const { newAppointment, newComment } = this.state;
     return (
       <div className="newAppointmentContainer mt-5">
         <form onSubmit={this.formSubmit}>
@@ -146,8 +165,11 @@ class NewAppointmentForm extends React.Component {
               <div className="commentHeader"><h3>Leave us a message!</h3></div>
               <div className="commentAndPrice">
               <textarea
+                type="text"
                 className="commentInput"
-                placeholder="Comments/Message" 
+                placeholder="Comments/Message"
+                value={newComment.message}
+                onChange={this.commentChange}
               />
               <div className="estimate">
                 <h1>${newAppointment.price}</h1>
@@ -158,7 +180,7 @@ class NewAppointmentForm extends React.Component {
               </div>
               <div className="makeAppointment">
               <button
-                onClick={this.addAppointment}
+                onClick={this.addAppointment && this.inputSubmitEvnt}
                 className="btn btn-success">
                 Make Appointment
               </button>

@@ -88,7 +88,7 @@ class App extends Component {
           <React.Fragment>
             <MyNavbar isAuthed={authed} logoutClickEvent={logoutClickEvent} />
             <div className="container">
-              <div className="row">
+              <div className="d-flex justify-content-center">
                 <Switch>
                   <PrivateRoute path='/' exact component={Home} authed={this.state.authed} />
                   <PrivateRoute path='/newappointmentform' component={NewAppointmentForm} authed={this.state.authed} />

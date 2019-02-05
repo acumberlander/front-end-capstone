@@ -1,0 +1,61 @@
+.AuthContainer {
+  margin: 0 auto;
+  padding-top: 50px;
+  img {
+    width: 200px;
+    height: 40px;
+  }
+}
+
+.loginCard {
+  width: 450px;
+  height: 350px;
+  border-radius: 10%;
+  background-color: #ADE8BB;
+  z-index: 100;
+}
+
+.loginHeader {
+  width: 450px;
+  height: 80px;
+  background-color: #0DAC4A;
+  color: white;
+  font-size: 45px;
+}
+
+.loginInputs {
+  margin-top: 50px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+#username {
+  width: 200px;
+  height: 40px;
+  text-align: center;
+}
+
+#password {
+  width: 200px;
+  height: 40px;  
+  text-align: center;
+}
+
+.createButton {
+  width: 200px;
+  margin: 5px;
+  background-color: #0DAC4A;
+  border-color: #0DAC4A;
+}
+
+.loginButton {
+  width: 200px;
+  margin: 5px;
+  background-color: #0DAC4A;
+  border-color: #0DAC4A;
+}
+
+.or {
+  color: #0DAC4A;
+}
