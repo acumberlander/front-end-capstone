@@ -14,3 +14,19 @@ npm install```
 npm start```
 
 ## Screenshots
+1. Login
+![main page](./src/img/lawnLogin.png)
+
+2. Sign Up
+![main page](./src/img/lawnSignUp.png)
+
+3. Make a New Appointment
+![main page](./src/img/appointmentDetails.png)
+
+4. Appointments
+![main page](./src/img/appointments.png)
+
+5. Messages
+![main page](./src/img/messages.png)
+
+
