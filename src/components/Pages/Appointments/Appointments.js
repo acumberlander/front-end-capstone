@@ -1,9 +1,9 @@
 import React from 'react';
 import './Appointments.scss';
 import AppointmentItem from './AppointmentItem/AppointmentItem';
-// import authRequests from '../../../Helpers/Data/authRequests';
 import appointmentRequests from '../../../Helpers/Data/Requests/appointmentRequests';
 import Form from '../Form/Form';
+import authRequests from '../../../Helpers/Data/authRequests';
 
 class Appointments extends React.Component {
   state = {
@@ -13,21 +13,23 @@ class Appointments extends React.Component {
   }
 
   componentDidMount() {
-    appointmentRequests.getAllAppointments()
+    const uid = authRequests.getCurrentUid();
+    appointmentRequests.getAllAppsByUid(uid)
       .then((appointments) => {
         this.setState({ appointments });
       })
       .catch((error) => {
-        console.error('error on getAllAppointments', error);
+        console.error('error on getAllAppsByUid', error);
       });
   }
 
   formSubmitAppointment = (newAppointment) => {
     const { isEditing, editId } = this.state;
+    const uid = authRequests.getCurrentUid();
     if (isEditing) {
       appointmentRequests.updateAppointment(editId, newAppointment)
         .then(() => {
-          appointmentRequests.getAllAppointments()
+          appointmentRequests.getAllAppsByUid(uid)
             .then((appointments) => {
               this.setState({ appointments, isEditing: false, editId: '-1' });
             });
@@ -36,7 +38,7 @@ class Appointments extends React.Component {
     } else {
       appointmentRequests.postRequest(newAppointment)
         .then(() => {
-          appointmentRequests.getAllAppointments()
+          appointmentRequests.getAllAppsByUid(uid)
             .then((appointments) => {
               this.setState({ appointments });
             });
@@ -48,9 +50,10 @@ class Appointments extends React.Component {
   passAppointmentToEdit = appointmentId => this.setState({ isEditing: true, editId: appointmentId });
 
   deleteAppointment = (appointmentId) => {
+    const uid = authRequests.getCurrentUid();
     appointmentRequests.deleteAppointment(appointmentId)
       .then(() => {
-        appointmentRequests.getAllAppointments()
+        appointmentRequests.getAllAppsByUid(uid)
           .then((appointments) => {
             this.setState({ appointments });
           });

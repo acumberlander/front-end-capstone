@@ -19,6 +19,7 @@ import NewMemberForm from '../components/Pages/NewMemberForm/NewMemberForm';
 import Messages from '../components/Pages/Messages/Messages';
 import MyNavbar from '../components/MyNavbar/MyNavbar';
 import authRequests from '../Helpers/Data/authRequests';
+import ServiceAppList from '../components/Pages/ServiceAppList/ServiceAppList';
 
 import './App.scss';
 
@@ -94,8 +95,9 @@ class App extends Component {
                   <PrivateRoute path='/newappointmentform' component={NewAppointmentForm} authed={this.state.authed} />
                   <PrivateRoute path='/appointments' component={Appointments} authed={this.state.authed} />
                   <PublicRoute path='/newmemberform' component={NewMemberForm} authed={this.state.authed} />
+                  <PrivateRoute path='/serviceapplist' component={ServiceAppList} authed={this.state.authed} />
                   <PrivateRoute path='/messages' component={Messages} authed={this.state.authed} />
-                  <PublicRoute path='/auth' component={Auth} authed={this.state.authed}/>
+                  <PublicRoute path='/auth' component={Auth} authed={this.state.authed} />
                 </Switch>
               </div>
             </div>

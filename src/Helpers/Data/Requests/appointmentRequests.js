@@ -3,6 +3,24 @@ import apiKeys from '../apiKeys';
 
 const firebaseUrl = apiKeys.firebaseConfig.databaseURL;
 
+const getAllAppsByUid = uid => new Promise((resolve, reject) => {
+  axios.get(`${firebaseUrl}/appointments.json?orderBy="uid"&equalTo="${uid}"`)
+    .then((result) => {
+      const appointmentObject = result.data;
+      const appointmentArray = [];
+      if (appointmentObject != null) {
+        Object.keys(appointmentObject).forEach((appointmentId) => {
+          appointmentObject[appointmentId].id = appointmentId;
+          appointmentArray.push(appointmentObject[appointmentId]);
+        });
+      }
+      resolve(appointmentArray);
+    })
+    .catch((error) => {
+      reject(error);
+    });
+});
+
 const getAllAppointments = () => new Promise((resolve, reject) => {
   axios.get(`${firebaseUrl}/appointments.json`)
     .then((result) => {
@@ -30,6 +48,7 @@ const updateAppointment = (appointmentId, appointment) => axios.put(`${firebaseU
 
 export default {
   getAllAppointments,
+  getAllAppsByUid,
   deleteAppointment,
   postRequest,
   getAppointmentItem,

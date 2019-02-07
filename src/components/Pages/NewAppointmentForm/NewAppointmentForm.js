@@ -64,9 +64,10 @@ class NewAppointmentForm extends React.Component {
 commentChange = e => this.inputFieldStringState('comment', e);
 
   addAppointment = (newAppointment) => {
+    const uid = authRequests.getCurrentUid();    
     appointmentRequests.postRequest(newAppointment)
       .then(() => {
-        appointmentRequests.getAllAppointments()
+        appointmentRequests.getAllAppsByUid(uid)
           .then((appointments) => {
             this.setState({ appointments });
           });
