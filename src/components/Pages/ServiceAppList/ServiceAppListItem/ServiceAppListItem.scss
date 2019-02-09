@@ -1,12 +1,103 @@
-.card {
-  background-color: #ADE8BB;
-  width: 750px;
-  height: 65px;
-  margin: 3px;
+/********* STRUCTURAL STYLING THAT WON'T BE CHANGED *************/
+.card{
+  display: flex;
+  justify-content: center;
+  margin: 1px;
 }
 
-.serviceAppListItem {
-  color: #0DAC4A;
+.modalFirstRow {
+  display: flex;
+  justify-content: center;
+}
+
+.modalSecondRow {
+  display: flex;
+  justify-content: center;
+}
+
+.modalThirdRow {
+  display: flex;
+  justify-content: center;
+}
+
+.modalContent {
+  display: flex;
+  margin: 20px 0 0 75px;
+}
+
+.itemFirstName {
   font-size: 40px;
 }
 
+.itemStatusHeader {
+  font-size: 20px;
+}
+
+.itemAddressHeader {
+  font-size: 20px;
+}
+
+.itemDateHeader {
+  font-size: 20px;
+}
+
+.itemDate {
+  margin-bottom: 35px;
+}
+
+/********* MODAL STYLING THAT WON'T CHANGED *************/
+
+.styles_modal__gNwvD {
+  background-color: #ADE8BB;
+  padding: 0;
+  width: 550px;
+  height: 550px;
+
+  p {
+    font-size: 25px;
+    margin: 0px;
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  h5 {
+    margin: 10px;
+  }
+}
+.itemHeader {
+  background-color: #0DAC4A;
+  color: white;
+  padding: 35px;
+}
+
+.dropdown1 {
+  background-color: #0DAC4A;
+  border: solid #0DAC4A;
+}
+
+/************** PENDING APPOINTMENT *************/
+
+.pending {
+  background-color: #FFFCAA;
+  .serviceAppListItem {
+    color: black;
+  }
+};
+
+/************** APPROVED APPOINTMENT *************/
+
+.approved {
+  background-color: #ADE8BB;
+  .serviceAppListItem {
+    color: #0DAC4A;
+  }
+}
+
+/************** CANCELLED APPOINTMENT *************/
+
+.cancelled {
+  background-color: #E68E95;
+  .serviceAppListItem {
+    color: white;
+  }
+}

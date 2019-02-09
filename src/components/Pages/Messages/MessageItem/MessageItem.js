@@ -11,7 +11,6 @@ class MessageItem extends React.Component {
     const { message } = this.props;
       return (
           <div className="messageItem">
-            {/* <div className="user">{message.firstName}</div> */}
             <div className="message">{message.message}</div>
           </div>
       );

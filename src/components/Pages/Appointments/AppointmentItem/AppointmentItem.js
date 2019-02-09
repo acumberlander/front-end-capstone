@@ -7,7 +7,7 @@ import moment from 'moment';
 
 class AppointmentItem extends React.Component {
   static propTypes = {
-    appointment: appointmentShape.appointmentShape,
+    appointment: appointmentShape,
     deleteAppointment: PropTypes.func,
     editAppointment: PropTypes.func,
   }
@@ -26,6 +26,16 @@ class AppointmentItem extends React.Component {
 
   render() {
     const { appointment } = this.props;
+
+    let statusColor = 'appointmentContainer m-3 isPending';
+    if (appointment.status === 'approved') {
+      statusColor = 'appointmentContainer m-3 isApproved';
+    } else if (appointment.status === 'cancelled') {
+      statusColor = 'appointmentContainer m-3 isCancelled';
+    } else {
+      statusColor = 'appointmentContainer m-3 isPending';
+    }
+
     const uid = authRequests.getCurrentUid();
     console.log(uid);
     console.log(appointment.uid);
@@ -57,7 +67,7 @@ class AppointmentItem extends React.Component {
       }
     };
     return (
-      <div className="appointmentContainer m-3">
+      <div className={statusColor}>
         <div className="AppointmentItem text-center">
           <div className="appointmentCardHeader">
             <span className="dateSpan">{moment(appointment.date).format('MM/DD/YYYY')}</span>

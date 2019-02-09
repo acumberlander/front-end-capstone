@@ -47,10 +47,7 @@ render() {
   const { newMessage } = this.state;
   return (
     <div className="input-group mt-3 mb-3">
-      <div className="input-group-prepend" onClick={this.inputSubmit}>
-        <button className="btn btn-primary" type="button" id="basic-addon1">send</button>
-      </div>
-      <input
+      <textarea
       type="text"
       className="form-control"
       id="message"
@@ -61,6 +58,9 @@ render() {
       onKeyUp={this.handleEnterInput}
       autoFocus
       />
+      <div className="input-group-prepend" onClick={this.inputSubmit}>
+        <button className="btn btn-primary" type="button" id="basic-addon1">send</button>
+      </div>
     </div>
   );
 }

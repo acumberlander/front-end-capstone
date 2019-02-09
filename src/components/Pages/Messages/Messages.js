@@ -41,17 +41,19 @@ class Messages extends React.Component {
       />
     ));
     return (
-      <div className= "messagesContainer">
+      <div className= "messagesWrapper">
         <h2 className="heading text-center">Messages</h2>
-        <div className="messageWindow">
-          <div className="Messages">
-            {messageItemComponent}
+        <div className="card messageCard">
+          <div className="messageWindow">
+            <div className="messagesContainer">
+              {messageItemComponent}
+            </div>
           </div>
-        </div>
         <AddMessage
         onClick={this.inputSubmitEvent}
         onKeyUp={this.inputSubmitEvent}
         />
+        </div>
       </div>
     );
   }

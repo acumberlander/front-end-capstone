@@ -1,91 +1,137 @@
-// .approved {
-.appointmentContainer {
-  display: flex;
-  flex-wrap: wrap;
-  flex-direction: row;
-}
+.isApproved {
+  .appointmentContainer {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+  }
 
-.appointmentCardHeader {
-  background-color: #0DAC4A;
-  height: 65px;
-  padding-top: 10px;
-  padding-left: 60px;
-  display: flex;
-}
+  .appointmentCardHeader {
+    background-color: #0DAC4A;
+    height: 65px;
+    padding-top: 10px;
+    padding-left: 60px;
+    display: flex;
+  }
 
-.dateSpan {
-  color: white;
-  font-size: 30px;
-}
+  .dateSpan {
+    color: white;
+    font-size: 30px;
+  }
 
-.appointmentStatus {
-  color: #0DAC4A;
-}
-
-.serviceQuote {
-  h1 {
-    font-size: 75px;
-    margin: 0;
+  .appointmentStatus {
     color: #0DAC4A;
+  }
+
+  .serviceQuote {
+    h1 {
+      font-size: 75px;
+      margin: 0;
+      color: #0DAC4A;
+    }
+  }
+
+  .AppointmentItem {
+    background-color: #ADE8BB;
+    border-radius: 10%;
+    width: 300px;
+    height: 300px;
+
+    p {
+      font-size: 20px;
+      color: #0DAC4A;
+      margin: 0px;
+    }
   }
 }
 
-.AppointmentItem {
-  background-color: #ADE8BB;
-  // border-radius: 10%;
-  width: 300px;
-  height: 300px;
+.isPending {
+  .appointmentContainer {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+  }
 
-  p {
-    font-size: 20px;
-    color: #0DAC4A;
-    margin: 0px;
+  .appointmentCardHeader {
+    background-color: #FFFF0A;
+    height: 65px;
+    padding-top: 10px;
+    padding-left: 60px;
+    display: flex;
+  }
+
+  .dateSpan {
+    color: black;
+    font-size: 30px;
+  }
+
+  .appointmentStatus {
+    color: black;
+  }
+
+  .serviceQuote {
+    h1 {
+      font-size: 75px;
+      margin: 0;
+      color: black;
+    }
+  }
+
+  .AppointmentItem {
+    background-color: #FFFCAA;
+    border-radius: 10%;
+    width: 300px;
+    height: 300px;
+
+    p {
+      font-size: 20px;
+      color: black;;
+      margin: 0px;
+    }
   }
 }
-// }
 
-// .isPending {
-// .appointmentContainer {
-//   display: flex;
-//   flex-wrap: wrap;
-//   flex-direction: row;
-// }
+.isCancelled {
+  .appointmentContainer {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+  }
 
-// .appointmentCardHeader {
-//   background-color: #FFFF0A;
-//   height: 65px;
-//   padding-top: 10px;
-//   padding-left: 60px;
-//   display: flex;
-// }
+  .appointmentCardHeader {
+    background-color: #FC3434;
+    height: 65px;
+    padding-top: 10px;
+    padding-left: 60px;
+    display: flex;
+  }
 
-// .dateSpan {
-//   color: black;
-//   font-size: 30px;
-// }
+  .dateSpan {
+    color: white;
+    font-size: 30px;
+  }
 
-// .appointmentStatus {
-//   color: black;
-// }
+  .appointmentStatus {
+    color: white;
+  }
 
-// .serviceQuote {
-//   h1 {
-//     font-size: 75px;
-//     margin: 0;
-//     color: black;
-//   }
-// }
+  .serviceQuote {
+    h1 {
+      font-size: 75px;
+      margin: 0;
+      color: white;
+    }
+  }
 
-// .AppointmentItem {
-//   background-color: #FFFCAA;
-//   border-radius: 10%;
-//   width: 300px;
-//   height: 300px;
+  .AppointmentItem {
+    background-color: #E68E95;   
+    border-radius: 10%;
+    width: 300px;
+    height: 300px;
 
-//   p {
-//     font-size: 20px;
-//     color: black;;
-//     margin: 0px;
-//   }
-// }
-// }
+    p {
+      font-size: 20px;
+      color: white;
+      margin: 0px;
+    }
+  }
+}

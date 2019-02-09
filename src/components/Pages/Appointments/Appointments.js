@@ -61,6 +61,7 @@ class Appointments extends React.Component {
       .catch(err => console.error('error with delete appointment', err));
   }
 
+
   render() {
     const passAppointmentToEdit = (appointmentId) => {
       this.setState({ isEditing: true, editId: appointmentId });
