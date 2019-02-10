@@ -1,9 +1,13 @@
 .messageItem {
-  background-color: lightblue;
+  .card{
+  background-color: #ADE8BB;
   margin: 20px 0;
   border: solid white;
-  width: auto;
+  // width: auto;
   min-height: 50px;
+  position: relative;
+  bottom: -270px;
+  }
 }
 
 .message {

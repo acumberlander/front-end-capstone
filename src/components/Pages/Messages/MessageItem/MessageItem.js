@@ -11,7 +11,7 @@ class MessageItem extends React.Component {
     const { message } = this.props;
       return (
           <div className="messageItem">
-            <div className="message">{message.message}</div>
+            <div className="message card">{message.message}</div>
           </div>
       );
     };

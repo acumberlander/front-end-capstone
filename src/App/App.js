@@ -69,9 +69,11 @@ class App extends Component {
   }
 
   render() {
+    const bossMan = 'xJWSDIxu3Qa6OnUjmoax7q4CXni2';
     const {
       authed,
       pendingUser,
+      currentUid,
     } = this.state;
 
     const logoutClickEvent = () => {
@@ -80,31 +82,53 @@ class App extends Component {
     };
 
     if (pendingUser) {
+      console.log(this.state);
       return null;
-    }
-
+    } else if (currentUid === bossMan) {
+      console.log(this.state && "hello");
+      return(
+        <div className="App">
+          <BrowserRouter>
+            <React.Fragment>
+              <MyNavbar isAuthed={authed} logoutClickEvent={logoutClickEvent} />
+              <div className="container">
+                <div className="d-flex justify-content-center">
+                  <Switch>
+                    <PrivateRoute path='/' exact component={ServiceAppList} authed={this.state.authed} />
+                    <PrivateRoute path='/serviceapplist' component={ServiceAppList} authed={this.state.authed} />
+                    <PrivateRoute path='/messages' component={Messages} authed={this.state.authed} />
+                    <PublicRoute path='/auth' component={Auth} authed={this.state.authed} />
+                  </Switch>
+                </div>
+              </div>
+            </React.Fragment>
+          </BrowserRouter>
+        </div>
+      )
+    } else {
     return (
       <div className="App">
         <BrowserRouter>
           <React.Fragment>
             <MyNavbar isAuthed={authed} logoutClickEvent={logoutClickEvent} />
-            <div className="container">
-              <div className="d-flex justify-content-center">
-                <Switch>
-                  <PrivateRoute path='/' exact component={Home} authed={this.state.authed} />
-                  <PrivateRoute path='/newappointmentform' component={NewAppointmentForm} authed={this.state.authed} />
-                  <PrivateRoute path='/appointments' component={Appointments} authed={this.state.authed} />
-                  <PublicRoute path='/newmemberform' component={NewMemberForm} authed={this.state.authed} />
-                  <PrivateRoute path='/serviceapplist' component={ServiceAppList} authed={this.state.authed} />
-                  <PrivateRoute path='/messages' component={Messages} authed={this.state.authed} />
-                  <PublicRoute path='/auth' component={Auth} authed={this.state.authed} />
-                </Switch>
+              <div className="container">
+                <div className="d-flex justify-content-center">
+                  <Switch>
+                    <PrivateRoute path='/' exact component={Home} authed={this.state.authed} />
+                    <PrivateRoute path='/newappointmentform' component={NewAppointmentForm} authed={this.state.authed} />
+                    <PrivateRoute path='/appointments' component={Appointments} authed={this.state.authed} />
+                    <PublicRoute path='/newmemberform' component={NewMemberForm} authed={this.state.authed} />
+                    <PrivateRoute path='/serviceapplist' component={ServiceAppList} authed={this.state.authed} />
+                    <PrivateRoute path='/messages' component={Messages} authed={this.state.authed} />
+                    <PublicRoute path='/auth' component={Auth} authed={this.state.authed} />
+                  </Switch>
+                </div>
               </div>
-            </div>
-          </React.Fragment>
-        </BrowserRouter>
-      </div>
-    );
+            </React.Fragment>
+          </BrowserRouter>
+        </div>
+      );
+    }
   }
 }
 

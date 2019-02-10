@@ -4,8 +4,8 @@
   width: 600px;
   height: 470px;
   display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
+  justify-content: flex-end;
+  padding: 5px 10px;
   overflow: scroll;
 }
 .messageCard {
@@ -21,7 +21,10 @@
 
 #basic-addon1 {
   margin-right: 15px;
-  height: 76px;
+  margin-top: 20px;
+  height: 38px;
+  width: 76px;
+  border-radius: 50%;
 }
 
 // .input-group {
