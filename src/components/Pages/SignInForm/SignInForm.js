@@ -2,6 +2,7 @@ import React from 'react';
 import './SignInForm.scss';
 import { NavLink as RRNavLink } from 'react-router-dom';
 import { Button } from 'reactstrap';
+import authRequests from '../../../Helpers/Data/authRequests';
 
 const userInfo = {
   email: '',
@@ -35,6 +36,15 @@ class SignInForm extends React.Component {
 
   passwordChange = (e) => {
     this.formFieldStringState('password', e);
+  }
+
+  
+  checkServiceProvider = () => {
+    const bossMan = 'xJWSDIxu3Qa6OnUjmoax7q4CXni2';  
+    const currentUid = authRequests.getCurrentUid();
+    if (currentUid === bossMan) {
+      this.setState({ isServiceProvider: true });
+    }
   }
 
   render () {
@@ -74,7 +84,7 @@ class SignInForm extends React.Component {
           type="submit"
           className="btn btn-primary loginButton"
           autoComplete="current-password"
-          onClick={this.login}>
+          onClick={this.checkServiceProvider && this.login}>
           Login
           </Button>
         </div>

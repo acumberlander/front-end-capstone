@@ -11,6 +11,7 @@ import {
   NavItem,
   NavLink,
 } from 'reactstrap';
+// import authRequests from '../../Helpers/Data/authRequests';
 
 
 class MyNavbar extends React.Component {
@@ -21,6 +22,7 @@ class MyNavbar extends React.Component {
 
   state = {
     isOpen: false,
+    // isServiceProvider: false,
   };
 
   toggle() {
@@ -30,18 +32,15 @@ class MyNavbar extends React.Component {
   }
 
   render() {
-    // same as const isAuthed = this.props.isAuthed
-    // same as const newThing = this.props.isAuthed
-    const { isAuthed, logoutClickEvent } = this.props;
+    // const bossMan = 'xJWSDIxu3Qa6OnUjmoax7q4CXni2';    
+    // const currentUid = authRequests.getCurrentUid();
+    const { isAuthed, logoutClickEvent, isServiceProvider } = this.props;
     const buildNavbar = () => {
-      if (isAuthed) {
+      if (isAuthed && isServiceProvider) {
         return (
           <Nav className="ml-auto" navbar>
-            <NavItem className="newAppointment">
-              <NavLink tag={RRNavLink} to="/newappointmentform"><i class="fas fa-2x fa-calendar-plus"></i></NavLink>
-            </NavItem>
             <NavItem>
-              <NavLink tag={RRNavLink} to="/appointments"><i class="fas fa-2x fa-calendar-alt"></i></NavLink>
+              <NavLink tag={RRNavLink} to="/serviceapplist"><i class="fas fa-2x fa-calendar-alt"></i></NavLink>
             </NavItem>
             <NavItem>
               <NavLink tag={RRNavLink} to="/messages"><i class="fas fa-2x fa-comments"></i></NavLink>
@@ -51,8 +50,26 @@ class MyNavbar extends React.Component {
             </NavItem>
           </Nav>
         );
-      }
-      return <Nav className="ml-auto" navbar />;
+      } else if (isAuthed) {
+          return (
+            <Nav className="ml-auto" navbar>
+              <NavItem className="newAppointment">
+                <NavLink tag={RRNavLink} to="/newappointmentform"><i class="fas fa-2x fa-calendar-plus"></i></NavLink>
+              </NavItem>
+              <NavItem>
+                <NavLink tag={RRNavLink} to="/appointments"><i class="fas fa-2x fa-calendar-alt"></i></NavLink>
+              </NavItem>
+              <NavItem>
+                <NavLink tag={RRNavLink} to="/messages"><i class="fas fa-2x fa-comments"></i></NavLink>
+              </NavItem>
+              <NavItem className="logoutLink">
+                <NavLink onClick={logoutClickEvent}>logout</NavLink>
+              </NavItem>
+            </Nav>
+          );
+        } else {
+          return <Nav className="ml-auto" navbar />;
+        }
     };
 
     return (

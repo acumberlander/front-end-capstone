@@ -15,7 +15,7 @@ npm start```
 
 ## Screenshots
 1. Login
-![main page](./src/img/lawnLogin.png)
+![Screenshot](lawnLogin.png)
 
 2. Sign Up
 ![main page](./src/img/lawnSignUp.png)
