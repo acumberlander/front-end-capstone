@@ -94,9 +94,7 @@ class App extends Component {
 //   }
 
   render() {
-      // console.log(this.state);
-
-    // this.setState({})
+    
     const {
       authed,
       userObject,

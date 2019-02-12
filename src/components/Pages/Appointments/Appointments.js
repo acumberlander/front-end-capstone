@@ -87,7 +87,7 @@ class Appointments extends React.Component {
         appointment={appointment}
         deleteAppointment={this.deleteAppointment}
         passAppointmentToEdit={passAppointmentToEdit}
-      />
+      /> 
     ));
     return (
       <div className="appointments col">
