@@ -9,14 +9,14 @@ const getUserByUid = uid => new Promise((resolve, reject) => {
   axios.get(`${firebaseUrl}/users.json?orderBy="uid"&equalTo="${uid}"`)
     .then((result) => {
       const userObject = result.data;
-      const userArray = [];
+      let userKeys = '';
       if (userObject != null) {
         Object.keys(userObject).forEach((userId) => {
           userObject[userId].id = userId;
-          userArray.push(userObject[userId]);
+          userKeys = userObject[userId];
         });
       }
-      resolve(userArray[0]);
+      resolve(userKeys);
     })
     .catch((error) => {
       reject(error);

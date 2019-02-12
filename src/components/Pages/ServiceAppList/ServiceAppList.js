@@ -41,7 +41,23 @@ class ServiceApps extends React.Component {
         deleteAppointment={this.deleteAppointment}
       />
     ));
-    return (
+    if (this.state.appointments === null) {
+      return (
+        <div className="serviceAppListContainer">
+          <div className="serviceAppListHeader">
+            Appointment Requests
+          </div>
+          <div className="appointmentWindow">
+            <div className="serviceAppListCard">
+              <div className="noAppointmentsWrapper">
+                <h1 className="noAppointments">You have no appointments!</h1>
+              </div>
+            </div>
+          </div>
+        </div>
+    );
+    } else {
+      return (
         <div className="serviceAppListContainer">
           <div className="serviceAppListHeader">
             Appointment Requests
@@ -52,7 +68,8 @@ class ServiceApps extends React.Component {
             </div>
           </div>
         </div>
-    );
+      );
+    }
   }
 }
 

@@ -20,8 +20,8 @@ import Messages from '../components/Pages/Messages/Messages';
 import MyNavbar from '../components/MyNavbar/MyNavbar';
 import authRequests from '../Helpers/Data/authRequests';
 import ServiceAppList from '../components/Pages/ServiceAppList/ServiceAppList';
-
 import './App.scss';
+import userRequests from '../Helpers/Data/Requests/userRequests';
 
 const PublicRoute = ({ component: Component, authed, ...rest }) => {
   const routeChecker = props => (authed === false
@@ -42,18 +42,34 @@ class App extends Component {
     authed: false,
     currentUid: '',
     pendingUser: true,
+    userObject: {}
+    // isServiceProvider: false,
   }
 
   componentDidMount() {
     connection();
     this.removeListener = firebase.auth().onAuthStateChanged((user) => {
+      // const bossMan = 'xJWSDIxu3Qa6OnUjmoax7q4CXni2';
+      // userRequests.getUserByUid(bossMan)
+      //   .then((user) => {
+      //     this.setState({ userObject: user });
+      //     // console.log(this.state)
+      //     console.log(this.state.userObject);
+      //   });
       if (user) {
-        const currentUid = authRequests.getCurrentUid();
-        this.setState({
+        const currentUid = user.uid;
+        console.log(currentUid);
+        userRequests.getUserByUid(currentUid)
+        .then((user) => {
+          this.setState({ userObject: user,
+          // console.log(this.state)
+          // console.log(this.state.userObject);
           authed: true,
           currentUid,
           pendingUser: false,
         });
+                  console.log(this.state.userObject);
+      });
       } else {
         this.setState({
           authed: false,
@@ -67,34 +83,44 @@ class App extends Component {
   componentWillUnmount() {
     this.removeListener();
   }
+//  getBoss = () => {
+//   const bossMan = 'xJWSDIxu3Qa6OnUjmoax7q4CXni2';
+//   userRequests.getUserByUid(bossMan)
+//     .then((user) => {
+//       this.setState({ userObject: user });
+//       // console.log(this.state)
+//       // console.log(this.state.userObject);
+//     });
+//   }
 
   render() {
-    const bossMan = 'xJWSDIxu3Qa6OnUjmoax7q4CXni2';
+      // console.log(this.state);
+
+    // this.setState({})
     const {
       authed,
+      userObject,
       pendingUser,
-      currentUid,
     } = this.state;
-
+    
     const logoutClickEvent = () => {
       authRequests.logoutUser();
       this.setState({ authed: false });
     };
-
+    const isServiceProvider = userObject.isServiceProvider
     if (pendingUser) {
-      console.log(this.state);
       return null;
-    } else if (currentUid === bossMan) {
+    } else if (isServiceProvider) {
       console.log(this.state && "hello");
       return(
         <div className="App">
           <BrowserRouter>
             <React.Fragment>
-              <MyNavbar isAuthed={authed} logoutClickEvent={logoutClickEvent} />
+              <MyNavbar isAuthed={authed} isServiceProvider={isServiceProvider} logoutClickEvent={logoutClickEvent} />
               <div className="container">
                 <div className="d-flex justify-content-center">
                   <Switch>
-                    <PrivateRoute path='/' exact component={ServiceAppList} authed={this.state.authed} />
+                    <PrivateRoute path='/' exact component={Home} authed={this.state.authed} />
                     <PrivateRoute path='/serviceapplist' component={ServiceAppList} authed={this.state.authed} />
                     <PrivateRoute path='/messages' component={Messages} authed={this.state.authed} />
                     <PublicRoute path='/auth' component={Auth} authed={this.state.authed} />
@@ -118,7 +144,6 @@ class App extends Component {
                     <PrivateRoute path='/newappointmentform' component={NewAppointmentForm} authed={this.state.authed} />
                     <PrivateRoute path='/appointments' component={Appointments} authed={this.state.authed} />
                     <PublicRoute path='/newmemberform' component={NewMemberForm} authed={this.state.authed} />
-                    <PrivateRoute path='/serviceapplist' component={ServiceAppList} authed={this.state.authed} />
                     <PrivateRoute path='/messages' component={Messages} authed={this.state.authed} />
                     <PublicRoute path='/auth' component={Auth} authed={this.state.authed} />
                   </Switch>
