@@ -4,12 +4,34 @@ import appointmentShape from '../../../../Helpers/Data/props/appointmentShape';
 import './AppointmentItem.scss';
 import authRequests from '../../../../Helpers/Data/authRequests';
 import moment from 'moment';
+import appointmentRequests from '../../../../Helpers/Data/Requests/appointmentRequests';
+import Modal from 'react-responsive-modal';
+
+const defaultAppointment = {
+  firstName: '',
+  lastName: '',
+  date: '',
+  status: '',
+  address: '',
+  city: '',
+  state: '',
+  acres: '',
+  uid: '',
+};
 
 class AppointmentItem extends React.Component {
   static propTypes = {
     appointment: appointmentShape,
     deleteAppointment: PropTypes.func,
     editAppointment: PropTypes.func,
+    isEditing: PropTypes.bool,
+    editId: PropTypes.string,
+    onSubmit: PropTypes.func,
+  }
+
+  state = {
+    newAppointment: defaultAppointment,
+    open: false,
   }
 
   deleteAppointment = (e) => {
@@ -24,8 +46,96 @@ class AppointmentItem extends React.Component {
     passAppointmentToEdit(appointment.id);
   }
 
+  formFieldStringState = (name, e) => {
+    e.preventDefault();
+    const tempAppointment = { ...this.state.newAppointment };
+    tempAppointment[name] = e.target.value;
+    this.setState({ newAppointment: tempAppointment });
+  }
+
+  appointmentChange = e => this.formFieldStringState('appointment', e);
+
+  dateChange = e => this.formFieldStringState('date', e);
+
+  addressChange = e => this.formFieldStringState('address', e);
+
+  cityChange = e => this.formFieldStringState('city', e);
+
+  stateChange = e => this.formFieldStringState('state', e);
+
+  lastNameChange = e => this.formFieldStringState('lastName', e);
+
+  firstNameChange = e => this.formFieldStringState('firstName', e);
+
+  formSubmit = (e) => {
+    e.preventDefault();
+    const { onSubmit } = this.props;
+    const myAppointment = { ...this.state.newAppointment };
+    myAppointment.uid = authRequests.getCurrentUid();
+    onSubmit(myAppointment);
+    this.setState({ newAppointment: defaultAppointment });
+  }
+
+  componentDidUpdate(prevState) {
+    const { isEditing, editId } = this.props;
+    if (prevState !== this.props && isEditing) {
+      appointmentRequests.getAppointmentItem(editId)
+        .then((appointment) => {
+          this.setState({ newAppointment: appointment.data });
+        })
+        .catch(err => console.error('error when getAppointmentItem', err));
+    }
+  }
+
+  componentDidMount() {
+    const uid = authRequests.getCurrentUid();
+    appointmentRequests.getAllAppsByUid(uid)
+      .then((appointments) => {
+        this.setState({ appointments });
+      })
+      .catch((error) => {
+        console.error('error on getAllAppsByUid', error);
+      });
+  }
+
+  onOpenModal = () => {
+    this.setState({ open: true });
+  };
+  
+  onCloseModal = () => {
+    this.setState({ open: false });
+
+  };
+
+  formSubmitAppointment = (newAppointment) => {
+    const { isEditing, editId } = this.props;
+    const uid = authRequests.getCurrentUid();
+    if (isEditing) {
+      appointmentRequests.updateAppointment(editId, newAppointment)
+        .then(() => {
+          appointmentRequests.getAllAppsByUid(uid)
+            .then((appointments) => {
+              this.setState({ appointments, isEditing: false, editId: '-1' });
+            });
+        })
+        .catch(err => console.error('error with appointments post', err));
+    } else {
+      appointmentRequests.postRequest(newAppointment)
+        .then(() => {
+          appointmentRequests.getAllAppsByUid(uid)
+            .then((appointments) => {
+              this.setState({ appointments });
+            });
+        })
+        .catch(err => console.error('error with appointments post', err));
+    }
+  };
+
+  passAppointmentToEdit = appointmentId => this.setState({ isEditing: true, editId: appointmentId });
+
   render() {
-    const { appointment } = this.props;
+    const { open, newAppointment } = this.state;
+    const { appointment, isEditing, editId } = this.props;
 
     let statusColor = 'appointmentContainer m-3 isPending';
     if (appointment.status === 'approved') {
@@ -37,15 +147,12 @@ class AppointmentItem extends React.Component {
     }
 
     const uid = authRequests.getCurrentUid();
-    console.log(uid);
-    console.log(appointment.uid);
-
     const makeEditButton = () => {
       if (appointment.uid === uid) {
         return (
           <div>
             <span className="">
-              <button className="btn btn-default" onClick={this.editAppointment}>
+              <button className="btn btn-default" onClick={this.editAppointment && this.onOpenModal}>
                 <i className="fas fa-pencil-alt"></i>
               </button>
             </span>
@@ -66,6 +173,7 @@ class AppointmentItem extends React.Component {
         )
       }
     };
+    console.log(this.newAppointment)
     return (
       <div className={statusColor}>
         <div className="AppointmentItem text-center">
@@ -84,6 +192,86 @@ class AppointmentItem extends React.Component {
             <p>{appointment.city}, {appointment.state}</p>
           </div>
           {makeEditButton()}
+          <Modal
+        open={open}
+        onClose={this.onCloseModal}
+        onSubmit={this.formSubmitAppointment}
+        isEditing={isEditing}
+        editId={editId}>
+          <div className="formContainer">
+          <form onSubmit={this.formSubmit}>
+            <div className="form-group">
+              <label htmlFor="firstName">First Name</label>
+              <input
+                type="text"
+                className="form-control"
+                id="firstName"
+                placeholder="First Name"
+                value={appointment.firstName}
+                onChange={this.firstNameChange}
+              />
+            </div>
+            <div className="form-group">
+              <label htmlFor="lastName">Last Name</label>
+              <input
+                type="text"
+                className="form-control"
+                id="lastName"
+                placeholder="Last Name"
+                value={appointment.lastName}
+                onChange={this.lastNameChange}
+              />
+            </div>
+            <div className="form-group">
+              <label htmlFor="date">Date</label>
+              <input
+                type="text"
+                className="form-control"
+                id="date"
+                placeholder="Date"
+                value={appointment.date}
+                onChange={this.dateChange}
+              />
+            </div>
+            <div className="form-group">
+              <label htmlFor="address">Address</label>
+              <input
+                type="text"
+                className="form-control"
+                id="address"
+                placeholder="Address"
+                value={appointment.address}
+                onChange={this.addressChange}
+              />
+            </div>
+            <div className="form-group">
+              <label htmlFor="city">City</label>
+              <input
+                type="text"
+                className="form-control"
+                id="city"
+                placeholder="City"
+                value={appointment.city}
+                onChange={this.cityChange}
+              />
+            </div>
+            <div className="form-group">
+              <label htmlFor="state">State</label>
+              <input
+                type="text"
+                className="form-control"
+                id="state"
+                placeholder="State"
+                value={appointment.state}
+                onChange={this.stateChange}
+              />
+            </div>
+            <button className="btn btn-danger">
+              Save Event
+            </button>
+          </form>
+        </div>
+      </Modal>
         </div>
       </div>
     );
