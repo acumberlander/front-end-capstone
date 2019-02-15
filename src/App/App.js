@@ -68,7 +68,7 @@ class App extends Component {
           currentUid,
           pendingUser: false,
         });
-                  console.log(this.state.userObject);
+                  // console.log(this.state.userObject);
       });
       } else {
         this.setState({

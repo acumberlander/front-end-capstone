@@ -24,6 +24,8 @@ class AppointmentItem extends React.Component {
     appointment: appointmentShape,
     deleteAppointment: PropTypes.func,
     editAppointment: PropTypes.func,
+    passAppointmentToEdit: PropTypes.func,
+    formSubmitAppointment: PropTypes.func,
     isEditing: PropTypes.bool,
     editId: PropTypes.string,
     onSubmit: PropTypes.func,
@@ -48,7 +50,7 @@ class AppointmentItem extends React.Component {
 
   formFieldStringState = (name, e) => {
     e.preventDefault();
-    const tempAppointment = { ...this.state.newAppointment };
+    const tempAppointment = { ...this.props.appointment };
     tempAppointment[name] = e.target.value;
     this.setState({ newAppointment: tempAppointment });
   }
@@ -76,26 +78,18 @@ class AppointmentItem extends React.Component {
     this.setState({ newAppointment: defaultAppointment });
   }
 
-  componentDidUpdate(prevState) {
+  componentDidUpdate(prevProps) {
     const { isEditing, editId } = this.props;
-    if (prevState !== this.props && isEditing) {
+    if (prevProps !== this.props && isEditing) {
       appointmentRequests.getAppointmentItem(editId)
         .then((appointment) => {
+          // console.log("Appointment Data: ",appointment.data);
           this.setState({ newAppointment: appointment.data });
         })
         .catch(err => console.error('error when getAppointmentItem', err));
+    } else {
+      // console.log("componentDidUpdate isn't running");
     }
-  }
-
-  componentDidMount() {
-    const uid = authRequests.getCurrentUid();
-    appointmentRequests.getAllAppsByUid(uid)
-      .then((appointments) => {
-        this.setState({ appointments });
-      })
-      .catch((error) => {
-        console.error('error on getAllAppsByUid', error);
-      });
   }
 
   onOpenModal = () => {
@@ -106,32 +100,6 @@ class AppointmentItem extends React.Component {
     this.setState({ open: false });
 
   };
-
-  formSubmitAppointment = (newAppointment) => {
-    const { isEditing, editId } = this.props;
-    const uid = authRequests.getCurrentUid();
-    if (isEditing) {
-      appointmentRequests.updateAppointment(editId, newAppointment)
-        .then(() => {
-          appointmentRequests.getAllAppsByUid(uid)
-            .then((appointments) => {
-              this.setState({ appointments, isEditing: false, editId: '-1' });
-            });
-        })
-        .catch(err => console.error('error with appointments post', err));
-    } else {
-      appointmentRequests.postRequest(newAppointment)
-        .then(() => {
-          appointmentRequests.getAllAppsByUid(uid)
-            .then((appointments) => {
-              this.setState({ appointments });
-            });
-        })
-        .catch(err => console.error('error with appointments post', err));
-    }
-  };
-
-  passAppointmentToEdit = appointmentId => this.setState({ isEditing: true, editId: appointmentId });
 
   render() {
     const { open, newAppointment } = this.state;
@@ -173,7 +141,7 @@ class AppointmentItem extends React.Component {
         )
       }
     };
-    console.log(this.newAppointment)
+    console.log("New Appointment: ", this.state.newAppointment);
     return (
       <div className={statusColor}>
         <div className="AppointmentItem text-center">
@@ -195,7 +163,6 @@ class AppointmentItem extends React.Component {
           <Modal
         open={open}
         onClose={this.onCloseModal}
-        onSubmit={this.formSubmitAppointment}
         isEditing={isEditing}
         editId={editId}>
           <div className="formContainer">
@@ -207,7 +174,7 @@ class AppointmentItem extends React.Component {
                 className="form-control"
                 id="firstName"
                 placeholder="First Name"
-                value={appointment.firstName}
+                value={newAppointment.firstName}
                 onChange={this.firstNameChange}
               />
             </div>
@@ -218,7 +185,7 @@ class AppointmentItem extends React.Component {
                 className="form-control"
                 id="lastName"
                 placeholder="Last Name"
-                value={appointment.lastName}
+                value={newAppointment.lastName}
                 onChange={this.lastNameChange}
               />
             </div>
@@ -229,7 +196,7 @@ class AppointmentItem extends React.Component {
                 className="form-control"
                 id="date"
                 placeholder="Date"
-                value={appointment.date}
+                value={newAppointment.date}
                 onChange={this.dateChange}
               />
             </div>
@@ -240,7 +207,7 @@ class AppointmentItem extends React.Component {
                 className="form-control"
                 id="address"
                 placeholder="Address"
-                value={appointment.address}
+                value={newAppointment.address}
                 onChange={this.addressChange}
               />
             </div>
@@ -251,7 +218,7 @@ class AppointmentItem extends React.Component {
                 className="form-control"
                 id="city"
                 placeholder="City"
-                value={appointment.city}
+                value={newAppointment.city}
                 onChange={this.cityChange}
               />
             </div>
@@ -262,7 +229,7 @@ class AppointmentItem extends React.Component {
                 className="form-control"
                 id="state"
                 placeholder="State"
-                value={appointment.state}
+                value={newAppointment.state}
                 onChange={this.stateChange}
               />
             </div>
