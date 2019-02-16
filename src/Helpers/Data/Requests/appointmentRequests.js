@@ -13,6 +13,11 @@ const getAllAppsByUid = uid => new Promise((resolve, reject) => {
           appointmentObject[appointmentId].id = appointmentId;
           appointmentArray.push(appointmentObject[appointmentId]);
         });
+        appointmentArray.sort((a, b) => {
+          if (a.date < b.date) { return -1; } 
+          if (a.date > b.date) { return 1; } 
+          return 0;
+        });
       }
       resolve(appointmentArray);
     })

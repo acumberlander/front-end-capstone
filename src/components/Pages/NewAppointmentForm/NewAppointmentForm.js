@@ -101,7 +101,6 @@ commentChange = e => this.inputFieldStringState('message', e);
 
   formSubmit = (e) => {
     e.preventDefault();
-    // console.log(e);
     const myAppointment = { ...this.state.newAppointment };
     const myComment = { ...this.state.newComment };
     myAppointment.uid = authRequests.getCurrentUid();

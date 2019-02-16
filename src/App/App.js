@@ -49,26 +49,15 @@ class App extends Component {
   componentDidMount() {
     connection();
     this.removeListener = firebase.auth().onAuthStateChanged((user) => {
-      // const bossMan = 'xJWSDIxu3Qa6OnUjmoax7q4CXni2';
-      // userRequests.getUserByUid(bossMan)
-      //   .then((user) => {
-      //     this.setState({ userObject: user });
-      //     // console.log(this.state)
-      //     console.log(this.state.userObject);
-      //   });
       if (user) {
         const currentUid = user.uid;
-        console.log(currentUid);
         userRequests.getUserByUid(currentUid)
         .then((user) => {
           this.setState({ userObject: user,
-          // console.log(this.state)
-          // console.log(this.state.userObject);
           authed: true,
           currentUid,
           pendingUser: false,
         });
-                  // console.log(this.state.userObject);
       });
       } else {
         this.setState({
@@ -83,15 +72,6 @@ class App extends Component {
   componentWillUnmount() {
     this.removeListener();
   }
-//  getBoss = () => {
-//   const bossMan = 'xJWSDIxu3Qa6OnUjmoax7q4CXni2';
-//   userRequests.getUserByUid(bossMan)
-//     .then((user) => {
-//       this.setState({ userObject: user });
-//       // console.log(this.state)
-//       // console.log(this.state.userObject);
-//     });
-//   }
 
   render() {
     
@@ -109,7 +89,6 @@ class App extends Component {
     if (pendingUser) {
       return null;
     } else if (isServiceProvider) {
-      console.log(this.state && "hello");
       return(
         <div className="App">
           <BrowserRouter>

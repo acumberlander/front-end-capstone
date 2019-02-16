@@ -43,7 +43,6 @@ class AppointmentItem extends React.Component {
   }
 
   editAppointment = (e) => {
-    console.log('CLICKED!!!');
     e.preventDefault();
     const { passAppointmentToEdit, appointment } = this.props;
     passAppointmentToEdit(appointment.id);
@@ -85,16 +84,12 @@ class AppointmentItem extends React.Component {
     if (prevProps !== this.props && isEditing) {
       appointmentRequests.getAppointmentItem(editId)
         .then((appointment) => {
-          console.log(appointment);
           const date = moment(appointment.date).format('MM/DD/YYYY')
-          console.log("HEEEEYYYYY", date);
           appointment.data.date = date;
-          // console.log("Appointment Data: ",appointment.data);
           this.setState({ newAppointment: appointment.data });
         })
         .catch(err => console.error('error when getAppointmentItem', err));
     } else {
-      // console.log("componentDidUpdate isn't running");
     }
   }
 
@@ -146,7 +141,6 @@ class AppointmentItem extends React.Component {
         )
       }
     };
-    console.log("New Appointment: ", this.state.newAppointment);
     return (
       <div className={statusColor}>
         <div className="AppointmentItem text-center">

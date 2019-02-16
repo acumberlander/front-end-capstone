@@ -54,7 +54,6 @@ class Appointments extends React.Component {
   }
 
   passAppointmentToEdit = (appointmentId) => {
-    console.log('EDIT CLICK!');
     this.setState({ isEditing: true, editId: appointmentId });
   };
 
