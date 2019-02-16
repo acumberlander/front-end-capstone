@@ -53,10 +53,12 @@ class Appointments extends React.Component {
       .catch(err => console.error('error with delete appointment', err));
   }
 
+  passAppointmentToEdit = (appointmentId) => {
+    console.log('EDIT CLICK!');
+    this.setState({ isEditing: true, editId: appointmentId });
+  };
+
   render() {
-    const passAppointmentToEdit = (appointmentId) => {
-      this.setState({ isEditing: true, editId: appointmentId });
-    };
     
     const {
       appointments,
@@ -69,7 +71,7 @@ class Appointments extends React.Component {
           key={appointment.id}
           appointment={appointment}
           deleteAppointment={this.deleteAppointment}
-          passAppointmentToEdit={passAppointmentToEdit}
+          passAppointmentToEdit={this.passAppointmentToEdit}
           onSubmit={this.formSubmitAppointment}
           isEditing={isEditing}
           editId={editId}

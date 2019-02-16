@@ -43,9 +43,11 @@ class AppointmentItem extends React.Component {
   }
 
   editAppointment = (e) => {
+    console.log('CLICKED!!!');
     e.preventDefault();
     const { passAppointmentToEdit, appointment } = this.props;
     passAppointmentToEdit(appointment.id);
+    this.setState({ open: true });
   }
 
   formFieldStringState = (name, e) => {
@@ -75,7 +77,7 @@ class AppointmentItem extends React.Component {
     const myAppointment = { ...this.state.newAppointment };
     myAppointment.uid = authRequests.getCurrentUid();
     onSubmit(myAppointment);
-    this.setState({ newAppointment: defaultAppointment });
+    this.setState({ newAppointment: defaultAppointment, open: false });
   }
 
   componentDidUpdate(prevProps) {
@@ -92,13 +94,12 @@ class AppointmentItem extends React.Component {
     }
   }
 
-  onOpenModal = () => {
-    this.setState({ open: true });
-  };
+  // onOpenModal = () => {
+  //   this.setState({ open: true });
+  // };
   
   onCloseModal = () => {
     this.setState({ open: false });
-
   };
 
   render() {
@@ -120,7 +121,7 @@ class AppointmentItem extends React.Component {
         return (
           <div>
             <span className="">
-              <button className="btn btn-default" onClick={this.editAppointment && this.onOpenModal}>
+              <button className="btn btn-default" onClick={this.editAppointment}>
                 <i className="fas fa-pencil-alt"></i>
               </button>
             </span>
