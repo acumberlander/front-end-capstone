@@ -31,10 +31,31 @@ class NewAppointmentForm extends React.Component {
 
   formFieldStringState = (name, e) => {
     e.preventDefault();
+    e.persist();
     const tempAppointment = { ...this.state.newAppointment };
     tempAppointment[name] = e.target.value;
     this.setState({ newAppointment: tempAppointment });
   }
+
+  formFieldNumberState = (name, e) => {
+    e.preventDefault();
+    e.persist()
+    const myPrice = e.target.value*50;
+    const tempAppointment = { ...this.state.newAppointment };
+    tempAppointment[name] = e.target.value*1;
+    tempAppointment.price = myPrice;
+    this.setState({ newAppointment: tempAppointment });
+  }
+
+  // estimatePrice = (e) => {
+  //   e.preventDefault();
+  //   const acreNumber = e.target.value;
+  //   const myPrice = acreNumber*50;
+  //   const myAppointment = { ...this.state.newAppointment };
+  //   myAppointment.price = myPrice;
+  //   myAppointment.acres = acreNumber
+  //   this.setState({ newAppointment: myAppointment });
+  // }
 
   appointmentChange = e => this.formFieldStringState('appointment', e);
 
@@ -50,55 +71,49 @@ class NewAppointmentForm extends React.Component {
 
   stateChange = e => this.formFieldStringState('state', e);
 
-  acresChange = (e) => {
-    this.estimatePrice(e);
-  }
+  acresChange = e => this.formFieldNumberState('acres', e);
 
   inputFieldStringState = (name, e) => {
     e.preventDefault();
+    e.stopPropagation();
+    const uid = authRequests.getCurrentUid();    
     const tempComment = { ...this.state.newComment };
     tempComment[name] = e.target.value;
+    tempComment.uid = uid;
     this.setState({ newComment: tempComment });
   }
 
-commentChange = e => this.inputFieldStringState('comment', e);
+commentChange = e => this.inputFieldStringState('message', e);
 
-  addAppointment = (newAppointment) => {
+  addAppointment = (newAppointment, newComment) => {
     const uid = authRequests.getCurrentUid();    
+    messageRequests.createMessage(newComment);
     appointmentRequests.postRequest(newAppointment)
       .then(() => {
         appointmentRequests.getAllAppsByUid(uid)
           .then((appointments) => {
             this.setState({ appointments });
+            this.props.history.push(`/appointments`);
           });
       })
       .catch(err => console.error('error with appointments post', err));
   }
 
-  estimatePrice = (e) => {
-    e.preventDefault();
-    const acreNumber = e.target.value;
-    const myPrice = acreNumber*50;
-    const myAppointment = { ...this.state.newAppointment };
-    myAppointment.price = myPrice;
-    myAppointment.acres = acreNumber
-    this.setState({ newAppointment: myAppointment });
-  }
-
   formSubmit = (e) => {
     e.preventDefault();
     const myAppointment = { ...this.state.newAppointment };
+    const myComment = { ...this.state.newComment };
     myAppointment.uid = authRequests.getCurrentUid();
-    this.addAppointment(myAppointment);
-    this.setState({ newAppointment: defaultAppointment });
+    this.addAppointment(myAppointment, myComment);
+    this.setState({ newAppointment: defaultAppointment, newComment: defaultComment });
   }
 
-inputSubmitEvnt = (newComment) => {
-  newComment.uid = authRequests.getCurrentUid();
-    messageRequests.createMessage(newComment)
-      .then(() => {
-      }).catch(err => console.error(err));
-  } 
+// inputSubmitEvnt = (newComment) => {
+//   newComment.uid = authRequests.getCurrentUid();
+//     messageRequests.createMessage(newComment)
+//       .then(() => {
+//       }).catch(err => console.error(err));
+//   } 
 
   render() {
     const { newAppointment, newComment } = this.state;
@@ -181,7 +196,7 @@ inputSubmitEvnt = (newComment) => {
               </div>
               <div className="makeAppointment">
               <button
-                onClick={this.addAppointment && this.inputSubmitEvnt}
+                onClick={this.formSubmit}
                 className="btn btn-success">
                 Make Appointment
               </button>

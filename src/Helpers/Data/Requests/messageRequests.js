@@ -40,7 +40,7 @@ const getAllMessagesWithUserInfo = () => new Promise((resolve, reject) => {
 
 const getSingleMessage = messageId => axios.get(`${firebaseUrl}/messages/${messageId}.json`);
 
-const createMessage = (newMessage, uid) => axios.post(`${firebaseUrl}/messages.json`, newMessage, uid);
+const createMessage = (newMessage) => axios.post(`${firebaseUrl}/messages.json`, newMessage);
 
 const deleteMessage = messageId => axios.delete(`${firebaseUrl}/messages/${messageId}.json`);
 
