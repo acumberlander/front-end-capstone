@@ -85,6 +85,10 @@ class AppointmentItem extends React.Component {
     if (prevProps !== this.props && isEditing) {
       appointmentRequests.getAppointmentItem(editId)
         .then((appointment) => {
+          console.log(appointment);
+          const date = moment(appointment.date).format('MM/DD/YYYY')
+          console.log("HEEEEYYYYY", date);
+          appointment.data.date = date;
           // console.log("Appointment Data: ",appointment.data);
           this.setState({ newAppointment: appointment.data });
         })
