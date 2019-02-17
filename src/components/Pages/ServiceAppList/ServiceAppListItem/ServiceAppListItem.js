@@ -51,6 +51,7 @@ changeStatus = (e) => {
           this.setState({ appointments });
         });
     });
+    this.toggle();
 }
 
 deleteAppointment = (e) => {
@@ -71,8 +72,6 @@ onOpenModal = () => {
 
 onCloseModal = () => {
   this.setState({ open: false });
-  console.log("Does it work?");
-  console.log(this.state);
 };
 
   render() {
@@ -151,13 +150,13 @@ onCloseModal = () => {
                         Select Status
                       </DropdownToggle>
                       <DropdownMenu>
-                        <div onClick={this.toggle && this.changeStatus} value="is pending">
+                        <div onClick={this.changeStatus} value="is pending">
                         is pending
                         </div>
-                        <div onClick={this.toggle && this.changeStatus} value="approved">
+                        <div onClick={this.changeStatus} value="approved">
                         approved
                         </div>
-                        <div onClick={this.toggle && this.changeStatus} value="cancelled">
+                        <div onClick={this.changeStatus} value="cancelled">
                         cancelled
                         </div>
                       </DropdownMenu>

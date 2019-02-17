@@ -98,6 +98,7 @@ class App extends Component {
                 <div className="d-flex justify-content-center">
                   <Switch>
                     <PrivateRoute path='/' exact component={Home} authed={this.state.authed} />
+                    <PrivateRoute path='/home' component={Home} authed={this.state.authed} />                    
                     <PrivateRoute path='/serviceapplist' component={ServiceAppList} authed={this.state.authed} />
                     <PrivateRoute path='/messages' component={Messages} authed={this.state.authed} />
                     <PublicRoute path='/auth' component={Auth} authed={this.state.authed} />
@@ -118,6 +119,7 @@ class App extends Component {
                 <div className="d-flex justify-content-center">
                   <Switch>
                     <PrivateRoute path='/' exact component={Home} authed={this.state.authed} />
+                    <PrivateRoute path='/home' component={Home} authed={this.state.authed} />
                     <PrivateRoute path='/newappointmentform' component={NewAppointmentForm} authed={this.state.authed} />
                     <PrivateRoute path='/appointments' component={Appointments} authed={this.state.authed} />
                     <PublicRoute path='/newmemberform' component={NewMemberForm} authed={this.state.authed} />

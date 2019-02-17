@@ -12,7 +12,6 @@ class ServiceApps extends React.Component {
     appointmentRequests.getAllAppointments()
       .then((appointments) => {
         this.setState({ appointments });
-        console.log(appointments);
       })
       .catch((error) => {
         console.error('error on getAllAppointments', error);

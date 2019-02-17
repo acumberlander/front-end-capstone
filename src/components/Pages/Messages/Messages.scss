@@ -4,10 +4,13 @@
   width: 600px;
   height: 470px;
   display: flex;
-  justify-content: flex-end;
+  // flex-wrap: wrap;
+  // flex-direction: row;
+  // justify-content: flex-end;
   padding: 5px 10px;
-  overflow: scroll;
+  overflow-y: scroll;
 }
+
 .messageCard {
   background-color: #0DAC4A;
   height: 475px;
@@ -27,13 +30,11 @@
   border-radius: 50%;
 }
 
-// .input-group {
-//   display: flex;
-//   flex-direction: row;
-//   justify-content: center;
-// }
-
-// .Messages {
-//   display: flex;
-//   flex-direction: column;
-// }
+.messagesContainer {
+  width: 600px;
+  height: 100px;
+  // display: flex;
+  // flex-wrap: wrap;
+  // flex-direction: row;
+  
+}

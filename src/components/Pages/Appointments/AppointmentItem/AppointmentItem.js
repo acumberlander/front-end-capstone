@@ -92,10 +92,6 @@ class AppointmentItem extends React.Component {
     } else {
     }
   }
-
-  // onOpenModal = () => {
-  //   this.setState({ open: true });
-  // };
   
   onCloseModal = () => {
     this.setState({ open: false });
@@ -143,7 +139,7 @@ class AppointmentItem extends React.Component {
     };
     return (
       <div className={statusColor}>
-        <div className="AppointmentItem text-center">
+        <div className="AppointmentItem text-center shadow-pop-br">
           <div className="appointmentCardHeader">
             <span className="dateSpan">{moment(appointment.date).format('MM/DD/YYYY')}</span>
             <span>{makeDeleteButton()}</span>
