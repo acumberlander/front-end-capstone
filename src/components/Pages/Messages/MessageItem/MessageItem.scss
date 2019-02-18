@@ -1,8 +1,11 @@
-
-.card {
-  margin: 10px;
+.messageBlock {
+  display: flex;
+  justify-content: right;
+  width: 570px;
+  .test {
+    display: flex;
 }
-
+}
 .currentUser {
     display: flex;
     justify-content: left;

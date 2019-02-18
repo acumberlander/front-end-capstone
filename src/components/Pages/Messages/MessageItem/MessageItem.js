@@ -21,7 +21,13 @@ class MessageItem extends React.Component {
     }
       return (
         <div>
-          <div className={messageStyling}>{message.message}</div>
+          <div className="messageBlock">
+            <div className="test">
+              <div className={messageStyling}>
+                <div>{message.message}</div>
+              </div>
+            </div>
+          </div>
           <hr/>
         </div>
       );

@@ -163,10 +163,10 @@ class AppointmentItem extends React.Component {
           <div className="formContainer">
           <form onSubmit={this.formSubmit}>
             <div className="form-group">
-              <label htmlFor="firstName">First Name</label>
+              <label className="col-5" htmlFor="firstName"><h5>First Name</h5></label>
               <input
                 type="text"
-                className="form-control"
+                className="form-control col-6"
                 id="firstName"
                 placeholder="First Name"
                 value={newAppointment.firstName}
@@ -174,10 +174,10 @@ class AppointmentItem extends React.Component {
               />
             </div>
             <div className="form-group">
-              <label htmlFor="lastName">Last Name</label>
+              <label className="col-5" htmlFor="lastName"><h5>Last Name</h5></label>
               <input
                 type="text"
-                className="form-control"
+                className="form-control col-6"
                 id="lastName"
                 placeholder="Last Name"
                 value={newAppointment.lastName}
@@ -185,10 +185,10 @@ class AppointmentItem extends React.Component {
               />
             </div>
             <div className="form-group">
-              <label htmlFor="date">Date</label>
+              <label className="col-5" htmlFor="date"><h5>Date</h5></label>
               <input
                 type="text"
-                className="form-control"
+                className="form-control col-6"
                 id="date"
                 placeholder="Date"
                 value={newAppointment.date}
@@ -196,10 +196,10 @@ class AppointmentItem extends React.Component {
               />
             </div>
             <div className="form-group">
-              <label htmlFor="address">Address</label>
+              <label className="col-5" htmlFor="address"><h5>Address</h5></label>
               <input
                 type="text"
-                className="form-control"
+                className="form-control col-6"
                 id="address"
                 placeholder="Address"
                 value={newAppointment.address}
@@ -207,10 +207,10 @@ class AppointmentItem extends React.Component {
               />
             </div>
             <div className="form-group">
-              <label htmlFor="city">City</label>
+              <label className="col-5" htmlFor="city"><h5>City</h5></label>
               <input
                 type="text"
-                className="form-control"
+                className="form-control col-6"
                 id="city"
                 placeholder="City"
                 value={newAppointment.city}
@@ -218,19 +218,21 @@ class AppointmentItem extends React.Component {
               />
             </div>
             <div className="form-group">
-              <label htmlFor="state">State</label>
+              <label className="col-5" htmlFor="state"><h5>State</h5></label>
               <input
                 type="text"
-                className="form-control"
+                className="form-control col-6"
                 id="state"
                 placeholder="State"
                 value={newAppointment.state}
                 onChange={this.stateChange}
               />
             </div>
-            <button className="btn btn-danger">
-              Save Event
-            </button>
+            <div className="saveEventButton">
+              <button className="btn btn-danger">
+                Save Event
+              </button>
+            </div>
           </form>
         </div>
       </Modal>

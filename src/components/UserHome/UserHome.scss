@@ -20,9 +20,15 @@
 
 .homeLinkCard {
   width: 600px;
-  height: 100px;
+  height: 175px;
 }
 
+.grow:hover
+{
+        -webkit-transform: scale(1.1);
+        -ms-transform: scale(1.1);
+        transform: scale(1.1);
+}
 
 .shadow-pop-br {
   -webkit-animation: shadow-pop-br 0.3s cubic-bezier(0.470, 0.000, 0.745, 0.715) both;

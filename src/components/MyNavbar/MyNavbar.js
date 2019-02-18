@@ -22,7 +22,6 @@ class MyNavbar extends React.Component {
 
   state = {
     isOpen: false,
-    // isServiceProvider: false,
   };
 
   toggle() {
@@ -31,10 +30,12 @@ class MyNavbar extends React.Component {
     });
   }
 
+  linkLocation = "/";
   render() {
-    // const bossMan = 'xJWSDIxu3Qa6OnUjmoax7q4CXni2';    
-    // const currentUid = authRequests.getCurrentUid();
     const { isAuthed, logoutClickEvent, isServiceProvider } = this.props;
+    if (isServiceProvider) {
+        this.linkLocation= "/serviceproviderhome";
+    }
     const buildNavbar = () => {
       if (isAuthed && isServiceProvider) {
         return (
@@ -75,7 +76,7 @@ class MyNavbar extends React.Component {
     return (
       <div className="my-navbar">
         <Navbar color="dark" dark expand="md">
-          <NavbarBrand href="/">GrassKisser</NavbarBrand>
+          <NavbarBrand href={this.linkLocation}>GrassKisser</NavbarBrand>
           <NavbarToggler onClick={e => this.toggle(e)} />
           <Collapse isOpen={this.state.isOpen} navbar>
             {buildNavbar()}

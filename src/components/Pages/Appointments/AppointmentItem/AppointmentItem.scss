@@ -136,6 +136,22 @@
   }
 }
 
+.formContainer {
+  margin-top: 75px;
+}
+
+.form-group {
+  display: flex;
+  justify-content: center;
+  .form-control {
+    width: 350px;
+  }
+}
+
+.saveEventButton {
+  display: flex;
+  justify-content: center;
+}
 
 .shadow-pop-br {
   -webkit-animation: shadow-pop-br 0.3s cubic-bezier(0.470, 0.000, 0.745, 0.715) both;
