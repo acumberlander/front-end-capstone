@@ -1,7 +1,5 @@
 import React from 'react';
-// import { Button } from 'reactstrap';
 import SignInForm from '../SignInForm/SignInForm';
-// import NewMemberForm from '../NewMemberForm/NewMemberForm';
 import userRequests from '../../../Helpers/Data/Requests/userRequests';
 import authRequests from '../../../Helpers/Data/authRequests';
 import './Auth.scss';
@@ -11,8 +9,13 @@ import firebase from 'firebase/app';
 class Auth extends React.Component {
   authenticateUser = (e, email, password) => {
     e.preventDefault();
-    firebase.auth().signInWithEmailAndPassword(email, password).then(() => {
-      this.props.history.push('/home');
+    firebase.auth().signInWithEmailAndPassword(email, password).then((object) => {
+      const bossman = 'xJWSDIxu3Qa6OnUjmoax7q4CXni2';
+      if (bossman === object.user.uid) {
+        this.props.history.push('/serviceproviderhome');
+      } else {
+        this.props.history.push('/home');
+      }
     }).catch(err => console.error('there was an error with auth', err));
   }
 

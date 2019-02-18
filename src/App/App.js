@@ -12,7 +12,7 @@ import {
 import connection from '../Helpers/Data/connection';
 
 import Auth from '../components/Pages/Auth/Auth';
-import Home from '../components/Home/Home';
+import UserHome from '../components/UserHome/UserHome';
 import Appointments from '../components/Pages/Appointments/Appointments';
 import NewAppointmentForm from '../components/Pages/NewAppointmentForm/NewAppointmentForm';
 import NewMemberForm from '../components/Pages/NewMemberForm/NewMemberForm';
@@ -22,6 +22,7 @@ import authRequests from '../Helpers/Data/authRequests';
 import ServiceAppList from '../components/Pages/ServiceAppList/ServiceAppList';
 import './App.scss';
 import userRequests from '../Helpers/Data/Requests/userRequests';
+import ServiceProviderHome from '../components/Pages/ServiceProviderHome/ServiceProviderHome';
 
 const PublicRoute = ({ component: Component, authed, ...rest }) => {
   const routeChecker = props => (authed === false
@@ -97,7 +98,8 @@ class App extends Component {
               <div className="container">
                 <div className="d-flex justify-content-center">
                   <Switch>
-                    <PrivateRoute path='/' exact component={Home} authed={this.state.authed} />
+                    <PrivateRoute path='/' exact component={ServiceProviderHome} authed={this.state.authed} />
+                    <PrivateRoute path='/serviceproviderhome' component={ServiceProviderHome} authed={this.state.authed} />
                     <PrivateRoute path='/serviceapplist' component={ServiceAppList} authed={this.state.authed} />
                     <PrivateRoute path='/messages' component={Messages} authed={this.state.authed} />
                     <PublicRoute path='/auth' component={Auth} authed={this.state.authed} />
@@ -117,7 +119,8 @@ class App extends Component {
               <div className="container">
                 <div className="d-flex justify-content-center">
                   <Switch>
-                    <PrivateRoute path='/' exact component={Home} authed={this.state.authed} />
+                    <PrivateRoute path='/' exact component={UserHome} authed={this.state.authed} />
+                    <PrivateRoute path='/home' component={UserHome} authed={this.state.authed} />
                     <PrivateRoute path='/newappointmentform' component={NewAppointmentForm} authed={this.state.authed} />
                     <PrivateRoute path='/appointments' component={Appointments} authed={this.state.authed} />
                     <PublicRoute path='/newmemberform' component={NewMemberForm} authed={this.state.authed} />

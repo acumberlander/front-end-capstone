@@ -20,7 +20,6 @@ class NewMemberForm extends React.Component {
 
 signUp = ( newUserInfo) => {
   firebase.auth().createUserWithEmailAndPassword(newUserInfo.email, newUserInfo.password).then((res) => {
-    console.log(res);
     newUserInfo.uid = authRequests.getCurrentUid();
     const usrInfo = { firstName: newUserInfo.firstName,
                       lastName: newUserInfo.lastName,
@@ -43,7 +42,6 @@ signUp = ( newUserInfo) => {
     const tempInfo = { ...this.state.newUserInfo };
     tempInfo[name] = e.target.value;
     this.setState({ newUserInfo: tempInfo});
-    console.log("formField function working")
   }
 
   firstNameChange = (e) => {
@@ -66,7 +64,6 @@ signUp = ( newUserInfo) => {
     e.preventDefault();
     const signUp = this.signUp;
     const userInfo = { ...this.state.newUserInfo };
-    console.log(this.state.newUserInfo);
     signUp(this.state.newUserInfo);
     this.setState({ newUserInfo:userInfo })
   }

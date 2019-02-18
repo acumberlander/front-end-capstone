@@ -1,20 +1,25 @@
 {
   "appointments":
 {},
-  "messages":
+  "conversations": 
   {
-    "message1": {
-      "uid": "12345",
-      "message": "What's up?",
-      "timestamp": 1528763298535,
-      "isEdited": false
-    },
-    "message2": {
-      "uid": "67890",
-      "message": "The Sky",
-      "timestamp": 1528763298536,
-      "isEdited": true
-    }
+      "conversation1": {
+        "messages":
+        {
+          "message1": {
+            "uid": "12345",
+            "message": "What's up?",
+            "timestamp": 1528763298535,
+            "isEdited": false
+          },
+          "message2": {
+            "uid": "67890",
+            "message": "The Sky",
+            "timestamp": 1528763298536,
+            "isEdited": true
+          }
+        }
+      }
   },
   "users":
   {
