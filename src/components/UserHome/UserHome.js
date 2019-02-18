@@ -26,7 +26,7 @@ class UserHome extends React.Component {
         <div id="appointments" onClick={this.changeView}>
         <i class="fas fa-5x fa-calendar-alt"></i>
         <div className="m-2">
-          <h2>Appointment</h2>
+          <h2>Appointments</h2>
         </div>
         </div>
       </div>

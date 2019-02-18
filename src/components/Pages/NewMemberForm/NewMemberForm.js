@@ -31,11 +31,6 @@ signUp = ( newUserInfo) => {
     this.props.history.push('/home');
   }).catch(err => console.error('there was an error with auth', err));
 }
-
-  // createAccount = (e) => {
-  //   e.preventDefault();
-  //   this.props.signUp(this.state.newUserInfo)
-  // }
  
   formFieldStringState = (name, e) => {
     e.preventDefault();
