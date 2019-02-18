@@ -19,9 +19,16 @@ class MessageItem extends React.Component {
     } else {
       messageStyling = 'message2 card m-3 diffUser';
     }
+
+    let messageLocation = 'messageBlock'
+    if (message.uid === this.currentUid) {
+      messageLocation = 'messageBlock';
+    } else {
+      messageLocation = 'messageBlock2';
+    }
       return (
         <div>
-          <div className="messageBlock">
+          <div className={messageLocation}>
             <div className="test">
               <div className={messageStyling}>
                 <div>{message.message}</div>

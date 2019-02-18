@@ -50,7 +50,7 @@ render() {
       <textarea
       type="text"
       className="form-control"
-      id="message"
+      id="messageInput"
       placeholder="Enter Your Message"
       aria-describedby="message-help"
       value={newMessage.message}
