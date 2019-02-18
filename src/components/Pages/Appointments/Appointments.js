@@ -79,7 +79,9 @@ class Appointments extends React.Component {
     ));
     return (
       <div className="appointments col">
-        <h2>Appointments Component</h2>
+        <div className="card appointmentHeader shadow-pop-br">
+          <h2>Appointments</h2>
+        </div>
         <div className="appointmentsContainer">
           <div className="appointmentCards">
             {appointmentItemComponents}

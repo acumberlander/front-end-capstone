@@ -45,7 +45,9 @@ class Messages extends React.Component {
     ));
     return (
       <div className= "messagesWrapper">
-        <h2 className="heading text-center">Messages</h2>
+        <div className="messagesHeader">
+          <h2 className="heading text-center">Messages</h2>
+        </div>
         <div className="card messageCard">
           <div className="messageWindow">
             <div className="messagesContainer">

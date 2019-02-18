@@ -1,15 +1,19 @@
 .messageBlock {
   display: flex;
-  justify-content: right;
+  justify-content: flex-end;
   width: 570px;
-  .test {
-    display: flex;
 }
+
+.messageBlock2 {
+  display: flex;
+  justify-content: flex-start;
+  width: 570px;
 }
+
 .currentUser {
     display: flex;
-    justify-content: left;
     padding: 10px;
+    max-width: 400px;
     background-color: #ADE8BB;
     -webkit-animation: shadow-pop-br 0.3s cubic-bezier(0.470, 0.000, 0.745, 0.715) both;
             animation: shadow-pop-br 0.3s cubic-bezier(0.470, 0.000, 0.745, 0.715) both;
@@ -52,8 +56,8 @@
 
 .diffUser {
   display: flex;
-  justify-content: left;
   padding: 10px;
+  max-width: 400px;
   background-color: rgb(128, 161, 182);
   -webkit-animation: shadow-pop-br 0.3s cubic-bezier(0.470, 0.000, 0.745, 0.715) both;
           animation: shadow-pop-br 0.3s cubic-bezier(0.470, 0.000, 0.745, 0.715) both;
