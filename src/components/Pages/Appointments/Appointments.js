@@ -2,7 +2,6 @@ import React from 'react';
 import './Appointments.scss';
 import AppointmentItem from './AppointmentItem/AppointmentItem';
 import appointmentRequests from '../../../Helpers/Data/Requests/appointmentRequests';
-// import Modal from 'react-responsive-modal';
 import authRequests from '../../../Helpers/Data/authRequests';
 
 

@@ -44,7 +44,6 @@ class App extends Component {
     currentUid: '',
     pendingUser: true,
     userObject: {}
-    // isServiceProvider: false,
   }
 
   componentDidMount() {

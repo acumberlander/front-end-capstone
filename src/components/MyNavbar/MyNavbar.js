@@ -11,8 +11,6 @@ import {
   NavItem,
   NavLink,
 } from 'reactstrap';
-// import authRequests from '../../Helpers/Data/authRequests';
-
 
 class MyNavbar extends React.Component {
   static propTypes = {

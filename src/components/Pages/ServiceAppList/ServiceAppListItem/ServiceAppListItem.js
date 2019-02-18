@@ -9,7 +9,6 @@ import appointmentShape from '../../../../Helpers/Data/props/appointmentShape';
 import './ServiceAppListItem.scss';
 import moment from 'moment';
 import Modal from 'react-responsive-modal';
-// import authRequests from '../../../../Helpers/Data/authRequests';
 import appointmentRequests from '../../../../Helpers/Data/Requests/appointmentRequests';
   
 class ServiceAppListItem extends React.Component {
@@ -77,13 +76,13 @@ onCloseModal = () => {
   render() {
     const { appointment } = this.props;
     const { open } = this.state;
-    let statusColor = 'card pending'
+    let statusColor = 'card pending serviceItem'
     if (appointment.status === 'approved') {
-      statusColor = 'card approved';
+      statusColor = 'card approved serviceItem';
     } else if (appointment.status === 'cancelled') {
-      statusColor = 'card cancelled';
+      statusColor = 'card cancelled serviceItem';
     } else {
-      statusColor = 'card pending';
+      statusColor = 'card pending serviceItem';
     }
 
     return (

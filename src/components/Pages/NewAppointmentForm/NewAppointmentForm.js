@@ -47,16 +47,6 @@ class NewAppointmentForm extends React.Component {
     this.setState({ newAppointment: tempAppointment });
   }
 
-  // estimatePrice = (e) => {
-  //   e.preventDefault();
-  //   const acreNumber = e.target.value;
-  //   const myPrice = acreNumber*50;
-  //   const myAppointment = { ...this.state.newAppointment };
-  //   myAppointment.price = myPrice;
-  //   myAppointment.acres = acreNumber
-  //   this.setState({ newAppointment: myAppointment });
-  // }
-
   appointmentChange = e => this.formFieldStringState('appointment', e);
 
   dateChange = e => this.formFieldStringState('date', e);
@@ -104,16 +94,14 @@ commentChange = e => this.inputFieldStringState('message', e);
     const myAppointment = { ...this.state.newAppointment };
     const myComment = { ...this.state.newComment };
     myAppointment.uid = authRequests.getCurrentUid();
-    this.addAppointment(myAppointment, myComment);
-    this.setState({ newAppointment: defaultAppointment, newComment: defaultComment });
+    if (myComment.message === "") {
+      this.addAppointment(myAppointment);
+      this.setState({ newAppointment: defaultAppointment });
+    } else {
+      this.addAppointment(myAppointment, myComment);
+      this.setState({ newAppointment: defaultAppointment, newComment: defaultComment });
+    }
   }
-
-// inputSubmitEvnt = (newComment) => {
-//   newComment.uid = authRequests.getCurrentUid();
-//     messageRequests.createMessage(newComment)
-//       .then(() => {
-//       }).catch(err => console.error(err));
-//   } 
 
   render() {
     const { newAppointment, newComment } = this.state;
