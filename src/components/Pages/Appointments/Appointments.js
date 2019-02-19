@@ -81,7 +81,7 @@ class Appointments extends React.Component {
         <div className="card appointmentHeader shadow-pop-br">
           <h2>Appointments</h2>
         </div>
-        <div className="appointmentsContainer">
+        <div className="appointmentsContainer d-flex justify-content-center">
           <div className="appointmentCards">
             {appointmentItemComponents}
           </div>
