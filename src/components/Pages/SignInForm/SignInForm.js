@@ -3,6 +3,7 @@ import './SignInForm.scss';
 import { NavLink as RRNavLink } from 'react-router-dom';
 import { Button } from 'reactstrap';
 import authRequests from '../../../Helpers/Data/authRequests';
+import {Link} from 'react-router-dom';
 
 const userInfo = {
   email: '',
@@ -54,31 +55,36 @@ class SignInForm extends React.Component {
         <div className="loginHeader">
           Login
         </div>
+        <div>
+          <hr id="loginHr"></hr>
+        </div>
         <div className="">
         <form>
-        <div className="loginInputs">
           <div className="form-group">
             <input
             type="email"
             name='email'
             value={this.email}
-            className="form-control m-2"
+            className="form-control"
             onChange={this.emailChange}
             id="username"
             aria-describedby="emailHelp"
-            placeholder="Enter email"></input>
+            placeholder="username/email"></input>
+          </div>
+          <div>
+            <hr id="usernameHr"></hr>
           </div>
           <div className="form-group">
             <input
             type="password"
             name='password'
             value={this.password}
-            className="form-control m-2"
+            className="form-control"
             onChange={this.passwordChange}
             id="password"
             placeholder="Password"></input>
           </div>
-        </div>
+            <hr id="passwordHr"></hr>
         <div>
           <Button
           type="submit"
@@ -89,16 +95,16 @@ class SignInForm extends React.Component {
           </Button>
         </div>
         </form>
-        <div className="or">
-          <h3>or</h3>
-        </div>
-          <Button
-          className="btn btn-primary createButton"
+        <div>
+          <p class="signupText">If you're new, sign up now!</p>
+          <Link
+          className="signInLink"
           autoComplete="current-password"
           tag={RRNavLink}
           to="/newmemberform">
           Sign Up
-          </Button>
+          </Link>
+          </div>
           </div>
         </div>
       </div>
