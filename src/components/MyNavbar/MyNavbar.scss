@@ -1,3 +1,22 @@
 .logoutLink {
   cursor: pointer;
 }
+
+.my-navbar {
+  background-color: #0DAC4A;
+}
+
+.navLogo {
+  display: inline-block;
+  padding-top: .3125rem;
+  padding-bottom: .3125rem;
+  margin-right: 1rem;
+  font-size: 1.25rem;
+  line-height: inherit;
+  white-space: nowrap;
+  a {
+    color: white;
+    text-decoration: none;
+    font-size: 30px;
+  }
+}

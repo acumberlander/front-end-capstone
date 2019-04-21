@@ -6,7 +6,6 @@ import {
   Collapse,
   Navbar,
   NavbarToggler,
-  NavbarBrand,
   Nav,
   NavItem,
   NavLink,
@@ -73,9 +72,11 @@ class MyNavbar extends React.Component {
 
     return (
       <div className="my-navbar">
-        <Navbar color="dark" dark expand="md">
-          <NavbarBrand href={this.linkLocation}>GrassKisser</NavbarBrand>
-          <NavbarToggler onClick={e => this.toggle(e)} />
+        <Navbar dark expand="md">
+          <div class="navLogo">
+          <a href={this.linkLocation}>Grass Kisser</a>
+          </div>
+          <NavbarToggler class="navToggle" onClick={e => this.toggle(e)} />
           <Collapse isOpen={this.state.isOpen} navbar>
             {buildNavbar()}
           </Collapse>
