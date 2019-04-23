@@ -1,5 +1,20 @@
-#newappointmentform {
+.newAppointment {
   cursor: pointer;
+  display: flex;
+}
+
+.newAppointmentPic {
+  width: 425px;
+  height: 425px;
+  border-radius: 1.7rem;
+  margin: 20px;
+}
+
+.appointmentsPic {
+  width: 425px;
+  height: 425px;
+  border-radius: 1.7rem;
+  margin: 20px;
 }
 
 #appointments {
@@ -11,11 +26,10 @@
 }
 
 .homeLinksContainer {
-  margin: 100px;
-  .card {
-    margin: 25px;
-    background-color: #ADE8BB;
-  }
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 80px 10px 50px 10px;
 }
 
 .homeLinkCard {

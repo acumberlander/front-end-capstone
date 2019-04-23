@@ -10,38 +10,23 @@ class UserHome extends React.Component {
   render() {
     return (
     <div className='Home mx-auto'>
-    <div className="homeLinksContainer">
-      <div className="homeLinkCard card shadow-pop-br">
-      <div className="newAppointment grow">
-        <div id="newappointmentform" onClick={this.changeView}>
-          <i class="fas fa-5x fa-calendar-plus"></i>
-          <div className="m-2">
-            <h2>Add New Appointment</h2>
-          </div>
+      <div className="homeLinksContainer">
+        <div className="newAppointment">
+          <img className="newAppointmentPic"
+               id="newappointmentform"
+               onClick={this.changeView}
+               src={require("../../img/cuttingGrass.jpeg")}
+               alt="New Appointment"></img>
+        </div>
+        <div   className="appointments">
+          <img className="appointmentsPic"
+               id="appointments"
+               onClick={this.changeView}
+               src={require("../../img/manicuredGrass.jpeg")}
+               alt="New Appointment">
+          </img>
         </div>
       </div>
-      </div>
-      <div className="homeLinkCard card shadow-pop-br">
-      <div className="appointments grow">
-        <div id="appointments" onClick={this.changeView}>
-        <i class="fas fa-5x fa-calendar-alt"></i>
-        <div className="m-2">
-          <h2>Appointments</h2>
-        </div>
-        </div>
-      </div>
-      </div>
-      <div className="homeLinkCard card shadow-pop-br">
-      <div className="messages grow">
-        <div id="messages" onClick={this.changeView}>
-          <i class="fas fa-5x fa-comments"></i>
-          <div className="m-2">
-            <h2>Messages</h2>
-          </div>
-        </div>
-      </div>
-      </div>
-    </div>
     </div>
     );
   }
