@@ -115,7 +115,7 @@ class App extends Component {
         <BrowserRouter>
           <React.Fragment>
             <MyNavbar isAuthed={authed} logoutClickEvent={logoutClickEvent} />
-              <div className="container">
+              {/* <div className="container"> */}
                 <div className="d-flex justify-content-center">
                   <Switch>
                     <PrivateRoute path='/' exact component={UserHome} authed={this.state.authed} />
@@ -127,7 +127,7 @@ class App extends Component {
                     <PublicRoute path='/auth' component={Auth} authed={this.state.authed} />
                   </Switch>
                 </div>
-              </div>
+              {/* </div> */}
             </React.Fragment>
           </BrowserRouter>
         </div>

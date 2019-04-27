@@ -73,7 +73,7 @@ class NewAppointmentForm extends React.Component {
     this.setState({ newComment: tempComment });
   }
 
-commentChange = e => this.inputFieldStringState('message', e);
+  commentChange = e => this.inputFieldStringState('message', e);
 
   addAppointment = (newAppointment, newComment) => {
     const uid = authRequests.getCurrentUid();    
@@ -106,93 +106,100 @@ commentChange = e => this.inputFieldStringState('message', e);
   render() {
     const { newAppointment, newComment } = this.state;
     return (
-      <div className="newAppointmentContainer mt-5">
-           <div className="newAppointmentForm">
-        <form onSubmit={this.formSubmit}>
-            <div className="customerInfoHeader">Customer Info</div>
-              {/*<div className="topRow"> */}
-                {/* <input
+      <div className="newAppointmentContainer container-fluid">
+          <div className="newAppointmentForm col-9">
+            <form onSubmit={this.formSubmit}>
+              <div className="customerInfoHeader m-0">Customer Info</div>
+                <div class="centerCustomerLine">
+                  <hr id="customerInfoLine"></hr>
+                </div>
+                <div className="topRow">
+                  <input
+                    type="text"
+                    placeholder="First Name"
+                    className="form-control"
+                    value={newAppointment.firstName}
+                    onChange={this.firstNameChange}
+                  />
+                  <input
+                    type="text"
+                    placeholder="Last Name"
+                    className="form-control"
+                    value={newAppointment.lastName}
+                    onChange={this.lastNameChange}
+                  />
+                </div>
+                <div className="midRow">
+                  <input
+                    type="text"
+                    placeholder="Address"
+                    className="form-control"
+                    value={newAppointment.address}
+                    onChange={this.addressChange}
+                  />
+                  <input 
+                    type="text"
+                    placeholder="City"
+                    className="form-control"
+                    value={newAppointment.city}
+                    onChange={this.cityChange}
+                  />
+                </div>
+                <div className="bottomRow">
+                  {/* <input
+                    type="date"
+                    id="date"
+                    className="form-control"
+                    value={newAppointment.date}
+                    onChange={this.dateChange}
+                  /> */}
+                  <input
+                    type="text"
+                    placeholder="State"
+                    className="form-control"
+                    value={newAppointment.state}
+                    onChange={this.stateChange}
+                  />
+                </div>
+                <div className="commentHeader"><h3>Leave us a message!</h3></div>
+                <div className="commentAndPrice">
+                <textarea
                   type="text"
-                  placeholder="First Name"
-                  className="form-control"
-                  value={newAppointment.firstName}
-                  onChange={this.firstNameChange}
+                  className="commentInput"
+                  placeholder="Comments/Message"
+                  value={newComment.message}
+                  onChange={this.commentChange}
                 />
-                <input
-                  type="text"
-                  placeholder="Last Name"
-                  className="form-control"
-                  value={newAppointment.lastName}
-                  onChange={this.lastNameChange}
-                />
-              </div>
-              <div className="midRow">
-                <input
-                  type="text"
-                  placeholder="Address"
-                  className="form-control"
-                  value={newAppointment.address}
-                  onChange={this.addressChange}
-                />
-                <input 
-                  type="text"
-                  placeholder="City"
-                  className="form-control"
-                  value={newAppointment.city}
-                  onChange={this.cityChange}
-                />
-              </div> */}
-              {/* <div className="bottomRow">
-                {/* <input
-                  type="date"
-                  id="date"
-                  className="form-control"
-                  value={newAppointment.date}
-                  onChange={this.dateChange}
-                /> */}
-                {/* <input
-                  type="text"
-                  placeholder="State"
-                  className="form-control"
-                  value={newAppointment.state}
-                  onChange={this.stateChange}
-                />
-              </div> */}
-              {/* <div className="commentHeader"><h3>Leave us a message!</h3></div>
-              <div className="commentAndPrice">
-              <textarea
-                type="text"
-                className="commentInput"
-                placeholder="Comments/Message"
-                value={newComment.message}
-                onChange={this.commentChange}
-              />
-          </div> */}
-          {/* <div id="quoteColumn">
-              <div className="estimate">
-              <h3>Get Instant Quote!</h3>
-                <h1>${newAppointment.price}</h1>
-              </div>
-              <div className="">
-              <p>is your quote</p>
-              </div>
-              <input
-                  type="number"
-                  placeholder="Acres"
-                  className="form-control"
-                  value={newAppointment.acres}
-                  onChange={this.acresChange}
-                />
-              </div>
-              <div className="makeAppointment">
-              <button
-                onClick={this.formSubmit}
-                className="btn btn-success">
-                Make Appointment
-              </button>
-              </div>*/} 
-        </form>
-          </div> 
+            </div>
+          </form>
+        </div>
+        <div id="quoteColumn" class="col-3 p-0">
+          <div className="quoteHeader">
+            <h1>Get Quote</h1>
+            <hr id="getQuoteLine"></hr>
+          </div>
+          <div id="acreInputDiv">
+            <input
+              id="acreInput"
+              type="number"
+              placeholder="Acres"
+              className="form-control"
+              value={newAppointment.acres}
+              onChange={this.acresChange}
+            />
+            <hr id="acreInputLine"></hr>
+          </div>
+          <div id="theQuoteDiv">
+            <h1>${newAppointment.price}</h1>
+          </div>
+          <div className="nextButtonDiv">
+            <button
+              onClick={this.formSubmit}
+              className="nextButton">
+              Next
+            </button>
+          </div>
+        </div>
       </div>
     );
   }
