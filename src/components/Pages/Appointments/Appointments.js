@@ -77,9 +77,10 @@ class Appointments extends React.Component {
       </div>
     ));
     return (
-      <div className="appointments col">
-        <div className="card appointmentHeader shadow-pop-br">
-          <h2>Appointments</h2>
+      <div className="appointments">
+        <div className="appointmentHeader">
+          <h1>Appointments</h1>
+          <hr className="appHeaderLine"></hr>
         </div>
         <div className="appointmentsContainer d-flex justify-content-center">
           <div className="appointmentCards">

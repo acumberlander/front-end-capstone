@@ -114,7 +114,7 @@ class AppointmentItem extends React.Component {
     const makeEditButton = () => {
       if (appointment.uid === uid) {
         return (
-          <div>
+          <div id="editButtonDiv">
             <span className="">
               <button className="btn btn-default" onClick={this.editAppointment}>
                 <i className="fas fa-pencil-alt"></i>
@@ -127,8 +127,8 @@ class AppointmentItem extends React.Component {
     const makeDeleteButton = () => {
       if (appointment.uid === uid) {
         return (
-          <div>
-            <span className="col">
+          <div id="deleteButtonDiv">
+            <span className="">
               <button className="btn btn-default" onClick={this.deleteAppointment}>
                 <i className="fas fa-times-circle"></i>
               </button>
@@ -138,23 +138,35 @@ class AppointmentItem extends React.Component {
       }
     };
     return (
-      <div className={statusColor}>
-        <div className="AppointmentItem text-center shadow-pop-br">
-          <div className="appointmentCardHeader">
-            <span className="dateSpan">{moment(appointment.date).format('MM/DD/YYYY')}</span>
-            <span>{makeDeleteButton()}</span>
+      <div className="appointmentItemContainer">
+        <div className="AppointmentItem">
+          <div className="appFirstCol col-4">
+          <div className="customerInfoContainer">
+            <p className="m-0 p-0 custInfoHeader">Customer Info</p>
+            <hr className="appBreakLine"></hr>
+            <div id="nameLine">{appointment.firstName} {appointment.lastName}</div>
+            <div id="addressSection">
+              <div id="addressLine">{appointment.address}</div>
+              <div id="cityStateLine">{appointment.city}, {appointment.state}</div>
+            </div>
           </div>
-          <div className="appointmentStatus">
-            <h3>Appointment {appointment.status === "" ? appointment.status = "is pending" : appointment.status}</h3>
+          <div className="serviceQuoteContainer">
+            <p className="serviceHeader m-0">Quote Estimate</p>
+            <hr className="appBreakLine"></hr>
+            <h2 id="priceTag">${appointment.price}</h2>
           </div>
-          <div className="serviceQuote">
-            <h1>${appointment.price}</h1>
+        </div>
+        <div className="appSecondCol col-4">
+          <div className="dateContainer">
+            <p className="dateHeader m-0">Date</p>
+            <hr className="appBreakLine"></hr>
+            <div className="dateDiv">{moment(appointment.date).format('MM/DD/YYYY')}</div>
           </div>
-          <div className="addressInfo">
-            <p>{appointment.address}</p>
-            <p>{appointment.city}, {appointment.state}</p>
-          </div>
-          {makeEditButton()}
+        </div>
+        <div className="moveEditAndDelete col-1 m-0 p-0">
+          <div className="moveDeleteButton">{makeDeleteButton()}</div>
+          <div className="moveEditButton">{makeEditButton()}</div>
+        </div>
           <Modal
         open={open}
         onClose={this.onCloseModal}
@@ -163,10 +175,10 @@ class AppointmentItem extends React.Component {
           <div className="formContainer">
           <form onSubmit={this.formSubmit}>
             <div className="form-group">
-              <label className="col-5" htmlFor="firstName"><h5>First Name</h5></label>
+              <label className="" htmlFor="firstName"><h5>First Name</h5></label>
               <input
                 type="text"
-                className="form-control col-6"
+                className="form-control"
                 id="firstName"
                 placeholder="First Name"
                 value={newAppointment.firstName}
@@ -174,10 +186,10 @@ class AppointmentItem extends React.Component {
               />
             </div>
             <div className="form-group">
-              <label className="col-5" htmlFor="lastName"><h5>Last Name</h5></label>
+              <label className="" htmlFor="lastName"><h5>Last Name</h5></label>
               <input
                 type="text"
-                className="form-control col-6"
+                className="form-control"
                 id="lastName"
                 placeholder="Last Name"
                 value={newAppointment.lastName}
@@ -185,10 +197,10 @@ class AppointmentItem extends React.Component {
               />
             </div>
             <div className="form-group">
-              <label className="col-5" htmlFor="date"><h5>Date</h5></label>
+              <label className="" htmlFor="date"><h5>Date</h5></label>
               <input
                 type="text"
-                className="form-control col-6"
+                className="form-control"
                 id="date"
                 placeholder="Date"
                 value={newAppointment.date}
@@ -196,10 +208,10 @@ class AppointmentItem extends React.Component {
               />
             </div>
             <div className="form-group">
-              <label className="col-5" htmlFor="address"><h5>Address</h5></label>
+              <label className="" htmlFor="address"><h5>Address</h5></label>
               <input
                 type="text"
-                className="form-control col-6"
+                className="form-control"
                 id="address"
                 placeholder="Address"
                 value={newAppointment.address}
@@ -207,10 +219,10 @@ class AppointmentItem extends React.Component {
               />
             </div>
             <div className="form-group">
-              <label className="col-5" htmlFor="city"><h5>City</h5></label>
+              <label className="" htmlFor="city"><h5>City</h5></label>
               <input
                 type="text"
-                className="form-control col-6"
+                className="form-control"
                 id="city"
                 placeholder="City"
                 value={newAppointment.city}
@@ -218,10 +230,10 @@ class AppointmentItem extends React.Component {
               />
             </div>
             <div className="form-group">
-              <label className="col-5" htmlFor="state"><h5>State</h5></label>
+              <label className="" htmlFor="state"><h5>State</h5></label>
               <input
                 type="text"
-                className="form-control col-6"
+                className="form-control"
                 id="state"
                 placeholder="State"
                 value={newAppointment.state}
