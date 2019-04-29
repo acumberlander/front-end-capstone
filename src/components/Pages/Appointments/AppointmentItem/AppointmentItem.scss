@@ -1,0 +1,108 @@
+.AppointmentItem {
+  display: flex;
+  flex-wrap: wrap;
+  border: 3px solid #0DAC4A;
+  border-radius: .5rem;
+  width: 800px;
+  height: 325px;
+  background-color: white;
+}
+
+.appBreakLine {
+  border: solid 1px #0DAC4A;
+  width: 250px;
+  margin: 0;
+}
+.appFirstCol {
+
+  .customerInfoContainer {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 15px;
+    .custInfoHeader {
+      color: #0DAC4A;
+      font-size: 30px;
+    }
+    #nameLine {
+      display: flex;
+      justify-content: left;
+      color: #0DAC4A;
+      font-size: 25px;
+      min-width: 100%;
+      text-align: left;
+    }
+
+    #addressSection {
+      #addressLine {
+        display: flex;
+        justify-content: left;
+        color: #0DAC4A;
+        font-size: 18px;
+      }
+      #cityStateLine {
+        display: flex;
+        justify-content: left;
+        color: #0DAC4A;
+        font-size: 18px;
+      }
+    }
+  }
+  .serviceQuoteContainer {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 10px;
+    .serviceHeader {
+      color: #0DAC4A;
+      font-size: 30px;
+    }
+
+    #priceTag {
+      color: #0DAC4A;
+    }
+  }
+}
+
+.appSecondCol {
+  margin-left: 40px;
+
+  .dateContainer {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 15px;
+  }
+  .dateHeader {
+    color: #0DAC4A;
+    font-size: 30px;
+  }
+
+  .dateDiv {
+    color: #0DAC4A;
+    font-size: 25px;
+  }
+}
+
+
+.moveEditAndDelete {
+  display: flex;
+  flex-direction: column;
+  // justify-content: right;
+  margin-left: 200px;
+  padding:0;
+}
+
+#editButtonDiv {
+  background-color: #0DAC4A;
+  border-radius: .125rem;
+  width: 50px;
+  height: 50px;
+  margin-left: 175px;
+  margin-top: 220px;
+}
+
+#deleteButtonDiv {
+  background-color: #0DAC4A;
+  border-radius: .125rem;
+  width: 50px;
+  height: 50px;
+  margin-left: 175px;
+}

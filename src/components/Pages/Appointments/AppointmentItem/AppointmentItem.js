@@ -114,7 +114,7 @@ class AppointmentItem extends React.Component {
     const makeEditButton = () => {
       if (appointment.uid === uid) {
         return (
-          <div>
+          <div id="editButtonDiv">
             <span className="">
               <button className="btn btn-default" onClick={this.editAppointment}>
                 <i className="fas fa-pencil-alt"></i>
@@ -127,8 +127,8 @@ class AppointmentItem extends React.Component {
     const makeDeleteButton = () => {
       if (appointment.uid === uid) {
         return (
-          <div>
-            <span className="col">
+          <div id="deleteButtonDiv">
+            <span className="">
               <button className="btn btn-default" onClick={this.deleteAppointment}>
                 <i className="fas fa-times-circle"></i>
               </button>
@@ -139,20 +139,34 @@ class AppointmentItem extends React.Component {
     };
     return (
       <div className="appointmentItemContainer">
-        <div className="AppointmentItem text-center">
-            <span className="dateSpan">{moment(appointment.date).format('MM/DD/YYYY')}</span>
-            <span>{makeDeleteButton()}</span>
-          <div className="appointmentStatus">
-            <h3>Appointment {appointment.status === "" ? appointment.status = "is pending" : appointment.status}</h3>
+        <div className="AppointmentItem">
+          <div className="appFirstCol col-4">
+          <div className="customerInfoContainer">
+            <p className="m-0 p-0 custInfoHeader">Customer Info</p>
+            <hr className="appBreakLine"></hr>
+            <div id="nameLine">{appointment.firstName} {appointment.lastName}</div>
+            <div id="addressSection">
+              <div id="addressLine">{appointment.address}</div>
+              <div id="cityStateLine">{appointment.city}, {appointment.state}</div>
+            </div>
           </div>
-          <div className="serviceQuote">
-            <h1>${appointment.price}</h1>
+          <div className="serviceQuoteContainer">
+            <p className="serviceHeader m-0">Quote Estimate</p>
+            <hr className="appBreakLine"></hr>
+            <h2 id="priceTag">${appointment.price}</h2>
           </div>
-          <div className="addressInfo">
-            <p>{appointment.address}</p>
-            <p>{appointment.city}, {appointment.state}</p>
+        </div>
+        <div className="appSecondCol col-4">
+          <div className="dateContainer">
+            <p className="dateHeader m-0">Date</p>
+            <hr className="appBreakLine"></hr>
+            <div className="dateDiv">{moment(appointment.date).format('MM/DD/YYYY')}</div>
           </div>
-          {makeEditButton()}
+        </div>
+        <div className="moveEditAndDelete col-1 m-0 p-0">
+          <div className="moveDeleteButton">{makeDeleteButton()}</div>
+          <div className="moveEditButton">{makeEditButton()}</div>
+        </div>
           <Modal
         open={open}
         onClose={this.onCloseModal}

@@ -60,7 +60,7 @@ class SignInForm extends React.Component {
         </div>
         <div className="">
         <form>
-          <div className="form-group">
+          <div className="form-group d-flex justify-content-center">
             <input
             type="email"
             name='email'
@@ -74,7 +74,7 @@ class SignInForm extends React.Component {
           <div>
             <hr id="usernameHr"></hr>
           </div>
-          <div className="form-group">
+          <div className="form-group d-flex justify-content-center">
             <input
             type="password"
             name='password'
