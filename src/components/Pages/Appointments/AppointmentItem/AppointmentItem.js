@@ -138,12 +138,10 @@ class AppointmentItem extends React.Component {
       }
     };
     return (
-      <div className={statusColor}>
-        <div className="AppointmentItem text-center shadow-pop-br">
-          <div className="appointmentCardHeader">
+      <div className="appointmentItemContainer">
+        <div className="AppointmentItem text-center">
             <span className="dateSpan">{moment(appointment.date).format('MM/DD/YYYY')}</span>
             <span>{makeDeleteButton()}</span>
-          </div>
           <div className="appointmentStatus">
             <h3>Appointment {appointment.status === "" ? appointment.status = "is pending" : appointment.status}</h3>
           </div>
@@ -163,10 +161,10 @@ class AppointmentItem extends React.Component {
           <div className="formContainer">
           <form onSubmit={this.formSubmit}>
             <div className="form-group">
-              <label className="col-5" htmlFor="firstName"><h5>First Name</h5></label>
+              <label className="" htmlFor="firstName"><h5>First Name</h5></label>
               <input
                 type="text"
-                className="form-control col-6"
+                className="form-control"
                 id="firstName"
                 placeholder="First Name"
                 value={newAppointment.firstName}
@@ -174,10 +172,10 @@ class AppointmentItem extends React.Component {
               />
             </div>
             <div className="form-group">
-              <label className="col-5" htmlFor="lastName"><h5>Last Name</h5></label>
+              <label className="" htmlFor="lastName"><h5>Last Name</h5></label>
               <input
                 type="text"
-                className="form-control col-6"
+                className="form-control"
                 id="lastName"
                 placeholder="Last Name"
                 value={newAppointment.lastName}
@@ -185,10 +183,10 @@ class AppointmentItem extends React.Component {
               />
             </div>
             <div className="form-group">
-              <label className="col-5" htmlFor="date"><h5>Date</h5></label>
+              <label className="" htmlFor="date"><h5>Date</h5></label>
               <input
                 type="text"
-                className="form-control col-6"
+                className="form-control"
                 id="date"
                 placeholder="Date"
                 value={newAppointment.date}
@@ -196,10 +194,10 @@ class AppointmentItem extends React.Component {
               />
             </div>
             <div className="form-group">
-              <label className="col-5" htmlFor="address"><h5>Address</h5></label>
+              <label className="" htmlFor="address"><h5>Address</h5></label>
               <input
                 type="text"
-                className="form-control col-6"
+                className="form-control"
                 id="address"
                 placeholder="Address"
                 value={newAppointment.address}
@@ -207,10 +205,10 @@ class AppointmentItem extends React.Component {
               />
             </div>
             <div className="form-group">
-              <label className="col-5" htmlFor="city"><h5>City</h5></label>
+              <label className="" htmlFor="city"><h5>City</h5></label>
               <input
                 type="text"
-                className="form-control col-6"
+                className="form-control"
                 id="city"
                 placeholder="City"
                 value={newAppointment.city}
@@ -218,10 +216,10 @@ class AppointmentItem extends React.Component {
               />
             </div>
             <div className="form-group">
-              <label className="col-5" htmlFor="state"><h5>State</h5></label>
+              <label className="" htmlFor="state"><h5>State</h5></label>
               <input
                 type="text"
-                className="form-control col-6"
+                className="form-control"
                 id="state"
                 placeholder="State"
                 value={newAppointment.state}
