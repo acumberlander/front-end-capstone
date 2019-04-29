@@ -94,6 +94,18 @@ class NewAppointmentForm extends React.Component {
     const myAppointment = { ...this.state.newAppointment };
     const myComment = { ...this.state.newComment };
     myAppointment.uid = authRequests.getCurrentUid();
+    const firstName = myAppointment.firstName;
+    const lastName = myAppointment.lastName;
+    const city = myAppointment.city;
+    const state = myAppointment.state;
+    const address = myAppointment.address;
+    const fieldArray = [firstName, lastName, city, state, address]
+    
+    if (fieldArray.includes('')) {
+      alert("No customer info can be left blank.")
+      return;
+    }
+    
     if (myComment.message === "") {
       this.addAppointment(myAppointment);
       this.setState({ newAppointment: defaultAppointment });
@@ -106,70 +118,77 @@ class NewAppointmentForm extends React.Component {
   render() {
     const { newAppointment, newComment } = this.state;
     return (
-      <div className="newAppointmentContainer container-fluid">
+      <div className="newAppointmentContainer container-fluid p-0">
           <div className="newAppointmentForm col-9">
             <form onSubmit={this.formSubmit}>
-              <div className="customerInfoHeader m-0">Customer Info</div>
-                <div class="centerCustomerLine">
-                  <hr id="customerInfoLine"></hr>
-                </div>
-                <div className="topRow">
-                  <input
+                <div className="customerInfoHeader m-0">Customer Info</div>
+                  <div class="centerCustomerLine">
+                    <hr id="customerInfoLine"></hr>
+                  </div>
+                  <div id="formDiv">
+                  <div className="leftColumn col-5 p-0">
+                    <input
+                      type="text"
+                      placeholder="First Name"
+                      className="form-control"
+                      value={newAppointment.firstName}
+                      onChange={this.firstNameChange}
+                    />
+                    <hr class="fieldLine"></hr>
+                    <input
+                      type="text"
+                      placeholder="Last Name"
+                      className="form-control"
+                      value={newAppointment.lastName}
+                      onChange={this.lastNameChange}
+                    />
+                    <hr class="fieldLine"></hr>
+                    <input
+                      type="text"
+                      placeholder="Address"
+                      className="form-control"
+                      value={newAppointment.address}
+                      onChange={this.addressChange}
+                    />
+                      <hr class="fieldLine"></hr>
+                  </div>
+                  <div class="rightColumn col-5 p-0">
+                    <input 
+                      type="text"
+                      placeholder="City"
+                      className="form-control"
+                      value={newAppointment.city}
+                      onChange={this.cityChange}
+                    />
+                    <hr class="fieldLine"></hr>
+                    {/* <input
+                      type="date"
+                      id="date"
+                      className="form-control"
+                      value={newAppointment.date}
+                      onChange={this.dateChange}
+                    /> */}
+                    <input
+                      type="text"
+                      placeholder="State"
+                      className="form-control"
+                      value={newAppointment.state}
+                      onChange={this.stateChange}
+                    />
+                    <hr class="fieldLine"></hr>
+                  </div>
+                  </div>
+            <div id="commentDiv">
+                  <div className="commentHeader"><h3>Leave us a message!</h3></div>
+                  <div className="commentBlock">
+                  <textarea
                     type="text"
-                    placeholder="First Name"
-                    className="form-control"
-                    value={newAppointment.firstName}
-                    onChange={this.firstNameChange}
-                  />
-                  <input
-                    type="text"
-                    placeholder="Last Name"
-                    className="form-control"
-                    value={newAppointment.lastName}
-                    onChange={this.lastNameChange}
-                  />
-                </div>
-                <div className="midRow">
-                  <input
-                    type="text"
-                    placeholder="Address"
-                    className="form-control"
-                    value={newAppointment.address}
-                    onChange={this.addressChange}
-                  />
-                  <input 
-                    type="text"
-                    placeholder="City"
-                    className="form-control"
-                    value={newAppointment.city}
-                    onChange={this.cityChange}
-                  />
-                </div>
-                <div className="bottomRow">
-                  {/* <input
-                    type="date"
-                    id="date"
-                    className="form-control"
-                    value={newAppointment.date}
-                    onChange={this.dateChange}
-                  /> */}
-                  <input
-                    type="text"
-                    placeholder="State"
-                    className="form-control"
-                    value={newAppointment.state}
-                    onChange={this.stateChange}
-                  />
-                </div>
-                <div className="commentHeader"><h3>Leave us a message!</h3></div>
-                <div className="commentAndPrice">
-                <textarea
-                  type="text"
-                  className="commentInput"
-                  placeholder="Comments/Message"
-                  value={newComment.message}
-                  onChange={this.commentChange}
-                />
+                    className="commentInput"
+                    placeholder="Comments/Message"
+                    value={newComment.message}
+                    onChange={this.commentChange}
+                    />
+              </div>
             </div>
           </form>
         </div>

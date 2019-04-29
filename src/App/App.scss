@@ -21,9 +21,10 @@
   color: #61dafb;
 }
 
-body {
+body, html {
   font-family: 'Fredoka One', cursive;
   font-family: 'Open Sans', sans-serif;
+  overflow: auto;
 }
 
 @keyframes App-logo-spin {

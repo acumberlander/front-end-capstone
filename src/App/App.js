@@ -18,6 +18,7 @@ import NewAppointmentForm from '../components/Pages/NewAppointmentForm/NewAppoin
 import NewMemberForm from '../components/Pages/NewMemberForm/NewMemberForm';
 import Messages from '../components/Pages/Messages/Messages';
 import MyNavbar from '../components/MyNavbar/MyNavbar';
+import MyFooter from '../components/MyFooter/MyFooter';
 import authRequests from '../Helpers/Data/authRequests';
 import ServiceAppList from '../components/Pages/ServiceAppList/ServiceAppList';
 import './App.scss';
@@ -115,7 +116,6 @@ class App extends Component {
         <BrowserRouter>
           <React.Fragment>
             <MyNavbar isAuthed={authed} logoutClickEvent={logoutClickEvent} />
-              {/* <div className="container"> */}
                 <div className="d-flex justify-content-center">
                   <Switch>
                     <PrivateRoute path='/' exact component={UserHome} authed={this.state.authed} />
@@ -127,9 +127,9 @@ class App extends Component {
                     <PublicRoute path='/auth' component={Auth} authed={this.state.authed} />
                   </Switch>
                 </div>
-              {/* </div> */}
             </React.Fragment>
           </BrowserRouter>
+          <MyFooter />
         </div>
       );
     }

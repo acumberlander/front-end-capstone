@@ -1,32 +1,95 @@
 .newAppointmentForm {
   height: 650px;
-  border: solid 2px black;
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+#formDiv {
+  display: flex;
+  justify-content: center;
 }
 
 #quoteColumn {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  border: solid black 2px;
+  height: 100%;
   margin: 0;
   background-image: url("../../../img/manicuredGrass.jpeg");
   background-size: cover;
   background-repeat: no-repeat;
 }
 
-.topRow {
-  display: flex;
-  input {
+
+
+.leftColumn {
+
+  .fieldLine {
+    border: solid 1px #0DAC4A;
     width: 300px;
-    margin: 0px 50px;
+    margin: 1px 0 25px;
+  }
+
+  input {
+    text-align: center;
+    width: 300px;
+    background: rgba(255, 255, 255, 0.646);
+    border: none;
+    font-size: 25px;
+    color: #0DAC4A;
+  }
+}
+
+.rightColumn {
+  
+  .fieldLine {
+    border: solid 1px #0DAC4A;
+    width: 300px;
+    margin: 1px 0 25px;
+  }
+
+  input {
+    text-align: center;
+    width: 300px;
+    background: rgba(255, 255, 255, 0.646);
+    border: none;
+    font-size: 25px;
+    color: #0DAC4A;
+  }
+}
+
+#commentDiv {
+  display: flex;
+  flex-direction: column;
+  justify-content: left;
+  margin: 40px 70px 0;
+  width: 685px;
+}
+
+.commentHeader {
+  display: flex;
+  justify-content: left;
+  h3 {
+    color: #0DAC4A;
+    font-size: 35px;
+  }
+}
+
+.commentBlock {
+  textarea {
+    width: 100%;
+    height: 150px;
+    border: 2px solid #0DAC4A;;
   }
 }
 
 .quoteHeader {
-  background-color: lightgray;
+  background-color: rgb(147, 145, 145);
   color: white;
   width: 100%;
-  height: 150px;
+  height: max-content;
   padding-top: 20px;
   h1 {
     font-size: 60px;
@@ -35,6 +98,7 @@
 
 #theQuoteDiv {
   background-color: white;
+  overflow: auto;
   opacity: .7;
   width: 100%;
   max-height: max-content;
@@ -103,12 +167,10 @@ input[type=number]::placeholder {
 .centerCustomerLine {
   display: flex;
   justify-content: center;
+  margin-bottom: 50px;
 }
 
 .newAppointmentContainer {
-  border: dotted 1px;
-  // width: 1440px;
-  // height: 1080px;
   display: flex;
   flex-wrap: wrap;
 }
