@@ -73,7 +73,7 @@ class NewAppointmentForm extends React.Component {
     this.setState({ newComment: tempComment });
   }
 
-commentChange = e => this.inputFieldStringState('message', e);
+  commentChange = e => this.inputFieldStringState('message', e);
 
   addAppointment = (newAppointment, newComment) => {
     const uid = authRequests.getCurrentUid();    
@@ -94,6 +94,18 @@ commentChange = e => this.inputFieldStringState('message', e);
     const myAppointment = { ...this.state.newAppointment };
     const myComment = { ...this.state.newComment };
     myAppointment.uid = authRequests.getCurrentUid();
+    const firstName = myAppointment.firstName;
+    const lastName = myAppointment.lastName;
+    const city = myAppointment.city;
+    const state = myAppointment.state;
+    const address = myAppointment.address;
+    const fieldArray = [firstName, lastName, city, state, address]
+    
+    if (fieldArray.includes('')) {
+      alert("No customer info can be left blank.")
+      return;
+    }
+    
     if (myComment.message === "") {
       this.addAppointment(myAppointment);
       this.setState({ newAppointment: defaultAppointment });
@@ -106,91 +118,107 @@ commentChange = e => this.inputFieldStringState('message', e);
   render() {
     const { newAppointment, newComment } = this.state;
     return (
-      <div className="newAppointmentContainer mt-5">
-        <form onSubmit={this.formSubmit}>
-          <div className="newAppointmentForm">
-            <div className="newAppointmentHeader">Appointment Details</div>
-              <div className="topRow">
-                <input
-                  type="text"
-                  placeholder="First Name"
-                  className="form-control"
-                  value={newAppointment.firstName}
-                  onChange={this.firstNameChange}
-                />
-                <input
-                  type="text"
-                  placeholder="Last Name"
-                  className="form-control"
-                  value={newAppointment.lastName}
-                  onChange={this.lastNameChange}
-                />
+      <div className="newAppointmentContainer container-fluid p-0">
+          <div className="newAppointmentForm col-9">
+            <form onSubmit={this.formSubmit}>
+                <div className="customerInfoHeader m-0">Customer Info</div>
+                  <div class="centerCustomerLine">
+                    <hr id="customerInfoLine"></hr>
+                  </div>
+                  <div id="formDiv">
+                  <div className="leftColumn col-5 p-0">
+                    <input
+                      type="text"
+                      placeholder="First Name"
+                      className="form-control"
+                      value={newAppointment.firstName}
+                      onChange={this.firstNameChange}
+                    />
+                    <hr class="fieldLine"></hr>
+                    <input
+                      type="text"
+                      placeholder="Last Name"
+                      className="form-control"
+                      value={newAppointment.lastName}
+                      onChange={this.lastNameChange}
+                    />
+                    <hr class="fieldLine"></hr>
+                    <input
+                      type="text"
+                      placeholder="Address"
+                      className="form-control"
+                      value={newAppointment.address}
+                      onChange={this.addressChange}
+                    />
+                      <hr class="fieldLine"></hr>
+                  </div>
+                  <div class="rightColumn col-5 p-0">
+                    <input 
+                      type="text"
+                      placeholder="City"
+                      className="form-control"
+                      value={newAppointment.city}
+                      onChange={this.cityChange}
+                    />
+                    <hr class="fieldLine"></hr>
+                    {/* <input
+                      type="date"
+                      id="date"
+                      className="form-control"
+                      value={newAppointment.date}
+                      onChange={this.dateChange}
+                    /> */}
+                    <input
+                      type="text"
+                      placeholder="State"
+                      className="form-control"
+                      value={newAppointment.state}
+                      onChange={this.stateChange}
+                    />
+                    <hr class="fieldLine"></hr>
+                  </div>
+                  </div>
+            <div id="commentDiv">
+                  <div className="commentHeader"><h3>Leave us a message!</h3></div>
+                  <div className="commentBlock">
+                  <textarea
+                    type="text"
+                    className="commentInput"
+                    placeholder="Comments/Message"
+                    value={newComment.message}
+                    onChange={this.commentChange}
+                    />
               </div>
-              <div className="midRow">
-                <input
-                  type="text"
-                  placeholder="Address"
-                  className="form-control"
-                  value={newAppointment.address}
-                  onChange={this.addressChange}
-                />
-                <input 
-                  type="text"
-                  placeholder="City"
-                  className="form-control"
-                  value={newAppointment.city}
-                  onChange={this.cityChange}
-                />
-                <h3>Get Instant Quote!</h3>
-              </div>
-              <div className="bottomRow">
-                <input
-                  type="date"
-                  id="date"
-                  className="form-control"
-                  value={newAppointment.date}
-                  onChange={this.dateChange}
-                />
-                <input
-                  type="text"
-                  placeholder="State"
-                  className="form-control"
-                  value={newAppointment.state}
-                  onChange={this.stateChange}
-                />
-                <input
-                  type="number"
-                  placeholder="Acres"
-                  className="form-control"
-                  value={newAppointment.acres}
-                  onChange={this.acresChange}
-                />
-              </div>
-              <div className="commentHeader"><h3>Leave us a message!</h3></div>
-              <div className="commentAndPrice">
-              <textarea
-                type="text"
-                className="commentInput"
-                placeholder="Comments/Message"
-                value={newComment.message}
-                onChange={this.commentChange}
-              />
-              <div className="estimate">
-                <h1>${newAppointment.price}</h1>
-              </div>
-              <div className="">
-              <p>is your quote</p>
-              </div>
-              </div>
-              <div className="makeAppointment">
-              <button
-                onClick={this.formSubmit}
-                className="btn btn-success">
-                Make Appointment
-              </button>
-              </div>
+            </div>
+          </form>
+        </div>
+        <div id="quoteColumn" class="col-3 p-0">
+          <div className="quoteHeader">
+            <h1>Get Quote</h1>
+            <hr id="getQuoteLine"></hr>
           </div>
-        </form>
+          <div id="acreInputDiv">
+            <input
+              id="acreInput"
+              type="number"
+              placeholder="Acres"
+              className="form-control"
+              value={newAppointment.acres}
+              onChange={this.acresChange}
+            />
+            <hr id="acreInputLine"></hr>
+          </div>
+          <div id="theQuoteDiv">
+            <h1>${newAppointment.price}</h1>
+          </div>
+          <div className="nextButtonDiv">
+            <button
+              onClick={this.formSubmit}
+              className="nextButton">
+              Next
+            </button>
+          </div>
+        </div>
       </div>
     );
   }

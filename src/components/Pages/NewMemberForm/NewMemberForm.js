@@ -4,9 +4,11 @@ import userRequests from '../../../Helpers/Data/Requests/userRequests';
 import authRequests from '../../../Helpers/Data/authRequests';
 import firebase from 'firebase/app';
 
+
 const userInfo = {
   email: '',
   password: '',
+  confirmPassword: '',
   firstName: '',
   lastName: '',
   uid: '',
@@ -31,7 +33,7 @@ signUp = ( newUserInfo) => {
     this.props.history.push('/home');
   }).catch(err => console.error('there was an error with auth', err));
 }
- 
+
   formFieldStringState = (name, e) => {
     e.preventDefault();
     const tempInfo = { ...this.state.newUserInfo };
@@ -55,64 +57,93 @@ signUp = ( newUserInfo) => {
     this.formFieldStringState('password', e);
   }
 
+  confirmPasswordChange = (e) => {
+    this.formFieldStringState('confirmPassword', e);
+  }
+
   formSubmit = (e) => {
     e.preventDefault();
     const signUp = this.signUp;
     const userInfo = { ...this.state.newUserInfo };
-    signUp(this.state.newUserInfo);
-    this.setState({ newUserInfo:userInfo })
+    if (userInfo.password === userInfo.confirmPassword)
+    {
+      signUp(this.state.newUserInfo);
+      this.setState({ newUserInfo:userInfo })
+    } else {
+      alert("Passwords don't match. Try again.");
+    }
   }
 
   render () {
     return (
       <div className='NewMemberContainer'>
+        <div id="newMemberHeaderDiv">
+          <h1 id="newMemberHeader">New Member</h1>
+        </div>
         <div className="newMemberCard">
-          <div className="newMemberHeader">
-            New Member
-          </div>
           <div className="">
           <form>
-            <div className="loginInputs">
+            <div className="loginInputDiv">
             <div className="form-group">
               <input
               type="text"
               name='firstName'
               value={this.firstName}
-              className="form-control m-2"
+              className="form-control"
               onChange={this.firstNameChange}
               id="newFirstName"
-              placeholder="First Name"></input>
+              placeholder="First Name"
+              />
+              <hr class="fieldLine"></hr>
             </div>
             <div className="form-group">
               <input
               type="text"
               name='lastName'
               value={this.lastName}
-              className="form-control m-2"
+              className="form-control"
               onChange={this.lastNameChange}
               id="newLastName"
-              placeholder="Last Name"></input>
+              placeholder="Last Name"
+              />
+              <hr class="fieldLine"></hr>
             </div>
             <div className="form-group">
               <input
               type="email"
               name='email'
               value={this.email}
-              className="form-control m-2"
+              className="form-control"
               onChange={this.emailChange}
               id="newUsername"
               aria-describedby="emailHelp"
-              placeholder="Enter email"></input>
+              placeholder="Enter email"
+              />
+              <hr class="fieldLine"></hr>
             </div>
             <div className="form-group">
               <input
               type="password"
               name='password'
               value={this.password}
-              className="form-control m-2"
+              className="form-control"
               onChange={this.passwordChange}
               id="newPassword"
-              placeholder="Password"></input>
+              placeholder="Password"
+              />
+              <hr class="fieldLine"></hr>
+            </div>
+            <div className="form-group">
+              <input
+              type="password"
+              name='confirmPassword'
+              value={this.confirmPassword}
+              className="form-control"
+              onChange={this.confirmPasswordChange}
+              id="confirmNewPassword"
+              placeholder="Confirm Password"
+              />
+              <hr class="fieldLine"></hr>
             </div>
             </div>
             <button
