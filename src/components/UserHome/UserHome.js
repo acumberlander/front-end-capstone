@@ -3,34 +3,34 @@ import './UserHome.scss';
 
 class UserHome extends React.Component {
   changeView = (e) => {
-    const view = e.currentTarget.id;
-    if (view === 'newAppointment') {
-      this.props.history.push(`/${'newappointmentform'}`);
+    const view = e.currentTarget.className;
+    if (view === 'newAppointment') 
+    {
+      this.props.history.push('/newappointmentform');
     }
+    else if (view === 'appointments')
+    {
+      this.props.history.push('/appointments');
+    }
+    console.log(e.currentTarget.className);
   }
 
   render() {
     return (
     <div className='Home mx-auto'>
       <div className="homeLinksContainer">
-          <div id="newAppointmentText">
-            <h1>New Appointment</h1>
-          </div>
-        <div id="newAppointment"
-             onClick={this.changeView}>
+        <div className="newAppointment" onClick={this.changeView}>
+          <div id="newAppointmentText">New Appointment</div>
+          <div id="newAppointmentsShade"></div>
           <img className="newAppointmentPic"
-              id="newappointmentform"
-              src={require("../../img/cuttingGrass.jpeg")}
-              alt="New Appointment">
+            id="newappointmentform"
+            src={require("../../img/cuttingGrass.jpeg")}
+            alt="New Appointment">
           </img>
-          <div id="newAppointmentTextDiv"></div>
         </div>
-        <div id="appointmentText">
-            <h1>Appointments</h1>
-          </div>
-        <div  className="appointments"
-              onClick={this.changeView}>
-        <div id="appointmentTextDiv"></div>
+        <div   className="appointments" onClick={this.changeView}>
+          <div id="appointmentText">Appointments</div>
+          <div id="appointmentsShade"></div>
           <img className="appointmentsPic"
                id="appointments"
                src={require("../../img/manicuredGrass.jpeg")}
