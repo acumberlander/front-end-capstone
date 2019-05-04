@@ -15,6 +15,7 @@ import Auth from '../components/Pages/Auth/Auth';
 import UserHome from '../components/UserHome/UserHome';
 import Appointments from '../components/Pages/Appointments/Appointments';
 import NewAppointmentForm from '../components/Pages/NewAppointmentForm/NewAppointmentForm';
+import PickDate from '../components/Pages/PickDate/PickDate';
 import NewMemberForm from '../components/Pages/NewMemberForm/NewMemberForm';
 import Messages from '../components/Pages/Messages/Messages';
 import MyNavbar from '../components/MyNavbar/MyNavbar';
@@ -121,6 +122,7 @@ class App extends Component {
                     <PrivateRoute path='/' exact component={UserHome} authed={this.state.authed} />
                     <PrivateRoute path='/home' component={UserHome} authed={this.state.authed} />
                     <PrivateRoute path='/newappointmentform' component={NewAppointmentForm} authed={this.state.authed} />
+                    <PrivateRoute path='/pickdate' component={PickDate} authed={this.state.authed} />
                     <PrivateRoute path='/appointments' component={Appointments} authed={this.state.authed} />
                     <PublicRoute path='/newmemberform' component={NewMemberForm} authed={this.state.authed} />
                     <PrivateRoute path='/messages' component={Messages} authed={this.state.authed} />

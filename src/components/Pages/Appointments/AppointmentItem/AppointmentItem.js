@@ -11,6 +11,7 @@ const defaultAppointment = {
   firstName: '',
   lastName: '',
   date: '',
+  time: '',
   status: '',
   address: '',
   city: '',
@@ -100,15 +101,6 @@ class AppointmentItem extends React.Component {
   render() {
     const { open, newAppointment } = this.state;
     const { appointment, isEditing, editId } = this.props;
-
-    let statusColor = 'appointmentContainer m-3 isPending';
-    if (appointment.status === 'approved') {
-      statusColor = 'appointmentContainer m-3 isApproved';
-    } else if (appointment.status === 'cancelled') {
-      statusColor = 'appointmentContainer m-3 isCancelled';
-    } else {
-      statusColor = 'appointmentContainer m-3 isPending';
-    }
 
     const uid = authRequests.getCurrentUid();
     const makeEditButton = () => {

@@ -8,6 +8,7 @@ const defaultAppointment = {
   firstName: '',
   lastName: '',
   date: '',
+  time: '',
   status: 'is pending',
   address: '',
   city: '',
