@@ -9,6 +9,7 @@
 #formDiv {
   display: flex;
   justify-content: center;
+  background-color: white;
 }
 
 #quoteColumn {
@@ -32,6 +33,10 @@
     margin: 1px 0 25px;
   }
 
+  input::placeholder {
+    color: #0DAC4A;
+  }
+
   input {
     text-align: center;
     width: 300px;
@@ -48,6 +53,10 @@
     border: solid 1px #0DAC4A;
     width: 300px;
     margin: 1px 0 25px;
+  }
+
+  input::placeholder {
+    color: #0DAC4A;
   }
 
   input {
@@ -162,6 +171,7 @@ input[type=number]::placeholder {
   height: 100px;
   color: #0DAC4A;
   font-size: 55px;
+  background-color: white;
 }
 
 .centerCustomerLine {

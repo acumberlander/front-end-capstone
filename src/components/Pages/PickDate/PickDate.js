@@ -1,35 +1,61 @@
-import React from 'react'
-import deafultAppointment from '../NewAppointmentForm/NewAppointmentForm';
+import React from 'react';
+import PropTypes from 'prop-types';
 
+
+const defaultAppointment = {
+  firstName: '',
+  lastName: '',
+  date: '',
+  time: '',
+  status: 'is pending',
+  address: '',
+  city: '',
+  state: '',
+  acres: '',
+  uid: '',
+  price: '0',
+};
 
 class PickDate extends React.Component {
   state = {
-    newAppointment: deafultAppointment
+    newAppointment: defaultAppointment
+  }
+
+  static propTypes = {
+
   }
 
   render() {
     const { newAppointment } = this.state;
     return (
-      <div className="newAppointmentContainer container-fluid p-0">
+      <div className="dateWeatherContainer container-fluid p-0">
         <div class="col-9"></div>
-        <div id="quoteColumn" class="col-3 p-0">
-          <div className="quoteHeader">
-            <h1>Get Quote</h1>
-            <hr id="getQuoteLine"></hr>
+        <div id="dateColumn" class="col-3 p-0">
+          <div className="dateHeader">
+            <h1>Pick a Date</h1>
+            <hr id="pickDateLine"></hr>
           </div>
-          <div id="acreInputDiv">
+          <div id="dateDiv">
             <input
-              id="acreInput"
-              type="number"
-              placeholder="Acres"
+              id="date"
+              type="date"
+              placeholder="mm/dd/yyyy"
               className="form-control"
-              value={newAppointment.deafultAppointment}
-              onChange={this.acresChange}
+              value={newAppointment.date}
+              onChange={this.dateChange}
             />
-            <hr id="acreInputLine"></hr>
+            <hr id="dateLine"></hr>
           </div>
-          <div id="theQuoteDiv">
-            <h1>${newAppointment.price}</h1>
+          <div id="timeDiv">
+          <input
+              id="time"
+              type="time"
+              placeholder="12:00"
+              className="form-control"
+              value={newAppointment.time}
+              onChange={this.timeChange}
+            />
+            <hr id="timeLine"></hr>
           </div>
           <div className="nextButtonDiv">
             <button
