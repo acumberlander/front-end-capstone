@@ -106,3 +106,30 @@
   height: 50px;
   margin-left: 175px;
 }
+
+#weatherSoonDiv {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  width: 350px;
+  height: 150px;
+  background-color: lightgray;
+  margin-top: 30px;
+  border: solid 2px #0DAC4A;
+  border-radius: 1rem;
+  color:#0DAC4A;
+  font-size: 25px;
+}
+
+#weatherIcon {
+  min-width: 200px;
+  min-height: 200px;
+}
+
+#weatherIconDiv {
+  width: 350px;
+  height: 150px;
+  display: flex;
+  justify-content: start;
+  padding-right: 20px;
+}

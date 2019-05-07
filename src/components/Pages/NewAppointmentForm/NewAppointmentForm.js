@@ -8,6 +8,7 @@ const defaultAppointment = {
   firstName: '',
   lastName: '',
   date: '',
+  time: '',
   status: 'is pending',
   address: '',
   city: '',
@@ -100,12 +101,12 @@ class NewAppointmentForm extends React.Component {
     const state = myAppointment.state;
     const address = myAppointment.address;
     const fieldArray = [firstName, lastName, city, state, address]
-    
+
     if (fieldArray.includes('')) {
       alert("No customer info can be left blank.")
       return;
     }
-    
+
     if (myComment.message === "") {
       this.addAppointment(myAppointment);
       this.setState({ newAppointment: defaultAppointment });
@@ -161,19 +162,20 @@ class NewAppointmentForm extends React.Component {
                       onChange={this.cityChange}
                     />
                     <hr class="fieldLine"></hr>
-                    {/* <input
-                      type="date"
-                      id="date"
-                      className="form-control"
-                      value={newAppointment.date}
-                      onChange={this.dateChange}
-                    /> */}
                     <input
                       type="text"
                       placeholder="State"
                       className="form-control"
                       value={newAppointment.state}
                       onChange={this.stateChange}
+                    />
+                    <hr class="fieldLine"></hr>
+                    <input
+                      type="date"
+                      id="date"
+                      className="form-control"
+                      value={newAppointment.date}
+                      onChange={this.dateChange}
                     />
                     <hr class="fieldLine"></hr>
                   </div>

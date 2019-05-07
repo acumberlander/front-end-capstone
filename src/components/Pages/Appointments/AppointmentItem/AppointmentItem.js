@@ -6,11 +6,13 @@ import authRequests from '../../../../Helpers/Data/authRequests';
 import moment from 'moment';
 import appointmentRequests from '../../../../Helpers/Data/Requests/appointmentRequests';
 import Modal from 'react-responsive-modal';
+import weatherIcon from '../../../../img/cloudy-day-1.svg';
 
 const defaultAppointment = {
   firstName: '',
   lastName: '',
   date: '',
+  time: '',
   status: '',
   address: '',
   city: '',
@@ -101,15 +103,6 @@ class AppointmentItem extends React.Component {
     const { open, newAppointment } = this.state;
     const { appointment, isEditing, editId } = this.props;
 
-    let statusColor = 'appointmentContainer m-3 isPending';
-    if (appointment.status === 'approved') {
-      statusColor = 'appointmentContainer m-3 isApproved';
-    } else if (appointment.status === 'cancelled') {
-      statusColor = 'appointmentContainer m-3 isCancelled';
-    } else {
-      statusColor = 'appointmentContainer m-3 isPending';
-    }
-
     const uid = authRequests.getCurrentUid();
     const makeEditButton = () => {
       if (appointment.uid === uid) {
@@ -162,7 +155,14 @@ class AppointmentItem extends React.Component {
             <hr className="appBreakLine"></hr>
             <div className="dateDiv">{moment(appointment.date).format('MM/DD/YYYY')}</div>
           </div>
+        <div className="" id="weatherSoonDiv">
+          <div id="weatherIconDiv">
+            <img id="weatherIcon" src={weatherIcon} alt="weather"></img>
+            <p>Weather Api Coming Soon!</p>
+          </div>
         </div>
+        </div>
+
         <div className="moveEditAndDelete col-1 m-0 p-0">
           <div className="moveDeleteButton">{makeDeleteButton()}</div>
           <div className="moveEditButton">{makeEditButton()}</div>
@@ -173,7 +173,7 @@ class AppointmentItem extends React.Component {
         isEditing={isEditing}
         editId={editId}>
           <div className="formContainer">
-          <form onSubmit={this.formSubmit}>
+          <form className="modalForm" onSubmit={this.formSubmit}>
             <div className="form-group">
               <label className="" htmlFor="firstName"><h5>First Name</h5></label>
               <input
