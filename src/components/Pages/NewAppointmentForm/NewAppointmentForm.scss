@@ -23,8 +23,6 @@
   background-repeat: no-repeat;
 }
 
-
-
 .leftColumn {
 
   .fieldLine {
@@ -33,7 +31,11 @@
     margin: 1px 0 25px;
   }
 
-  input::placeholder {
+  // .css-151xaom-placeholder {
+  //   color: #0DAC4A;
+  // }
+
+  select::placeholder {
     color: #0DAC4A;
   }
 

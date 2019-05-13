@@ -3,6 +3,10 @@ import './NewAppointmentForm.scss';
 import appointmentRequests from '../../../Helpers/Data/Requests/appointmentRequests';
 import authRequests from '../../../Helpers/Data/authRequests';
 import messageRequests from '../../../Helpers/Data/Requests/messageRequests';
+import weatherRequest from '../../../Helpers/Data/Requests/weatherRequest';
+// import StateList from './StateList/StateList';
+// import Select from 'react-select';
+
 
 const defaultAppointment = {
   firstName: '',
@@ -90,6 +94,23 @@ class NewAppointmentForm extends React.Component {
       .catch(err => console.error('error with appointments post', err));
   }
 
+  postToFirebase = (appointmentDate) => {
+    weatherRequest.getForecast( "Nashville", "Indiana" )
+      .then((forecast16) => {
+        const dayObject = [];
+        for (let i=0; i<forecast16.length; i++) {
+          if (forecast16[i].datetime === appointmentDate) {
+            forecast16[i].id = Object.id;
+            dayObject.push(forecast16[i])
+          }
+        }
+        if(dayObject === []) {
+          console.log("No weather data available for that date yet.");
+        }
+        weatherRequest.postRequest(dayObject[0])
+      })
+  }
+
   formSubmit = (e) => {
     e.preventDefault();
     const myAppointment = { ...this.state.newAppointment };
@@ -98,12 +119,31 @@ class NewAppointmentForm extends React.Component {
     const firstName = myAppointment.firstName;
     const lastName = myAppointment.lastName;
     const city = myAppointment.city;
-    const state = myAppointment.state;
+    const theState = myAppointment.state;
     const address = myAppointment.address;
-    const fieldArray = [firstName, lastName, city, state, address]
+    const date = myAppointment.date;
+    const acres = myAppointment.acres;
+    const fieldArray = [firstName, lastName, city, theState, address, date]
+    var today = new Date();
+
+    this.postToFirebase(date);
 
     if (fieldArray.includes('')) {
       alert("No customer info can be left blank.")
+      return;
+    }
+
+    if (acres <= 0 || acres === null) {
+      alert("Acres must be greater than zero.")
+      return;
+    }
+
+    if (new Date(date) > today.getDate() + 15) {
+      alert("Appointment must be within 2 weeks.")
+      return;
+    }
+    else if (new Date(date) < today.getDate()) {
+      alert("Appointments cannot be in the past, silly.")
       return;
     }
 
@@ -168,7 +208,11 @@ class NewAppointmentForm extends React.Component {
                       className="form-control"
                       value={newAppointment.state}
                       onChange={this.stateChange}
-                    />
+                      />
+                    {/* <Select
+                      placeholder="State"
+                      options={ StateList }
+                    /> */}
                     <hr class="fieldLine"></hr>
                     <input
                       type="date"
