@@ -4,7 +4,7 @@ import appointmentRequests from '../../../Helpers/Data/Requests/appointmentReque
 import authRequests from '../../../Helpers/Data/authRequests';
 import messageRequests from '../../../Helpers/Data/Requests/messageRequests';
 import weatherRequest from '../../../Helpers/Data/Requests/weatherRequest';
-// import StateList from './StateList/StateList';
+import StateList from './StateList/StateList';
 // import Select from 'react-select';
 
 
@@ -126,6 +126,8 @@ class NewAppointmentForm extends React.Component {
     const fieldArray = [firstName, lastName, city, theState, address, date]
     var today = new Date();
 
+    // const alphabet = "acdefghijklmnopqrstuvwxyz".split('');
+
     this.postToFirebase(date);
 
     if (fieldArray.includes('')) {
@@ -138,14 +140,39 @@ class NewAppointmentForm extends React.Component {
       return;
     }
 
-    if (new Date(date) > today.getDate() + 15) {
-      alert("Appointment must be within 2 weeks.")
+    // if (new Date(date) > today.getDate() + 15) {
+    //   alert("Appointment must be within 2 weeks.")
+    //   return;
+    // }
+
+
+
+    // else if (new Date(date) < today.getDate()) {
+    //   alert("Appointments cannot be in the past, silly.")
+    //   return;
+    // }
+
+    if (!StateList.includes(theState)) {
+      alert(`${theState} is not a valid state.`);
       return;
     }
-    else if (new Date(date) < today.getDate()) {
-      alert("Appointments cannot be in the past, silly.")
-      return;
-    }
+
+//     var firstNameArray = firstName.split('');
+//     const nameValidator = () => {
+//     var int = 0;
+//     firstNameArray.forEach((letter) => {
+//       if (!alphabet.includes(letter)) {
+//         int ++;
+//         alert(`${firstName} is not a valid first name`);
+//       }
+//     })
+//     if (int > 0) {
+//       return;
+//     }
+// }
+//     nameValidator();
+
+
 
     if (myComment.message === "") {
       this.addAppointment(myAppointment);
@@ -154,7 +181,10 @@ class NewAppointmentForm extends React.Component {
       this.addAppointment(myAppointment, myComment);
       this.setState({ newAppointment: defaultAppointment, newComment: defaultComment });
     }
+
+    
   }
+
 
   render() {
     const { newAppointment, newComment } = this.state;
@@ -174,6 +204,7 @@ class NewAppointmentForm extends React.Component {
                       className="form-control"
                       value={newAppointment.firstName}
                       onChange={this.firstNameChange}
+                      required
                     />
                     <hr class="fieldLine"></hr>
                     <input
@@ -182,6 +213,7 @@ class NewAppointmentForm extends React.Component {
                       className="form-control"
                       value={newAppointment.lastName}
                       onChange={this.lastNameChange}
+                      required
                     />
                     <hr class="fieldLine"></hr>
                     <input
@@ -190,6 +222,7 @@ class NewAppointmentForm extends React.Component {
                       className="form-control"
                       value={newAppointment.address}
                       onChange={this.addressChange}
+                      required
                     />
                       <hr class="fieldLine"></hr>
                   </div>
@@ -200,6 +233,7 @@ class NewAppointmentForm extends React.Component {
                       className="form-control"
                       value={newAppointment.city}
                       onChange={this.cityChange}
+                      required
                     />
                     <hr class="fieldLine"></hr>
                     <input
@@ -208,10 +242,13 @@ class NewAppointmentForm extends React.Component {
                       className="form-control"
                       value={newAppointment.state}
                       onChange={this.stateChange}
+                      required
                       />
                     {/* <Select
                       placeholder="State"
                       options={ StateList }
+                      value={newAppointment.state}
+                      // onChange={this.stateChange}
                     /> */}
                     <hr class="fieldLine"></hr>
                     <input
@@ -220,6 +257,7 @@ class NewAppointmentForm extends React.Component {
                       className="form-control"
                       value={newAppointment.date}
                       onChange={this.dateChange}
+                      required
                     />
                     <hr class="fieldLine"></hr>
                   </div>
