@@ -7,6 +7,7 @@ import moment from 'moment';
 import appointmentRequests from '../../../../Helpers/Data/Requests/appointmentRequests';
 import Modal from 'react-responsive-modal';
 import weatherIcon from '../../../../img/cloudy-day-1.svg';
+import weatherRequest from '../../../../Helpers/Data/Requests/weatherRequest';
 
 const defaultAppointment = {
   firstName: '',
@@ -81,6 +82,7 @@ class AppointmentItem extends React.Component {
     this.setState({ newAppointment: defaultAppointment, open: false });
   }
 
+
   componentDidUpdate(prevProps) {
     const { isEditing, editId } = this.props;
     if (prevProps !== this.props && isEditing) {
@@ -104,6 +106,18 @@ class AppointmentItem extends React.Component {
     const { appointment, isEditing, editId } = this.props;
 
     const uid = authRequests.getCurrentUid();
+    
+    const renderWeather = () => {
+      weatherRequest.getWeather(newAppointment.uid)
+        .then((result) => {
+          console.log(result);
+          // return(
+          //   <div>
+              
+          //   </div>
+          // );
+        })
+    }
     const makeEditButton = () => {
       if (appointment.uid === uid) {
         return (
@@ -157,6 +171,7 @@ class AppointmentItem extends React.Component {
           </div>
         <div className="" id="weatherSoonDiv">
           <div id="weatherIconDiv">
+            <div>{renderWeather()}</div>
             <img id="weatherIcon" src={weatherIcon} alt="weather"></img>
             <p>Weather Api Coming Soon!</p>
           </div>

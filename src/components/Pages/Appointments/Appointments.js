@@ -77,7 +77,7 @@ class Appointments extends React.Component {
       </div>
     ));
     return (
-      <div className="appointments">
+      <div className="appointmentsOuterDiv">
         <div className="appointmentHeader">
           <h1>Appointments</h1>
           <hr className="appHeaderLine"></hr>

@@ -3,6 +3,11 @@ import './NewAppointmentForm.scss';
 import appointmentRequests from '../../../Helpers/Data/Requests/appointmentRequests';
 import authRequests from '../../../Helpers/Data/authRequests';
 import messageRequests from '../../../Helpers/Data/Requests/messageRequests';
+import weatherRequest from '../../../Helpers/Data/Requests/weatherRequest';
+import StateList from '../../../Helpers/Data/StateList';
+import CityList from '../../../Helpers/Data/usaCities';
+// import Select from 'react-select';
+
 
 const defaultAppointment = {
   firstName: '',
@@ -30,6 +35,7 @@ class NewAppointmentForm extends React.Component {
     newComment: defaultComment,
   }
 
+  // Sets the state to whatever string input is passed
   formFieldStringState = (name, e) => {
     e.preventDefault();
     e.persist();
@@ -38,9 +44,10 @@ class NewAppointmentForm extends React.Component {
     this.setState({ newAppointment: tempAppointment });
   }
 
+  // Sets the state to whatever integer input is passed
   formFieldNumberState = (name, e) => {
     e.preventDefault();
-    e.persist()
+    e.persist();
     const myPrice = e.target.value*50;
     const tempAppointment = { ...this.state.newAppointment };
     tempAppointment[name] = e.target.value*1;
@@ -48,6 +55,9 @@ class NewAppointmentForm extends React.Component {
     this.setState({ newAppointment: tempAppointment });
   }
 
+  // All of these 'change' functions pass in the name of a value that's in the newAppointment object
+  // It also passes in an event(e) parameter that will trigger the formFieldStringState function
+  //-----------------------------------------------------------------------------------//
   appointmentChange = e => this.formFieldStringState('appointment', e);
 
   dateChange = e => this.formFieldStringState('date', e);
@@ -63,19 +73,24 @@ class NewAppointmentForm extends React.Component {
   stateChange = e => this.formFieldStringState('state', e);
 
   acresChange = e => this.formFieldNumberState('acres', e);
+//-----------------------------------------------------------------------//
 
+  // Sets the state for newComment to whatever string input is passed
   inputFieldStringState = (name, e) => {
     e.preventDefault();
     e.stopPropagation();
-    const uid = authRequests.getCurrentUid();    
+    const uid = authRequests.getCurrentUid();
     const tempComment = { ...this.state.newComment };
     tempComment[name] = e.target.value;
     tempComment.uid = uid;
     this.setState({ newComment: tempComment });
   }
 
+  // Passes in the name of a value that's in the newAppointment object
+  // It also passes in an event(e) parameter that will trigger the inputFieldStringState function
   commentChange = e => this.inputFieldStringState('message', e);
 
+  // posts appointment to firebase, pulls it back down and sets it to state
   addAppointment = (newAppointment, newComment) => {
     const uid = authRequests.getCurrentUid();    
     messageRequests.createMessage(newComment);
@@ -90,6 +105,25 @@ class NewAppointmentForm extends React.Component {
       .catch(err => console.error('error with appointments post', err));
   }
 
+  // post date input to firebase
+  postToFirebase = (appointmentDate) => {
+    weatherRequest.getForecast( "Nashville", "Indiana" )
+      .then((forecast16) => {
+        const dayObject = [];
+        for (let i=0; i<forecast16.length; i++) {
+          if (forecast16[i].datetime === appointmentDate) {
+            forecast16[i].id = Object.id;
+            dayObject.push(forecast16[i])
+          }
+        }
+        if(dayObject === []) {
+          console.log("No weather data available for that date yet.");
+        }
+        weatherRequest.postRequest(dayObject[0])
+      })
+  }
+
+  // submits appointment to firebase and sets the state of the newly made appointment 
   formSubmit = (e) => {
     e.preventDefault();
     const myAppointment = { ...this.state.newAppointment };
@@ -98,16 +132,83 @@ class NewAppointmentForm extends React.Component {
     const firstName = myAppointment.firstName;
     const lastName = myAppointment.lastName;
     const city = myAppointment.city;
-    const state = myAppointment.state;
+    const theState = myAppointment.state;
     const address = myAppointment.address;
-    const fieldArray = [firstName, lastName, city, state, address]
+    const date = myAppointment.date;
+    const acres = myAppointment.acres;
+    const fieldArray = [firstName, lastName, city, theState, address, date]
+    const today = new Date();
+    const alphabet = /^[A-Za-z ']+$/;
+    const addressInput = /^[A-Za-z0-9 ']+$/;
 
+    // posts input date to firebase server
+    this.postToFirebase(date);
+
+    // blank input validation
     if (fieldArray.includes('')) {
       alert("No customer info can be left blank.")
       return;
     }
 
-    if (myComment.message === "") {
+    // acre input validation
+    if (acres <= 0 || acres === null) {
+      alert("Acres must be greater than zero.")
+      return;
+    }
+
+    // date input validation
+    // makes sure date is within 2 weeks
+    if (new Date(date) > (today.setDate(today.getDate() + 14))) {
+      alert("Appointment must be within 2 weeks.")
+      return;
+    }
+    // date input validation
+    // makes sure date is not today
+    // if (new Date(date).getDate() === new Date().getDate()) {
+    //   alert("Cannot schedule same-day appointments. The earliest appointment that can be made is tomorrow.");
+    //   return;
+    // }
+
+    // date input validation
+    // makes sure date is not today or in the past
+    else if (new Date(date) < Date.now()) {
+      alert("Appointments cannot be set for the past or on the same day.")
+      return;
+    }
+
+    // city input validation
+    if (!CityList.includes(city)) {
+      alert(`${city} is not a valid city.`);
+      return;
+    }
+
+    // state input validation
+    if (!StateList.includes(theState)) {
+      alert(`${theState} is not a valid state.`);
+      return;
+    }
+
+    // first name input validation
+    if (!firstName.match(alphabet)) {
+      alert(`${firstName} isn't valid. You can only use letters.`)
+      return;
+    }
+
+    // last name input validation
+    if (!lastName.match(alphabet)) {
+      alert(`${lastName} isn't valid. You can only use letters.`)
+      return;
+    }
+
+    // address input character validation
+    if (!address.match(addressInput)) {
+      alert(`Address can only include letters, numbers, and the period symbol(.). Please try again.`)
+      return;
+    }
+
+//adds comment/message if there is input.
+//Also pushes appointment to firebase and sets the state
+if (myComment.message === "") {
       this.addAppointment(myAppointment);
       this.setState({ newAppointment: defaultAppointment });
     } else {
@@ -115,6 +216,7 @@ class NewAppointmentForm extends React.Component {
       this.setState({ newAppointment: defaultAppointment, newComment: defaultComment });
     }
   }
+
 
   render() {
     const { newAppointment, newComment } = this.state;
@@ -134,6 +236,7 @@ class NewAppointmentForm extends React.Component {
                       className="form-control"
                       value={newAppointment.firstName}
                       onChange={this.firstNameChange}
+                      required
                     />
                     <hr class="fieldLine"></hr>
                     <input
@@ -142,6 +245,7 @@ class NewAppointmentForm extends React.Component {
                       className="form-control"
                       value={newAppointment.lastName}
                       onChange={this.lastNameChange}
+                      required
                     />
                     <hr class="fieldLine"></hr>
                     <input
@@ -150,6 +254,7 @@ class NewAppointmentForm extends React.Component {
                       className="form-control"
                       value={newAppointment.address}
                       onChange={this.addressChange}
+                      required
                     />
                       <hr class="fieldLine"></hr>
                   </div>
@@ -160,6 +265,7 @@ class NewAppointmentForm extends React.Component {
                       className="form-control"
                       value={newAppointment.city}
                       onChange={this.cityChange}
+                      required
                     />
                     <hr class="fieldLine"></hr>
                     <input
@@ -168,7 +274,14 @@ class NewAppointmentForm extends React.Component {
                       className="form-control"
                       value={newAppointment.state}
                       onChange={this.stateChange}
-                    />
+                      required
+                      />
+                    {/* <Select
+                      placeholder="State"
+                      options={ StateList }
+                      value={newAppointment.state}
+                      // onChange={this.stateChange}
+                    /> */}
                     <hr class="fieldLine"></hr>
                     <input
                       type="date"
@@ -176,6 +289,7 @@ class NewAppointmentForm extends React.Component {
                       className="form-control"
                       value={newAppointment.date}
                       onChange={this.dateChange}
+                      required
                     />
                     <hr class="fieldLine"></hr>
                   </div>

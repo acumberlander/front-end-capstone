@@ -38,10 +38,10 @@ class MyNavbar extends React.Component {
         return (
           <Nav className="ml-auto" navbar>
             <NavItem>
-              <NavLink tag={RRNavLink} to="/serviceapplist"><i class="fas fa-2x fa-calendar-alt"></i></NavLink>
+              <NavLink tag={RRNavLink} to="/serviceapplist"><i className="fas fa-2x fa-calendar-alt"></i></NavLink>
             </NavItem>
             <NavItem>
-              <NavLink tag={RRNavLink} to="/messages"><i class="fas fa-2x fa-comments"></i></NavLink>
+              <NavLink tag={RRNavLink} to="/messages"><i className="fas fa-2x fa-comments"></i></NavLink>
             </NavItem>
             <NavItem className="logoutLink">
               <NavLink onClick={logoutClickEvent}>logout</NavLink>
@@ -52,13 +52,13 @@ class MyNavbar extends React.Component {
           return (
             <Nav className="ml-auto" navbar>
               <NavItem className="newAppointment">
-                <NavLink tag={RRNavLink} to="/newappointmentform"><i class="fas fa-2x fa-calendar-plus"></i></NavLink>
+                <NavLink tag={RRNavLink} to="/newappointmentform"><i className="fas fa-2x fa-calendar-plus"></i></NavLink>
               </NavItem>
               <NavItem>
-                <NavLink tag={RRNavLink} to="/appointments"><i class="fas fa-2x fa-calendar-alt"></i></NavLink>
+                <NavLink tag={RRNavLink} to="/appointments"><i className="fas fa-2x fa-calendar-alt"></i></NavLink>
               </NavItem>
               <NavItem>
-                <NavLink tag={RRNavLink} to="/messages"><i class="fas fa-2x fa-comments"></i></NavLink>
+                <NavLink tag={RRNavLink} to="/messages"><i className="fas fa-2x fa-comments"></i></NavLink>
               </NavItem>
               <NavItem className="logoutLink">
                 <NavLink onClick={logoutClickEvent}>logout</NavLink>
@@ -73,10 +73,10 @@ class MyNavbar extends React.Component {
     return (
       <div className="my-navbar">
         <Navbar dark expand="md">
-          <div class="navLogo">
+          <div className="navLogo">
           <a href={this.linkLocation}>Grass Kisser</a>
           </div>
-          <NavbarToggler class="navToggle" onClick={e => this.toggle(e)} />
+          <NavbarToggler className="navToggle" onClick={e => this.toggle(e)} />
           <Collapse isOpen={this.state.isOpen} navbar>
             {buildNavbar()}
           </Collapse>

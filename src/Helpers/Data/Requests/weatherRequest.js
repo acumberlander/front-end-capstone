@@ -3,26 +3,52 @@ import apiKeys from '../apiKeys';
 
 
 const baseUrl = apiKeys.baseUrl;
+const weatherApiKey = apiKeys.weatherApiKey;
+const firebaseUrl = apiKeys.firebaseConfig.databaseURL;
 
 // What the path should look like
-// http://api.openweathermap.org/data/2.5/forecast?zip=37138&appid=8f3d1c0d9a35e01914f14fdace149a84  
-    const getForecast = (zip) => new Promise((resolve, reject) => {
-      axios.get(`${baseUrl}${zip}&appid=${apiKeys.weatherApiKey}`)
+// https://api.weatherbit.io/v2.0/forecast/daily?city=Raleigh,NC&units=i&key=API_KEY
+    const getForecast = (city, state) => new Promise((resolve, reject) => {
+      axios.get(`${baseUrl}?city=${city},${state}&units=i&key=${weatherApiKey}`)
         .then((result) => {
-          if (result.data === '') {
+          if (result === '') {
             resolve('noData');
-            console.log(result.data);
           } else {
-            resolve(result);
-            console.log(result.data);
+            const forecast16 = result.data.data;
+            console.log(result)
+            resolve(forecast16);
           }
         })
         .catch((error) => {
           reject(error);
         });
+});
+
+
+const getWeather = uid => new Promise ((resolve, reject) => {
+  axios.get(`${firebaseUrl}/weather.json?orderBy="uid"&equalTo="${uid}"`)
+    .then((result) => {
+      console.log("result");
+      const weatherObject = result;
+      const weatherArray = [];
+      if (weatherObject != null) {
+        Object.keys(weatherObject).forEach((weatherId) => {
+          weatherObject[weatherId].id = weatherId;
+          weatherArray.push(weatherObject[weatherId]);
+        });
+      }
+      resolve(weatherArray);
+    })
+    .catch((error) => {
+      reject(error);
     });
+});
 
+const postRequest = weather => axios.post(`${firebaseUrl}/weather.json`, weather);
 
-
-
-export default getForecast;
+export default 
+{
+  getForecast,
+  postRequest,
+  getWeather
+};
