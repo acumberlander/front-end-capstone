@@ -4,8 +4,8 @@ import appointmentRequests from '../../../Helpers/Data/Requests/appointmentReque
 import authRequests from '../../../Helpers/Data/authRequests';
 import messageRequests from '../../../Helpers/Data/Requests/messageRequests';
 import weatherRequest from '../../../Helpers/Data/Requests/weatherRequest';
-import StateList from './StateList/StateList';
-import cities from 'cities.json';
+import StateList from '../../../Helpers/Data/StateList';
+import CityList from '../../../Helpers/Data/usaCities';
 // import Select from 'react-select';
 
 
@@ -141,16 +141,16 @@ class NewAppointmentForm extends React.Component {
     const alphabet = /^[A-Za-z ']+$/;
     const addressInput = /^[A-Za-z0-9 ']+$/;
 
-    //posts input date to firebase server
+    // posts input date to firebase server
     this.postToFirebase(date);
 
-    //blank input validation
+    // blank input validation
     if (fieldArray.includes('')) {
       alert("No customer info can be left blank.")
       return;
     }
 
-    //acre input validation
+    // acre input validation
     if (acres <= 0 || acres === null) {
       alert("Acres must be greater than zero.")
       return;
@@ -176,13 +176,13 @@ class NewAppointmentForm extends React.Component {
       return;
     }
 
-    // if (city in cities.name.value) {
+    // city input validation
+    if (!CityList.includes(city)) {
+      alert(`${city} is not a valid city.`);
+      return;
+    }
 
-    // }
-
-    console.log(`${cities}`);
-
-    //state input validation
+    // state input validation
     if (!StateList.includes(theState)) {
       alert(`${theState} is not a valid state.`);
       return;
