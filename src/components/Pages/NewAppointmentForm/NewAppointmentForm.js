@@ -5,6 +5,7 @@ import authRequests from '../../../Helpers/Data/authRequests';
 import messageRequests from '../../../Helpers/Data/Requests/messageRequests';
 import weatherRequest from '../../../Helpers/Data/Requests/weatherRequest';
 import StateList from './StateList/StateList';
+import cities from 'cities.json';
 // import Select from 'react-select';
 
 
@@ -34,6 +35,7 @@ class NewAppointmentForm extends React.Component {
     newComment: defaultComment,
   }
 
+  // Sets the state to whatever string input is passed
   formFieldStringState = (name, e) => {
     e.preventDefault();
     e.persist();
@@ -42,9 +44,10 @@ class NewAppointmentForm extends React.Component {
     this.setState({ newAppointment: tempAppointment });
   }
 
+  // Sets the state to whatever integer input is passed
   formFieldNumberState = (name, e) => {
     e.preventDefault();
-    e.persist()
+    e.persist();
     const myPrice = e.target.value*50;
     const tempAppointment = { ...this.state.newAppointment };
     tempAppointment[name] = e.target.value*1;
@@ -52,6 +55,9 @@ class NewAppointmentForm extends React.Component {
     this.setState({ newAppointment: tempAppointment });
   }
 
+  // All of these 'change' functions pass in the name of a value that's in the newAppointment object
+  // It also passes in an event(e) parameter that will trigger the formFieldStringState function
+  //-----------------------------------------------------------------------------------//
   appointmentChange = e => this.formFieldStringState('appointment', e);
 
   dateChange = e => this.formFieldStringState('date', e);
@@ -67,19 +73,24 @@ class NewAppointmentForm extends React.Component {
   stateChange = e => this.formFieldStringState('state', e);
 
   acresChange = e => this.formFieldNumberState('acres', e);
+//-----------------------------------------------------------------------//
 
+  // Sets the state for newComment to whatever string input is passed
   inputFieldStringState = (name, e) => {
     e.preventDefault();
     e.stopPropagation();
-    const uid = authRequests.getCurrentUid();    
+    const uid = authRequests.getCurrentUid();
     const tempComment = { ...this.state.newComment };
     tempComment[name] = e.target.value;
     tempComment.uid = uid;
     this.setState({ newComment: tempComment });
   }
 
+  // Passes in the name of a value that's in the newAppointment object
+  // It also passes in an event(e) parameter that will trigger the inputFieldStringState function
   commentChange = e => this.inputFieldStringState('message', e);
 
+  // posts appointment to firebase, pulls it back down and sets it to state
   addAppointment = (newAppointment, newComment) => {
     const uid = authRequests.getCurrentUid();    
     messageRequests.createMessage(newComment);
@@ -94,6 +105,7 @@ class NewAppointmentForm extends React.Component {
       .catch(err => console.error('error with appointments post', err));
   }
 
+  // post date input to firebase
   postToFirebase = (appointmentDate) => {
     weatherRequest.getForecast( "Nashville", "Indiana" )
       .then((forecast16) => {
@@ -111,6 +123,7 @@ class NewAppointmentForm extends React.Component {
       })
   }
 
+  // submits appointment to firebase and sets the state of the newly made appointment 
   formSubmit = (e) => {
     e.preventDefault();
     const myAppointment = { ...this.state.newAppointment };
@@ -124,65 +137,84 @@ class NewAppointmentForm extends React.Component {
     const date = myAppointment.date;
     const acres = myAppointment.acres;
     const fieldArray = [firstName, lastName, city, theState, address, date]
-    var today = new Date();
+    const today = new Date();
+    const alphabet = /^[A-Za-z ']+$/;
+    const addressInput = /^[A-Za-z0-9 ']+$/;
 
-    // const alphabet = "acdefghijklmnopqrstuvwxyz".split('');
-
+    //posts input date to firebase server
     this.postToFirebase(date);
 
+    //blank input validation
     if (fieldArray.includes('')) {
       alert("No customer info can be left blank.")
       return;
     }
 
+    //acre input validation
     if (acres <= 0 || acres === null) {
       alert("Acres must be greater than zero.")
       return;
     }
 
-    // if (new Date(date) > today.getDate() + 15) {
-    //   alert("Appointment must be within 2 weeks.")
+    // date input validation
+    // makes sure date is within 2 weeks
+    if (new Date(date) > (today.setDate(today.getDate() + 14))) {
+      alert("Appointment must be within 2 weeks.")
+      return;
+    }
+    // date input validation
+    // makes sure date is not today
+    // if (new Date(date).getDate() === new Date().getDate()) {
+    //   alert("Cannot schedule same-day appointments. The earliest appointment that can be made is tomorrow.");
     //   return;
     // }
 
+    // date input validation
+    // makes sure date is not today or in the past
+    else if (new Date(date) < Date.now()) {
+      alert("Appointments cannot be set for the past or on the same day.")
+      return;
+    }
 
+    // if (city in cities.name.value) {
 
-    // else if (new Date(date) < today.getDate()) {
-    //   alert("Appointments cannot be in the past, silly.")
-    //   return;
     // }
 
+    console.log(`${cities}`);
+
+    //state input validation
     if (!StateList.includes(theState)) {
       alert(`${theState} is not a valid state.`);
       return;
     }
 
-//     var firstNameArray = firstName.split('');
-//     const nameValidator = () => {
-//     var int = 0;
-//     firstNameArray.forEach((letter) => {
-//       if (!alphabet.includes(letter)) {
-//         int ++;
-//         alert(`${firstName} is not a valid first name`);
-//       }
-//     })
-//     if (int > 0) {
-//       return;
-//     }
-// }
-//     nameValidator();
+    // first name input validation
+    if (!firstName.match(alphabet)) {
+      alert(`${firstName} isn't valid. You can only use letters.`)
+      return;
+    }
 
+    // last name input validation
+    if (!lastName.match(alphabet)) {
+      alert(`${lastName} isn't valid. You can only use letters.`)
+      return;
+    }
 
+    // address input character validation
+    if (!address.match(addressInput)) {
+      alert(`Address can only include letters, numbers, and the period symbol(.). Please try again.`)
+      return;
+    }
 
-    if (myComment.message === "") {
+//adds comment/message if there is input.
+//Also pushes appointment to firebase and sets the state
+if (myComment.message === "") {
       this.addAppointment(myAppointment);
       this.setState({ newAppointment: defaultAppointment });
     } else {
       this.addAppointment(myAppointment, myComment);
       this.setState({ newAppointment: defaultAppointment, newComment: defaultComment });
     }
-
-    
   }
 
 
