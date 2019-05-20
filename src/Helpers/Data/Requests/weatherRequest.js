@@ -14,30 +14,29 @@ const firebaseUrl = apiKeys.firebaseConfig.databaseURL;
           if (result === '') {
             resolve('noData');
           } else {
-            const forecast16 = result.data.data;
-            console.log(result)
-            resolve(forecast16);
+            resolve(result.data);
           }
         })
         .catch((error) => {
           reject(error);
         });
-});
+  });
 
 
 const getWeather = uid => new Promise ((resolve, reject) => {
+  console.log("TESTING")
   axios.get(`${firebaseUrl}/weather.json?orderBy="uid"&equalTo="${uid}"`)
     .then((result) => {
-      console.log("result");
+      console.log(result);
       const weatherObject = result;
-      const weatherArray = [];
+      let weather = '';
       if (weatherObject != null) {
         Object.keys(weatherObject).forEach((weatherId) => {
           weatherObject[weatherId].id = weatherId;
-          weatherArray.push(weatherObject[weatherId]);
+          weather = weatherObject[weatherId];
         });
       }
-      resolve(weatherArray);
+      resolve(weather);
     })
     .catch((error) => {
       reject(error);

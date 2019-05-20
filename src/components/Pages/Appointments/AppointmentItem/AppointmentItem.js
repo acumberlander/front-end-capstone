@@ -6,7 +6,7 @@ import authRequests from '../../../../Helpers/Data/authRequests';
 import moment from 'moment';
 import appointmentRequests from '../../../../Helpers/Data/Requests/appointmentRequests';
 import Modal from 'react-responsive-modal';
-import weatherIcon from '../../../../img/cloudy-day-1.svg';
+// import weatherIcon from '../../../../img/weatherIcons/';
 import weatherRequest from '../../../../Helpers/Data/Requests/weatherRequest';
 
 const defaultAppointment = {
@@ -104,20 +104,23 @@ class AppointmentItem extends React.Component {
   render() {
     const { open, newAppointment } = this.state;
     const { appointment, isEditing, editId } = this.props;
-
     const uid = authRequests.getCurrentUid();
-    
+
     const renderWeather = () => {
-      weatherRequest.getWeather(newAppointment.uid)
+      console.log(uid);
+      weatherRequest.getWeather(uid)
         .then((result) => {
-          console.log(result);
-          // return(
-          //   <div>
-              
-          //   </div>
-          // );
-        })
+          console.log(`${result}`);
+          // const cityName = result.data.city_name;
+          return(
+            <div>
+              <p>{result.data.city_name}</p>
+            </div>
+          );
+        }
+      )
     }
+    
     const makeEditButton = () => {
       if (appointment.uid === uid) {
         return (
@@ -172,12 +175,9 @@ class AppointmentItem extends React.Component {
         <div className="" id="weatherSoonDiv">
           <div id="weatherIconDiv">
             <div>{renderWeather()}</div>
-            <img id="weatherIcon" src={weatherIcon} alt="weather"></img>
-            <p>Weather Api Coming Soon!</p>
           </div>
         </div>
         </div>
-
         <div className="moveEditAndDelete col-1 m-0 p-0">
           <div className="moveDeleteButton">{makeDeleteButton()}</div>
           <div className="moveEditButton">{makeEditButton()}</div>
