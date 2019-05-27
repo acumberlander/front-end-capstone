@@ -12,7 +12,6 @@ class UserHome extends React.Component {
     {
       this.props.history.push('/appointments');
     }
-    console.log(e.currentTarget.className);
   }
 
   render() {

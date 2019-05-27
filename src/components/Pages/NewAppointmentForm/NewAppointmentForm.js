@@ -107,18 +107,20 @@ class NewAppointmentForm extends React.Component {
 
   // post date input to firebase
   postToFirebase = (appointmentDate) => {
-    weatherRequest.getForecast( "Nashville", "Indiana" )
-      .then((forecast16) => {
-        const dayObject = [];
-        for (let i=0; i<forecast16.length; i++) {
-          if (forecast16[i].datetime === appointmentDate) {
-            forecast16[i].id = Object.id;
-            dayObject.push(forecast16[i])
-          }
+    weatherRequest.getForecast( "Nashville", "TN")
+    .then((forecast16) => {
+      console.log(`YOOOOOOO: ${forecast16.data.data}`);
+      let dayObject = [];
+      for (let i=0; i<forecast16.length; i++) {
+        if (forecast16[i].datetime === appointmentDate) {
+          forecast16[i].id = Object.id;
+          dayObject.push(forecast16[i])
         }
+      }
         if(dayObject === []) {
           console.log("No weather data available for that date yet.");
         }
+        dayObject.uid = authRequests.getCurrentUid();
         weatherRequest.postRequest(dayObject[0])
       })
   }
@@ -139,10 +141,7 @@ class NewAppointmentForm extends React.Component {
     const fieldArray = [firstName, lastName, city, theState, address, date]
     const today = new Date();
     const alphabet = /^[A-Za-z ']+$/;
-    const addressInput = /^[A-Za-z0-9 ']+$/;
-
-    // posts input date to firebase server
-    this.postToFirebase(date);
+    const addressInput = /^[A-Za-z0-9 '.]+$/;
 
     // blank input validation
     if (fieldArray.includes('')) {
@@ -206,15 +205,19 @@ class NewAppointmentForm extends React.Component {
       return;
     }
 
-//adds comment/message if there is input.
-//Also pushes appointment to firebase and sets the state
-if (myComment.message === "") {
-      this.addAppointment(myAppointment);
-      this.setState({ newAppointment: defaultAppointment });
-    } else {
-      this.addAppointment(myAppointment, myComment);
-      this.setState({ newAppointment: defaultAppointment, newComment: defaultComment });
-    }
+    // adds comment/message if there is input.
+    // Also pushes appointment to firebase and sets the state
+    if (myComment.message === "") {
+          this.addAppointment(myAppointment);
+          this.setState({ newAppointment: defaultAppointment });
+          this.postToFirebase(date);
+        } else {
+          this.addAppointment(myAppointment, myComment);
+          this.setState({ newAppointment: defaultAppointment, newComment: defaultComment });
+          this.postToFirebase(date);
+        }
+
+     // posts input date to firebase server
   }
 
 
