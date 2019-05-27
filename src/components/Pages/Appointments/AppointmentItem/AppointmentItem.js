@@ -6,8 +6,8 @@ import authRequests from '../../../../Helpers/Data/authRequests';
 import moment from 'moment';
 import appointmentRequests from '../../../../Helpers/Data/Requests/appointmentRequests';
 import Modal from 'react-responsive-modal';
-// import weatherIcon from '../../../../img/weatherIcons/';
-import weatherRequest from '../../../../Helpers/Data/Requests/weatherRequest';
+import weatherIcon from '../../../../img/weatherIcons/cloudy-day-1.svg';
+// import weatherRequest from '../../../../Helpers/Data/Requests/weatherRequest';
 
 const defaultAppointment = {
   firstName: '',
@@ -106,20 +106,20 @@ class AppointmentItem extends React.Component {
     const { appointment, isEditing, editId } = this.props;
     const uid = authRequests.getCurrentUid();
 
-    const renderWeather = () => {
-      console.log(uid);
-      weatherRequest.getWeather(uid)
-        .then((result) => {
-          console.log(`${result}`);
-          // const cityName = result.data.city_name;
-          return(
-            <div>
-              <p>{result.data.city_name}</p>
-            </div>
-          );
-        }
-      )
-    }
+    // const renderWeather = () => {
+    //   console.log(uid);
+    //   weatherRequest.getWeather(uid)
+    //     .then((result) => {
+    //       console.log(`${result}`);
+    //       // const cityName = result.data.city_name;
+    //       return(
+    //         <div>
+    //           <p>{result.data.city_name}</p>
+    //         </div>
+    //       );
+    //     }
+    //   )
+    // }
     
     const makeEditButton = () => {
       if (appointment.uid === uid) {
@@ -174,7 +174,10 @@ class AppointmentItem extends React.Component {
           </div>
         <div className="" id="weatherSoonDiv">
           <div id="weatherIconDiv">
-            <div>{renderWeather()}</div>
+            <img id="weatherIcon" src={weatherIcon} alt="weather"></img>
+            <div id="weathertext">
+              Weather forecast coming soon!
+            </div>
           </div>
         </div>
         </div>
