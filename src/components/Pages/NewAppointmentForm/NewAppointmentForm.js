@@ -105,23 +105,29 @@ class NewAppointmentForm extends React.Component {
       .catch(err => console.error('error with appointments post', err));
   }
 
-  // post date input to firebase
+  // gets weather info based on date and posts to firebase
   postToFirebase = (appointmentDate) => {
-    weatherRequest.getForecast( "Nashville", "TN")
+    let city_par = this.state.newAppointment.city;
+    let state_par = this.state.newAppointment.state;
+    weatherRequest.getForecast(city_par, state_par)
     .then((forecast16) => {
-      console.log(`YOOOOOOO: ${forecast16.data.data}`);
+      let city = forecast16.city_name;
+      let state = forecast16.state_code;
+      
+      console.log(city);
+      console.log(state);
+
       let dayObject = [];
-      for (let i=0; i<forecast16.length; i++) {
-        if (forecast16[i].datetime === appointmentDate) {
-          forecast16[i].id = Object.id;
-          dayObject.push(forecast16[i])
+      for (let i=0; i<forecast16.data.length; i++) {
+        if (forecast16.data[i].datetime === appointmentDate) {
+          forecast16.data[i].userUid = authRequests.getCurrentUid();
+          dayObject.push(forecast16.data[i])
         }
       }
         if(dayObject === []) {
           console.log("No weather data available for that date yet.");
         }
-        dayObject.uid = authRequests.getCurrentUid();
-        weatherRequest.postRequest(dayObject[0])
+        weatherRequest.postRequest(dayObject[0]);
       })
   }
 

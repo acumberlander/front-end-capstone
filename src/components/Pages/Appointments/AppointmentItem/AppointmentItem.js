@@ -6,8 +6,8 @@ import authRequests from '../../../../Helpers/Data/authRequests';
 import moment from 'moment';
 import appointmentRequests from '../../../../Helpers/Data/Requests/appointmentRequests';
 import Modal from 'react-responsive-modal';
-import weatherIcon from '../../../../img/weatherIcons/cloudy-day-1.svg';
-// import weatherRequest from '../../../../Helpers/Data/Requests/weatherRequest';
+// import weatherIcon from '../../../../img/weatherIcons/cloudy-day-1.svg';
+import weatherRequest from '../../../../Helpers/Data/Requests/weatherRequest';
 
 const defaultAppointment = {
   firstName: '',
@@ -106,21 +106,64 @@ class AppointmentItem extends React.Component {
     const { appointment, isEditing, editId } = this.props;
     const uid = authRequests.getCurrentUid();
 
-    // const renderWeather = () => {
-    //   console.log(uid);
-    //   weatherRequest.getWeather(uid)
-    //     .then((result) => {
-    //       console.log(`${result}`);
-    //       // const cityName = result.data.city_name;
-    //       return(
-    //         <div>
-    //           <p>{result.data.city_name}</p>
-    //         </div>
-    //       );
-    //     }
-    //   )
-    // }
+  //   const getSingleLocation = (e) => {
+  //     // firebase id
+  //     const locationId = e.target.dataset.dropdownId;
+  //     // returns weather.json object;
+  //     weatherRequest.getWeather(locationId)
+  //       .then((singleWeatherObject) => {
+  //         // makes 'isCurrent' property/key for all locations in firebase false;
+  //         console.log(singleWeatherObject)
+  //       .catch((error) => {
+  //         console.error('error in getting weather from firebase', error);
+  //       });
+  //   });
+  // }
+    const renderWeather = () => {
+      let weatherInfo = {};
+      let tempHigh = '';
+      weatherRequest.getForecast(appointment.city, appointment.state)
+      .then((forecast16) => {
+        console.log(forecast16);
+          for (let i=0; i<forecast16.data.length; i++) {
+            let theDay = forecast16.data[i];
+            if (theDay.datetime === appointment.date) {
+              console.log(theDay.datetime);
+              console.log(theDay.max_temp);
+              weatherInfo.day = theDay;
+              tempHigh = weatherInfo.day.max_temp;
+              // return(
+              //   <div>
+              //     <p>High: {theDay.max_temp}</p>
+              //   </div>
+              // );
+            } else {
+              console.log(theDay.datetime);
+              console.log(appointment.date);
+              console.log("No weather data available for that date yet.");
+            }
+          }
+        }
+      )
+      console.log(weatherInfo);
+      console.log(tempHigh);
+      return (
+        <div>
+          <p>
+            High: {tempHigh}
+          </p>
+        </div>
+      )
+    }
     
+    // const yoFunction = () => {
+    //   return(
+    //     <div>
+    //       <p>All I do is say yo..</p>
+    //     </div>
+    //   );
+    // }
+
     const makeEditButton = () => {
       if (appointment.uid === uid) {
         return (
@@ -174,9 +217,9 @@ class AppointmentItem extends React.Component {
           </div>
         <div className="" id="weatherSoonDiv">
           <div id="weatherIconDiv">
-            <img id="weatherIcon" src={weatherIcon} alt="weather"></img>
+            {/* <img id="weatherIcon" src={} alt="weather"></img> */}
             <div id="weathertext">
-              Weather forecast coming soon!
+            {renderWeather()}
             </div>
           </div>
         </div>

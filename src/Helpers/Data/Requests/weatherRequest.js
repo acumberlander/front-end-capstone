@@ -23,11 +23,10 @@ const firebaseUrl = apiKeys.firebaseConfig.databaseURL;
   });
 
 
-const getWeather = uid => new Promise ((resolve, reject) => {
-  console.log("TESTING")
-  axios.get(`${firebaseUrl}/weather.json?orderBy="uid"&equalTo="${uid}"`)
+const getWeather = () => new Promise ((resolve, reject) => {
+  console.log("get weather function ran")
+  axios.get(`${firebaseUrl}/weather.json`)
     .then((result) => {
-      console.log(result);
       const weatherObject = result;
       let weather = '';
       if (weatherObject != null) {
@@ -42,6 +41,19 @@ const getWeather = uid => new Promise ((resolve, reject) => {
       reject(error);
     });
 });
+
+// const getWeather = locationId => new Promise((resolve, reject) => {
+//   axios.get(`${firebaseUrl}/weather/${locationId}.json`)
+//     .then((result) => {
+//       const singleLocation = result.data;
+//       singleLocation.id = locationId;
+//       console.log(singleLocation);
+//       resolve(singleLocation);
+//     })
+//     .catch((error) => {
+//       reject(error);
+//     });
+// });
 
 const postRequest = weather => axios.post(`${firebaseUrl}/weather.json`, weather);
 
