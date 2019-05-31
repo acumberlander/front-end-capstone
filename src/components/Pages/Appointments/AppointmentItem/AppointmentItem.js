@@ -22,6 +22,11 @@ const defaultAppointment = {
   uid: '',
 };
 
+const defaultWeather = {
+  tempHigh: '',
+  tempLow: '',
+};
+
 class AppointmentItem extends React.Component {
   static propTypes = {
     appointment: appointmentShape,
@@ -37,6 +42,7 @@ class AppointmentItem extends React.Component {
   state = {
     newAppointment: defaultAppointment,
     open: false,
+    weather: defaultWeather,
   }
 
   deleteAppointment = (e) => {
@@ -101,8 +107,28 @@ class AppointmentItem extends React.Component {
     this.setState({ open: false });
   };
 
+  renderWeather = () => {
+    const { weather } = this.state;
+    const { appointment } = this.props;
+    weatherRequest.getForecast(appointment.city, appointment.state)
+    .then((forecast16) => {
+        for (let i=0; i<forecast16.data.length; i++) {
+          let theDay = forecast16.data[i];
+          if (theDay.datetime === appointment.date) {
+            weather.tempHigh = theDay.max_temp;
+            weather.tempLow = theDay.min_temp;
+          }
+        }
+      }
+    )
+  }
+
+  componentDidMount() {
+    this.renderWeather();
+  }
+
   render() {
-    const { open, newAppointment } = this.state;
+    const { open, newAppointment, weather } = this.state;
     const { appointment, isEditing, editId } = this.props;
     const uid = authRequests.getCurrentUid();
 
@@ -119,42 +145,7 @@ class AppointmentItem extends React.Component {
   //       });
   //   });
   // }
-    const renderWeather = () => {
-      let weatherInfo = {};
-      let tempHigh = '';
-      weatherRequest.getForecast(appointment.city, appointment.state)
-      .then((forecast16) => {
-        console.log(forecast16);
-          for (let i=0; i<forecast16.data.length; i++) {
-            let theDay = forecast16.data[i];
-            if (theDay.datetime === appointment.date) {
-              console.log(theDay.datetime);
-              console.log(theDay.max_temp);
-              weatherInfo.day = theDay;
-              tempHigh = weatherInfo.day.max_temp;
-              // return(
-              //   <div>
-              //     <p>High: {theDay.max_temp}</p>
-              //   </div>
-              // );
-            } else {
-              console.log(theDay.datetime);
-              console.log(appointment.date);
-              console.log("No weather data available for that date yet.");
-            }
-          }
-        }
-      )
-      console.log(weatherInfo);
-      console.log(tempHigh);
-      return (
-        <div>
-          <p>
-            High: {tempHigh}
-          </p>
-        </div>
-      )
-    }
+    
     
     // const yoFunction = () => {
     //   return(
@@ -217,9 +208,8 @@ class AppointmentItem extends React.Component {
           </div>
         <div className="" id="weatherSoonDiv">
           <div id="weatherIconDiv">
-            {/* <img id="weatherIcon" src={} alt="weather"></img> */}
             <div id="weathertext">
-            {renderWeather()}
+            High: {weather.tempHigh}
             </div>
           </div>
         </div>
