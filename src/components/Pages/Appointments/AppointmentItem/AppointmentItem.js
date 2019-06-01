@@ -6,7 +6,7 @@ import authRequests from '../../../../Helpers/Data/authRequests';
 import moment from 'moment';
 import appointmentRequests from '../../../../Helpers/Data/Requests/appointmentRequests';
 import Modal from 'react-responsive-modal';
-// import weatherIcon from '../../../../img/weatherIcons/cloudy-day-1.svg';
+import weatherIcon from '../../../../img/weatherIcons/cloudy-day-1.svg';
 import weatherRequest from '../../../../Helpers/Data/Requests/weatherRequest';
 
 const defaultAppointment = {
@@ -132,29 +132,6 @@ class AppointmentItem extends React.Component {
     const { appointment, isEditing, editId } = this.props;
     const uid = authRequests.getCurrentUid();
 
-  //   const getSingleLocation = (e) => {
-  //     // firebase id
-  //     const locationId = e.target.dataset.dropdownId;
-  //     // returns weather.json object;
-  //     weatherRequest.getWeather(locationId)
-  //       .then((singleWeatherObject) => {
-  //         // makes 'isCurrent' property/key for all locations in firebase false;
-  //         console.log(singleWeatherObject)
-  //       .catch((error) => {
-  //         console.error('error in getting weather from firebase', error);
-  //       });
-  //   });
-  // }
-    
-    
-    // const yoFunction = () => {
-    //   return(
-    //     <div>
-    //       <p>All I do is say yo..</p>
-    //     </div>
-    //   );
-    // }
-
     const makeEditButton = () => {
       if (appointment.uid === uid) {
         return (
@@ -208,8 +185,9 @@ class AppointmentItem extends React.Component {
           </div>
         <div className="" id="weatherSoonDiv">
           <div id="weatherIconDiv">
+              <img id="weatherIcon" src={weatherIcon} alt="weather icon"></img>
             <div id="weathertext">
-            High: {weather.tempHigh}
+              <p>Weather coming soon!</p>
             </div>
           </div>
         </div>
