@@ -203,78 +203,96 @@ class AppointmentItem extends React.Component {
         editId={editId}>
           <div className="formContainer">
           <form className="modalForm" onSubmit={this.formSubmit}>
-            <div className="form-group">
-              <label className="" htmlFor="firstName"><h5>First Name</h5></label>
-              <input
-                type="text"
-                className="form-control"
-                id="firstName"
-                placeholder="First Name"
-                value={newAppointment.firstName}
-                onChange={this.firstNameChange}
-              />
-            </div>
-            <div className="form-group">
-              <label className="" htmlFor="lastName"><h5>Last Name</h5></label>
-              <input
-                type="text"
-                className="form-control"
-                id="lastName"
-                placeholder="Last Name"
-                value={newAppointment.lastName}
-                onChange={this.lastNameChange}
-              />
-            </div>
-            <div className="form-group">
-              <label className="" htmlFor="date"><h5>Date</h5></label>
-              <input
-                type="text"
-                className="form-control"
-                id="date"
-                placeholder="Date"
-                value={newAppointment.date}
-                onChange={this.dateChange}
-              />
-            </div>
-            <div className="form-group">
-              <label className="" htmlFor="address"><h5>Address</h5></label>
-              <input
-                type="text"
-                className="form-control"
-                id="address"
-                placeholder="Address"
-                value={newAppointment.address}
-                onChange={this.addressChange}
-              />
-            </div>
-            <div className="form-group">
-              <label className="" htmlFor="city"><h5>City</h5></label>
-              <input
-                type="text"
-                className="form-control"
-                id="city"
-                placeholder="City"
-                value={newAppointment.city}
-                onChange={this.cityChange}
-              />
-            </div>
-            <div className="form-group">
-              <label className="" htmlFor="state"><h5>State</h5></label>
-              <input
-                type="text"
-                className="form-control"
-                id="state"
-                placeholder="State"
-                value={newAppointment.state}
-                onChange={this.stateChange}
-              />
-            </div>
-            <div className="saveEventButton">
-              <button className="btn btn-danger">
-                Save Event
-              </button>
+            <div id="modalInputs">
+              <div className="firstModalColumn">
+                <div className="form-group">
+                  <div className="labelDiv">
+                    <label className="" htmlFor="firstName"><h5>First Name</h5></label>
+                  </div>
+                  <input
+                    type="text"
+                    className="form-control"
+                    id="firstName"
+                    placeholder="First Name"
+                    value={appointment.firstName}
+                    onChange={this.firstNameChange}
+                  />
+                </div>
+                <div className="form-group">
+                  <div className="labelDiv">
+                    <label className="" htmlFor="lastName"><h5>Last Name</h5></label>
+                  </div>
+                  <input
+                    type="text"
+                    className="form-control"
+                    id="lastName"
+                    placeholder="Last Name"
+                    value={appointment.lastName}
+                    onChange={this.lastNameChange}
+                  />
+                </div>
+                <div className="form-group">
+                  <div className="labelDiv">
+                    <label className="" htmlFor="date"><h5>Date</h5></label>
+                  </div>
+                  <input
+                    type="text"
+                    className="form-control"
+                    id="date"
+                    placeholder="Date"
+                    value={moment(appointment.date).format('MM/DD/YYYY')}
+                    onChange={this.dateChange}
+                  />
+                </div>
+              </div>
+              <div className="secondModalColumn">
+                <div className="form-group">
+                  <div className="labelDiv">
+                    <label className="" htmlFor="address"><h5>Address</h5></label>
+                  </div>
+                  <input
+                    type="text"
+                    className="form-control"
+                    id="address"
+                    placeholder="Address"
+                    value={appointment.address}
+                    onChange={this.addressChange}
+                  />
+                </div>
+                <div className="form-group">
+                  <div className="labelDiv">
+                    <label className="" htmlFor="city"><h5>City</h5></label>
+                  </div>
+                  <input
+                    type="text"
+                    className="form-control"
+                    id="city"
+                    placeholder="City"
+                    value={appointment.city}
+                    onChange={this.cityChange}
+                  />
+                </div>
+                <div className="form-group">
+                  <div className="labelDiv">
+                    <label className="" htmlFor="state"><h5>State</h5></label>
+                  </div>
+                  <input
+                    type="text"
+                    className="form-control"
+                    id="state"
+                    placeholder="State"
+                    value={appointment.state}
+                    onChange={this.stateChange}
+                  />
+                </div>
+              </div>
             </div>
           </form>
+          <div className="saveEventButton">
+            <button className="btn btn-danger">
+              Save Event
+            </button>
+          </div>
         </div>
       </Modal>
         </div>
