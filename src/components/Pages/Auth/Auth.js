@@ -8,24 +8,9 @@ import firebase from 'firebase/app';
 
 
 class Auth extends React.Component {
-
+ 
   authenticateUser = (e, email, password) => {
     e.preventDefault();
-    // userRequests.getAllUsers()
-    // .then((userArray) => {
-    //   console.log(userArray);
-    //   let dependant = 0;
-    //     for (let i = 0; i<userArray.length; i++)
-    //     {
-    //       if (userArray[i].email === email) {
-    //         dependant ++;
-    //       }
-    //     }
-    //     if (!dependant > 0) {
-    //       alert("Invalid username or password.");
-    //     }
-      // })
-      // .catch((err) => {console.error(err)});
     firebase.auth().signInWithEmailAndPassword(email, password).then((object) => {
       const bossman = 'xJWSDIxu3Qa6OnUjmoax7q4CXni2';
       if (bossman === object.user.uid) {
@@ -43,7 +28,8 @@ class Auth extends React.Component {
       } else {
         alert(errorMessage);
       }
-      console.error('there was an error with auth', err)});
+      console.error('there was an error with auth', err);
+    });
   }
 
   signUp = ( newUserInfo) => {
@@ -57,7 +43,9 @@ class Auth extends React.Component {
                         }
       userRequests.createUser(usrInfo);
       this.props.history.push('/home');
-    }).catch(err => console.error('there was an error with auth', err));
+    }).catch((err) => {
+      alert(err.message);
+    });
   }
 
   render() {
