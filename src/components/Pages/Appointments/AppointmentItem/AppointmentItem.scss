@@ -137,3 +137,38 @@
 #weathertext {
   margin-top: 30px;
 }
+
+.modalForm {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: center;
+  width: 500px;
+}
+
+.saveEventButton {
+  display: flex;
+  justify-content: center;
+  margin-top: 35px;
+}
+
+#modalInputs {
+  margin-top: 75px;
+  input {
+    width: 225px;
+    justify-content: center;
+    text-align: center;
+  }
+}
+
+.form-group {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.labelDiv {
+  display: flex;
+  justify-content: center;
+  max-width: max-content;
+}
