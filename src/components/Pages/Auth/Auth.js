@@ -6,7 +6,9 @@ import './Auth.scss';
 import 'firebase/auth';
 import firebase from 'firebase/app';
 
+
 class Auth extends React.Component {
+ 
   authenticateUser = (e, email, password) => {
     e.preventDefault();
     firebase.auth().signInWithEmailAndPassword(email, password).then((object) => {
@@ -16,7 +18,18 @@ class Auth extends React.Component {
       } else {
         this.props.history.push('/home');
       }
-    }).catch(err => console.error('there was an error with auth', err));
+    }).catch((err) => {
+      let errorCode = err.code;
+      let errorMessage = err.message;
+      if (errorCode === "auth/wrong-password") {
+        alert("Username or password is invalid.");
+      } else if(errorCode === "auth/user-not-found") {
+        alert("Username or password is invalid.")
+      } else {
+        alert(errorMessage);
+      }
+      console.error('there was an error with auth', err);
+    });
   }
 
   signUp = ( newUserInfo) => {
@@ -30,7 +43,9 @@ class Auth extends React.Component {
                         }
       userRequests.createUser(usrInfo);
       this.props.history.push('/home');
-    }).catch(err => console.error('there was an error with auth', err));
+    }).catch((err) => {
+      alert(err.message);
+    });
   }
 
   render() {
