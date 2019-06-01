@@ -94,8 +94,6 @@ class AppointmentItem extends React.Component {
     if (prevProps !== this.props && isEditing) {
       appointmentRequests.getAppointmentItem(editId)
         .then((appointment) => {
-          const date = moment(appointment.date).format('MM/DD/YYYY')
-          appointment.data.date = date;
           this.setState({ newAppointment: appointment.data });
         })
         .catch(err => console.error('error when getAppointmentItem', err));
@@ -202,7 +200,7 @@ class AppointmentItem extends React.Component {
         isEditing={isEditing}
         editId={editId}>
           <div className="formContainer">
-          <form className="modalForm" onSubmit={this.formSubmit}>
+          <form className="modalForm">
             <div id="modalInputs">
               <div className="firstModalColumn">
                 <div className="form-group">
@@ -214,7 +212,7 @@ class AppointmentItem extends React.Component {
                     className="form-control"
                     id="firstName"
                     placeholder="First Name"
-                    value={appointment.firstName}
+                    value={newAppointment.firstName}
                     onChange={this.firstNameChange}
                   />
                 </div>
@@ -227,7 +225,7 @@ class AppointmentItem extends React.Component {
                     className="form-control"
                     id="lastName"
                     placeholder="Last Name"
-                    value={appointment.lastName}
+                    value={newAppointment.lastName}
                     onChange={this.lastNameChange}
                   />
                 </div>
@@ -236,11 +234,11 @@ class AppointmentItem extends React.Component {
                     <label className="" htmlFor="date"><h5>Date</h5></label>
                   </div>
                   <input
-                    type="text"
+                    type="date"
                     className="form-control"
                     id="date"
                     placeholder="Date"
-                    value={moment(appointment.date).format('MM/DD/YYYY')}
+                    value={newAppointment.date}
                     onChange={this.dateChange}
                   />
                 </div>
@@ -255,7 +253,7 @@ class AppointmentItem extends React.Component {
                     className="form-control"
                     id="address"
                     placeholder="Address"
-                    value={appointment.address}
+                    value={newAppointment.address}
                     onChange={this.addressChange}
                   />
                 </div>
@@ -268,7 +266,7 @@ class AppointmentItem extends React.Component {
                     className="form-control"
                     id="city"
                     placeholder="City"
-                    value={appointment.city}
+                    value={newAppointment.city}
                     onChange={this.cityChange}
                   />
                 </div>
@@ -281,7 +279,7 @@ class AppointmentItem extends React.Component {
                     className="form-control"
                     id="state"
                     placeholder="State"
-                    value={appointment.state}
+                    value={newAppointment.state}
                     onChange={this.stateChange}
                   />
                 </div>
@@ -289,8 +287,8 @@ class AppointmentItem extends React.Component {
             </div>
           </form>
           <div className="saveEventButton">
-            <button className="btn btn-danger">
-              Save Event
+            <button className="btn btn-danger" onClick={this.formSubmit}>
+              Save Changes
             </button>
           </div>
         </div>
