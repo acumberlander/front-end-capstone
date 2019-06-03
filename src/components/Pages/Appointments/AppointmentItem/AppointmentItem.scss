@@ -135,7 +135,11 @@
 }
 
 #weathertext {
-  margin-top: 30px;
+  margin-top: 25px;
+  p {
+    font-size: 22px;
+    margin: 0;
+  }
 }
 
 .modalForm {

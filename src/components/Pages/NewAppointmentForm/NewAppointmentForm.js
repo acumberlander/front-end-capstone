@@ -102,7 +102,7 @@ class NewAppointmentForm extends React.Component {
             this.props.history.push(`/appointments`);
           });
       })
-      .catch(err => console.error('error with appointments post', err));
+    .catch(err => console.error('error with appointments post', err));
   }
 
   // gets weather info based on date and posts to firebase
@@ -124,11 +124,20 @@ class NewAppointmentForm extends React.Component {
           dayObject.push(forecast16.data[i])
         }
       }
-        if(dayObject === []) {
-          console.log("No weather data available for that date yet.");
-        }
-        weatherRequest.postRequest(dayObject[0]);
-      })
+      let weatherCode = dayObject[0].weather.code;
+      let weatherCondition = dayObject[0].weather.description;
+      
+      if(dayObject === []) {
+        console.log("No weather data available for that date yet.");
+      }
+
+      if (!weatherCode === "c01d" || "c01n" || "c02d" || "c02n" ||
+                            "c03d" || "c03n" || "c04d" || "c04n") {
+        throw `Sorry, but it's expected to ${weatherCondition} that day.`;
+      }
+      weatherRequest.postRequest(dayObject[0]);
+      }
+    )
   }
 
   // submits appointment to firebase and sets the state of the newly made appointment 
@@ -167,12 +176,6 @@ class NewAppointmentForm extends React.Component {
       alert("Appointment must be within 2 weeks.")
       return;
     }
-    // date input validation
-    // makes sure date is not today
-    // if (new Date(date).getDate() === new Date().getDate()) {
-    //   alert("Cannot schedule same-day appointments. The earliest appointment that can be made is tomorrow.");
-    //   return;
-    // }
 
     // date input validation
     // makes sure date is not today or in the past
@@ -214,16 +217,14 @@ class NewAppointmentForm extends React.Component {
     // adds comment/message if there is input.
     // Also pushes appointment to firebase and sets the state
     if (myComment.message === "") {
-          this.addAppointment(myAppointment);
-          this.setState({ newAppointment: defaultAppointment });
-          this.postToFirebase(date);
-        } else {
-          this.addAppointment(myAppointment, myComment);
-          this.setState({ newAppointment: defaultAppointment, newComment: defaultComment });
-          this.postToFirebase(date);
-        }
-
-     // posts input date to firebase server
+      this.addAppointment(myAppointment);
+      this.setState({ newAppointment: defaultAppointment });
+      this.postToFirebase(date);
+    } else {
+      this.addAppointment(myAppointment, myComment);
+      this.setState({ newAppointment: defaultAppointment, newComment: defaultComment });
+      this.postToFirebase(date);
+    }
   }
 
 
