@@ -6,8 +6,11 @@ import authRequests from '../../../../Helpers/Data/authRequests';
 import moment from 'moment';
 import appointmentRequests from '../../../../Helpers/Data/Requests/appointmentRequests';
 import Modal from 'react-responsive-modal';
-import weatherIcon from '../../../../img/weatherIcons/cloudy-day-1.svg';
 import weatherRequest from '../../../../Helpers/Data/Requests/weatherRequest';
+import sunny from '../../../../img/weatherIcons/day.svg';
+import cloudy from '../../../../img/weatherIcons/cloudy.svg';
+import partlyCloudy from '../../../../img/weatherIcons/cloudy-day-1.svg';
+
 
 const defaultAppointment = {
   firstName: '',
@@ -25,6 +28,8 @@ const defaultAppointment = {
 const defaultWeather = {
   tempHigh: '',
   tempLow: '',
+  description: '',
+  weatherIcon: ''
 };
 
 class AppointmentItem extends React.Component {
@@ -45,26 +50,43 @@ class AppointmentItem extends React.Component {
     weather: defaultWeather,
   }
 
+  // Function that allows user to delete appointment
   deleteAppointment = (e) => {
     e.preventDefault();
     const { deleteAppointment, appointment } = this.props;
+
+    /* This function makes a DELETE request to firebase and then a GET request
+       and then sets the state of the appointment data comes back. */
     deleteAppointment(appointment.id);
   }
 
+  // Function that allows user to edit appointment
   editAppointment = (e) => {
     e.preventDefault();
     const { passAppointmentToEdit, appointment } = this.props;
+
+    // Function that sets the state of the EditId to the appointmentId.
     passAppointmentToEdit(appointment.id);
+
+    // Opens the modal
     this.setState({ open: true });
   }
 
+  /* Function that changes the state of appointment data in realtime. 
+     However, in order for it to work, the correct data field has to be passed in as parameter.
+     An event (e) must also occur. */
   formFieldStringState = (name, e) => {
     e.preventDefault();
+    /* Sets variable to the value of each individual value in the appointmentShape object.
+       It does this by using the spread operator. ie: '...' */
     const tempAppointment = { ...this.props.appointment };
     tempAppointment[name] = e.target.value;
     this.setState({ newAppointment: tempAppointment });
   }
 
+  /* Each change function below runs the formFieldStringState function and
+     passes in the appointment property that's being edited and the event (e)
+     that changes the state of each property.  */
   appointmentChange = e => this.formFieldStringState('appointment', e);
 
   dateChange = e => this.formFieldStringState('date', e);
@@ -79,6 +101,7 @@ class AppointmentItem extends React.Component {
 
   firstNameChange = e => this.formFieldStringState('firstName', e);
 
+  // Function that submits/saves the newly edited appointment and closes the modal
   formSubmit = (e) => {
     e.preventDefault();
     const { onSubmit } = this.props;
@@ -88,39 +111,64 @@ class AppointmentItem extends React.Component {
     this.setState({ newAppointment: defaultAppointment, open: false });
   }
 
-
+  // Lifecycle method that runs when the component updates
   componentDidUpdate(prevProps) {
     const { isEditing, editId } = this.props;
     if (prevProps !== this.props && isEditing) {
+      // Gets the appointment item from firebase based on the 'editId' that's passed in
       appointmentRequests.getAppointmentItem(editId)
         .then((appointment) => {
+          /* Sets the state of the newAppointment with the data that returned 
+             so that it will populate when the modal is opened
+             and the user wants to make edits. */
           this.setState({ newAppointment: appointment.data });
         })
-        .catch(err => console.error('error when getAppointmentItem', err));
-    } else {
+      .catch(err => console.error('error when getAppointmentItem', err));
     }
   }
   
+  // function that closes the edit appointment modal
   onCloseModal = () => {
     this.setState({ open: false });
   };
 
+  /* This function gets the current weather data from an api
+     and then sets that data to the weather state. */
   renderWeather = () => {
     const { weather } = this.state;
     const { appointment } = this.props;
+
+    // Api GET request that returns an array of 16 day objects
     weatherRequest.getForecast(appointment.city, appointment.state)
     .then((forecast16) => {
+        // Logic to select the day that matches with the appointment date
         for (let i=0; i<forecast16.data.length; i++) {
           let theDay = forecast16.data[i];
           if (theDay.datetime === appointment.date) {
-            weather.tempHigh = theDay.max_temp;
-            weather.tempLow = theDay.min_temp;
+
+            // Setting the value for each weather property
+            let tempHigh = weather.tempHigh = theDay.max_temp;
+            let tempLow = weather.tempLow = theDay.min_temp;
+            let desc = weather.description = theDay.weather.description;
+            let icon = weather.weatherIcon = theDay.weather.icon;
+
+            // Defining an object so that it can be used to set the state of the weather
+            let currentWeather = {
+              tempHigh: tempHigh,
+              tempLow: tempLow,
+              description: desc,
+              weatherIcon: icon
+            }
+
+            // Using 'currentWeather' object to set the state of weather
+            this.setState({ weather: currentWeather})
           }
         }
       }
     )
   }
 
+  // Lifecycle method that will run the function within it when this component loads
   componentDidMount() {
     this.renderWeather();
   }
@@ -129,7 +177,19 @@ class AppointmentItem extends React.Component {
     const { open, newAppointment, weather } = this.state;
     const { appointment, isEditing, editId } = this.props;
     const uid = authRequests.getCurrentUid();
+    let weatherIcon = '';
 
+    // Weather icon logic
+    if (weather.weatherIcon === "c01d" || "c01n") {
+      weatherIcon = sunny;
+    }
+    if(weather.weatherIcon === "c02d" || "c02n") {
+      weatherIcon = partlyCloudy;
+    } if (weather.weatherIcon === "c03d" || "c03n" || "c04d" || "c04n") {
+      weatherIcon = cloudy;
+    }
+
+    // Function that renders the edit button on each appointment item
     const makeEditButton = () => {
       if (appointment.uid === uid) {
         return (
@@ -142,7 +202,9 @@ class AppointmentItem extends React.Component {
           </div>
         );
       }
-    }
+    };
+
+    // Function that renders the delete button on each appointment item
     const makeDeleteButton = () => {
       if (appointment.uid === uid) {
         return (
@@ -156,6 +218,7 @@ class AppointmentItem extends React.Component {
         )
       }
     };
+
     return (
       <div className="appointmentItemContainer">
         <div className="AppointmentItem">
@@ -185,7 +248,9 @@ class AppointmentItem extends React.Component {
           <div id="weatherIconDiv">
               <img id="weatherIcon" src={weatherIcon} alt="weather icon"></img>
             <div id="weathertext">
-              <p>Weather coming soon!</p>
+              <p>High: {weather.tempHigh}</p>
+              <p>Low: {weather.tempLow}</p>
+              <p>{weather.description}</p>
             </div>
           </div>
         </div>
