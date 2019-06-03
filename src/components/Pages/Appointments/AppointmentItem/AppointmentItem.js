@@ -10,6 +10,8 @@ import weatherRequest from '../../../../Helpers/Data/Requests/weatherRequest';
 import sunny from '../../../../img/weatherIcons/day.svg';
 import cloudy from '../../../../img/weatherIcons/cloudy.svg';
 import partlyCloudy from '../../../../img/weatherIcons/cloudy-day-1.svg';
+import thunderStorm from '../../../../img/weatherIcons/thunder.svg';
+import rain from '../../../../img/weatherIcons/rainy-6.svg';
 
 
 const defaultAppointment = {
@@ -179,15 +181,45 @@ class AppointmentItem extends React.Component {
     const uid = authRequests.getCurrentUid();
     let weatherIcon = '';
 
+    let sunnyWeather = ["c01d", "c01n"];
+    let partlyCloudyWeather = ["c02d", "c02n"];
+    let cloudyWeather = ["c03d", "c03n", "c04d", "c04n"];
+    let thunderWeather = ["t01d", "t01n", "t02d", "t02n", "t05d", "t05n",
+                          "t03d", "t03n", "t04d", "t04n", "t04d", "t04n"];
+    let rainyWeather = ["r01d", "r01dn", "r04d", "r04n", "r05d", "r05n",
+                        "r06d", "r06n", "r02d", "r02n", "r03d","r03n"];
+
     // Weather icon logic
-    if (weather.weatherIcon === "c01d" || "c01n") {
-      weatherIcon = sunny;
-    }
-    if(weather.weatherIcon === "c02d" || "c02n") {
-      weatherIcon = partlyCloudy;
-    } if (weather.weatherIcon === "c03d" || "c03n" || "c04d" || "c04n") {
-      weatherIcon = cloudy;
-    }
+    sunnyWeather.forEach((code) => {
+      if (weather.weatherIcon === code) {
+        weatherIcon = sunny;
+      }
+    });
+
+    partlyCloudyWeather.forEach((code) => {
+      if (weather.weatherIcon === code) {
+        weatherIcon = partlyCloudy;
+      }
+    });
+
+    cloudyWeather.forEach((code) => {
+      if (weather.weatherIcon === code) {
+        weatherIcon = cloudy;
+      }
+    });
+
+    thunderWeather.forEach((code) => {
+      if (weather.weatherIcon === code) {
+        weatherIcon = thunderStorm;
+      }
+    });
+
+    rainyWeather.forEach((code) => {
+      if (weather.weatherIcon === code) {
+        weatherIcon = rain;
+      }
+    });
+    
 
     // Function that renders the edit button on each appointment item
     const makeEditButton = () => {
