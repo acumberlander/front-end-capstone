@@ -5,7 +5,8 @@
   border-radius: .5rem;
   width: 800px;
   height: 325px;
-  background-color: #ADE8BB
+  background-color: #ADE8BB;
+  margin: 15px;
 }
 
 .appBreakLine {
@@ -135,7 +136,9 @@
 }
 
 #weathertext {
-  margin-top: 25px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   p {
     font-size: 22px;
     margin: 0;
