@@ -25,10 +25,8 @@ class Auth extends React.Component {
         alert("Username or password is invalid.");
       } else if(errorCode === "auth/user-not-found") {
         alert("Username or password is invalid.")
-      } else {
-        alert(errorMessage);
       }
-      console.error('there was an error with auth', err);
+      alert(errorMessage);
     });
   }
 
