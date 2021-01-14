@@ -1,69 +1,60 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, { useState } from 'react';
 import './AddMessage.scss';
 
 const defaultMessage = {
-  uid: '',
-  message: '',
-  timestamp: 0,
+	uid: '',
+	message: '',
+	timestamp: 0,
 };
 
-class AddMessage extends React.Component {
-  static propTypes = {
-    onClick: PropTypes.func,
-  }
+const AddMessage = ({ onClick }) => {
+	const [newMessage, setNewMessage] = useState(defaultMessage);
 
-  state = {
-    newMessage: defaultMessage,
-  }
+	const inputFieldStringState = (name, e) => {
+		e.preventDefault();
+		const tempMessage = { ...newMessage };
+		tempMessage[name] = e.target.value;
+		setNewMessage(tempMessage);
+	};
 
-inputFieldStringState = (name, e) => {
-  e.preventDefault();
-  const tempMessage = { ...this.state.newMessage };
-  tempMessage[name] = e.target.value;
-  this.setState({ newMessage: tempMessage });
-}
+	const messageChange = (e) => inputFieldStringState('message', e);
 
-messageChange = e => this.inputFieldStringState('message', e);
+	const inputSubmit = (e) => {
+		e.preventDefault();
+		const myMessage = { ...newMessage };
+		onClick(myMessage);
+		setNewMessage(defaultMessage);
+	};
 
-inputSubmit = (e) => {
-  e.preventDefault();
-  const { onClick } = this.props;
-  const myMessage = { ...this.state.newMessage };
-  onClick(myMessage);
-  this.setState({ newMessage: defaultMessage });
-}
+	const handleEnterInput = (target) => {
+		if (target.key === 'Enter') {
+			const { onKeyUp } = this.props;
+			const myMessage = { ...newMessage };
+			onKeyUp(myMessage);
+			setNewMessage(defaultMessage);
+		}
+	};
 
-handleEnterInput = (target) => {
-  if (target.key === 'Enter') {
-    const { onKeyUp } = this.props;
-    const myMessage = { ...this.state.newMessage };
-    onKeyUp(myMessage);
-    this.setState({ newMessage: defaultMessage });
-  }
-}
-
-render() {
-  const { newMessage } = this.state;
-  return (
-    <div className="input-group mt-3 mb-3">
-      <textarea
-      type="text"
-      className="form-control"
-      id="messageInput"
-      placeholder="Enter Your Message"
-      aria-describedby="message-help"
-      value={newMessage.message}
-      onChange={this.messageChange}
-      onKeyUp={this.handleEnterInput}
-      autoFocus
-      />
-      <div className="input-group-prepend" onClick={this.inputSubmit}>
-        <button className="btn btn-primary" type="button" id="basic-addon1">send</button>
-      </div>
-    </div>
-  );
-}
-}
+	return (
+		<div className="input-group mt-3 mb-3">
+			<textarea
+				type="text"
+				className="form-control"
+				id="messageInput"
+				placeholder="Enter Your Message"
+				aria-describedby="message-help"
+				value={newMessage.message}
+				onChange={messageChange}
+				onKeyUp={handleEnterInput}
+				autoFocus
+			/>
+			<div className="input-group-prepend" onClick={inputSubmit}>
+				<button className="btn btn-primary" type="button" id="basic-addon1">
+					send
+				</button>
+			</div>
+		</div>
+	);
+};
 
 export default AddMessage;

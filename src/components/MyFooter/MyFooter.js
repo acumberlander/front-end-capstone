@@ -1,12 +1,8 @@
 import React from 'react';
 import './MyFooter.scss';
 
-class MyFooter extends React.Component {
-
-  render() {
-    return <div className="footer dark"></div>
-  }
-
-}
+const MyFooter = () => {
+	return <div className="footer dark" />;
+};
 
 export default MyFooter;
