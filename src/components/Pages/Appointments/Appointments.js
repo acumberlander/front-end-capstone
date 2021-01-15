@@ -15,7 +15,6 @@ const Appointments = () => {
 			.getAllAppsByUid(uid)
 			.then((appointments) => {
 				setAppointments(appointments);
-				console.log(appointments);
 			})
 			.catch((error) => {
 				console.error('error on getAllAppsByUid', error);
@@ -60,7 +59,7 @@ const Appointments = () => {
 			key={appointment.id}
 			appointment={appointment}
 			_deleteAppointment={deleteAppointment}
-			_passAppointmentToEdit={passAppointmentToEdit}
+			passAppointmentToEdit={passAppointmentToEdit}
 			onSubmit={formSubmitAppointment}
 			isEditing={isEditing}
 			editId={editId}

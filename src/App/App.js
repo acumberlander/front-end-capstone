@@ -10,7 +10,6 @@ import {
 	UserHome,
 	Appointments,
 	NewAppointmentForm,
-	PickDate,
 	NewMemberForm,
 	Messages,
 	ServicerView,
@@ -23,6 +22,7 @@ import ServiceProviderHome from '../components/Pages/ServiceProviderHome/Service
 
 const App = () => {
 	const [authed, setAuthed] = useState(false);
+	// eslint-disable-next-line no-unused-vars
 	const [currentUid, setCurrentUid] = useState('');
 	const [pendingUser, setPendingUser] = useState(true);
 	const [userObject, setUserObject] = useState({});
@@ -78,7 +78,6 @@ const App = () => {
 					logoutClickEvent={logoutClickEvent}
 					UserHome={UserHome}
 					NewAppointmentForm={NewAppointmentForm}
-					PickDate={PickDate}
 					Appointments={Appointments}
 					NewMemberForm={NewMemberForm}
 					Messages={Messages}
