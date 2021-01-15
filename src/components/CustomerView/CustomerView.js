@@ -31,7 +31,6 @@ const CustomerView = ({
 	logoutClickEvent,
 	UserHome,
 	NewAppointmentForm,
-	PickDate,
 	Appointments,
 	NewMemberForm,
 	Messages,
@@ -53,11 +52,6 @@ const CustomerView = ({
 							<PrivateRoute
 								path="/newappointmentform"
 								component={NewAppointmentForm}
-								authed={authed}
-							/>
-							<PrivateRoute
-								path="/pickdate"
-								component={PickDate}
 								authed={authed}
 							/>
 							<PrivateRoute

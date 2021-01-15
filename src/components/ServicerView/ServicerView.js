@@ -47,28 +47,24 @@ const ServicerView = ({
 									path="/"
 									exact
 									component={ServiceProviderHome}
-									authed={this.state.authed}
+									authed={authed}
 								/>
 								<PrivateRoute
 									path="/serviceproviderhome"
 									component={ServiceProviderHome}
-									authed={this.state.authed}
+									authed={authed}
 								/>
 								<PrivateRoute
 									path="/serviceapplist"
 									component={ServiceAppList}
-									authed={this.state.authed}
+									authed={authed}
 								/>
 								<PrivateRoute
 									path="/messages"
 									component={Messages}
-									authed={this.state.authed}
+									authed={authed}
 								/>
-								<PublicRoute
-									path="/auth"
-									component={Auth}
-									authed={this.state.authed}
-								/>
+								<PublicRoute path="/auth" component={Auth} authed={authed} />
 							</Switch>
 						</div>
 					</div>

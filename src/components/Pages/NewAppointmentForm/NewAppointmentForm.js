@@ -138,6 +138,7 @@ class NewAppointmentForm extends React.Component {
 				'c04d' ||
 				'c04n'
 			) {
+				// eslint-disable-next-line no-throw-literal
 				throw `Sorry, but it's expected to ${weatherCondition} that day.`;
 			}
 			weatherRequest.postRequest(dayObject[0]);
@@ -243,7 +244,7 @@ class NewAppointmentForm extends React.Component {
 				<div className="newAppointmentForm col-9">
 					<form onSubmit={this.formSubmit}>
 						<div className="customerInfoHeader m-0">Customer Info</div>
-						<div class="centerCustomerLine">
+						<div className="centerCustomerLine">
 							<hr id="customerInfoLine" />
 						</div>
 						<div id="formDiv">
@@ -256,7 +257,7 @@ class NewAppointmentForm extends React.Component {
 									onChange={this.firstNameChange}
 									required
 								/>
-								<hr class="fieldLine" />
+								<hr className="fieldLine" />
 								<input
 									type="text"
 									placeholder="Last Name"
@@ -265,7 +266,7 @@ class NewAppointmentForm extends React.Component {
 									onChange={this.lastNameChange}
 									required
 								/>
-								<hr class="fieldLine" />
+								<hr className="fieldLine" />
 								<input
 									type="text"
 									placeholder="Address"
@@ -274,9 +275,9 @@ class NewAppointmentForm extends React.Component {
 									onChange={this.addressChange}
 									required
 								/>
-								<hr class="fieldLine" />
+								<hr className="fieldLine" />
 							</div>
-							<div class="rightColumn col-5 p-0">
+							<div className="rightColumn col-5 p-0">
 								<input
 									type="text"
 									placeholder="City"
@@ -285,7 +286,7 @@ class NewAppointmentForm extends React.Component {
 									onChange={this.cityChange}
 									required
 								/>
-								<hr class="fieldLine" />
+								<hr className="fieldLine" />
 								<input
 									type="text"
 									placeholder="State"
@@ -300,7 +301,7 @@ class NewAppointmentForm extends React.Component {
                       value={newAppointment.state}
                       // onChange={this.stateChange}
                     /> */}
-								<hr class="fieldLine" />
+								<hr className="fieldLine" />
 								<input
 									type="date"
 									id="date"
@@ -309,7 +310,7 @@ class NewAppointmentForm extends React.Component {
 									onChange={this.dateChange}
 									required
 								/>
-								<hr class="fieldLine" />
+								<hr className="fieldLine" />
 							</div>
 						</div>
 						<div id="commentDiv">
@@ -328,7 +329,7 @@ class NewAppointmentForm extends React.Component {
 						</div>
 					</form>
 				</div>
-				<div id="quoteColumn" class="col-3 p-0">
+				<div id="quoteColumn" className="col-3 p-0">
 					<div className="quoteHeader">
 						<h1>Get Quote</h1>
 						<hr id="getQuoteLine" />
