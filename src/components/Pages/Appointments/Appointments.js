@@ -3,6 +3,8 @@ import './Appointments.scss';
 import AppointmentItem from './AppointmentItem/AppointmentItem';
 import appointmentRequests from '../../../Helpers/Data/Requests/appointmentRequests';
 import authRequests from '../../../Helpers/Data/authRequests';
+import { TextField, Button } from '@material-ui/core';
+import { Label } from 'semantic-ui-react';
 
 const Appointments = () => {
 	const [appointments, setAppointments] = useState([]);
@@ -66,7 +68,38 @@ const Appointments = () => {
 		/>
 	));
 	return (
-		<div className="appointmentsOuterDiv">
+		<div className="appointments-outer-div">
+			<div className="d-flex new-appointment-top">
+				<TextField
+					label="Lawn Servicer"
+					variant="outlined"
+					InputLabelProps={{ shrink: true }}
+				/>
+				<TextField
+					type="date"
+					label="Date"
+					variant="outlined"
+					InputLabelProps={{ shrink: true }}
+				/>
+				<TextField
+					type="time"
+					label="Time"
+					variant="outlined"
+					InputLabelProps={{ shrink: true }}
+				/>
+				<TextField
+					label="Acres"
+					variant="outlined"
+					InputLabelProps={{ shrink: true }}
+				/>
+				<div>
+					<p className="quote">Estimated Quote</p>
+					<h2>$100</h2>
+				</div>
+				<Button variant="contained" color="primary">
+					Create Appointment
+				</Button>
+			</div>
 			<div className="appointmentHeader">
 				<h1>Appointments</h1>
 				<hr className="appHeaderLine" />
