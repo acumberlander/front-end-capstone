@@ -1,13 +1,13 @@
 import React from 'react';
 import './UserHome.scss';
 
-const UserHome = () => {
+const UserHome = (props) => {
 	const changeView = (e) => {
 		const view = e.currentTarget.className;
 		if (view === 'newAppointment') {
-			this.props.history.push('/newappointmentform');
+			props.history.push('/newappointmentform');
 		} else if (view === 'appointments') {
-			this.props.history.push('/appointments');
+			props.history.push('/appointments');
 		}
 	};
 

@@ -1,11 +1,32 @@
 .appointmentHeader {
-  color: #0DAC4A;
-  h1 {
-    font-size: 70px;
-  }
-  .appHeaderLine {
-    border: 2px solid #0DAC4A;
-  }
+	color: #0dac4a;
+	h1 {
+		font-size: 70px;
+	}
+	.appHeaderLine {
+		border: 2px solid #0dac4a;
+	}
 }
 
+.new-appointment-top {
+	align-items: center;
+	justify-content: space-between;
+}
 
+.appointments-outer-div {
+	padding-top: 50px;
+	width: 1100px;
+}
+
+input {
+	border: gray !important;
+	background-color: white;
+}
+
+.quote {
+	margin: 0;
+}
+
+.MuiInputBase-input {
+	background-color: white;
+}
